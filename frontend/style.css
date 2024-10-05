@@ -1,0 +1,66 @@
+* {
+    margin:0;
+    padding: 0;
+        /* display: grid; */
+}
+
+/* @font-face {
+    font-family: "KanitM";
+    src: url("../fonts/Kanit\ Cyrillic.otf"),
+    url("../fonts/Kanit\ Cyrillic.ttf");
+} */
+
+.r1 {
+    grid-row: 1;
+}
+.c1 {
+    grid-column:1;
+}
+.r2 {
+    grid-row: 2;
+}
+.c2 {
+    grid-column:2;
+}
+.r3 {
+    grid-row: 3;
+}
+.c3 {
+    grid-column:3;
+}
+.r4 {
+    grid-row: 4;
+}
+.c4 {
+    grid-column:4;
+}
+.r5 {
+    grid-row: 5;
+}
+.c5 {
+    grid-column:5;
+}
+.r6 {
+    grid-row: 6;
+}
+.c6 {
+    grid-column:6;
+}
+.r7 {
+    grid-row: 7;
+}
+.c7 {
+    grid-column:7;
+}
+body {
+    background-color: #FFF;
+}
+nav {
+    position:fixed;
+    left:0;
+    top:0;
+    display:grid;
+    width:13.6%;
+    background-color: blueviolet;
+    height:100vh;
+}
