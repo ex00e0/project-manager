@@ -93,6 +93,15 @@
 .c11 {
     grid-column: 11;
 }
+.vh1-1 {
+    height:1.1vh;
+}
+.vh2 {
+    height:2vh;
+}
+.vh3 {
+    height:3vh;
+}
 body {
     background-color: #FFF;
 }
@@ -155,6 +164,7 @@ nav > a > div:not(.name) {
 main {
     display: grid;
     grid-template-columns: 13.6% 1% 1fr 1%;
+    grid-template-rows: auto;
 }
 .headline {
     height: 4.2vmax;
@@ -190,12 +200,20 @@ main {
 .project_name {
     font-size:0.9vmax;
 }
-.circle_gray {
+.circle_gray, .circle_green, .circle_yellow {
     height:0.5vmax;
     width:0.5vmax;
     margin-top: 0.1vmax;
     border-radius: 1000vmax;
+}
+.circle_gray {
     background-color:#9F9E9E;
+}
+.circle_green {
+    background-color:#C4EAB3;
+}
+.circle_yellow {
+    background-color:#FFF6A7;
 }
 .project_folder {
     width:105%;
