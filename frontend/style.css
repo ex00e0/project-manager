@@ -134,6 +134,9 @@ nav img:not(.folder) {
 nav > a > div:not(.name) {
     font-size:1.1vmax;
 }
+.name {
+    font-size:1.2vmax;
+}
 .sf {
     width:100%;
     height:3vmax;
@@ -226,4 +229,50 @@ main {
 }
 .project_boss img {
     width:0.9vmax;
+}
+.th, .tr {
+    display: grid;
+    grid-template-columns: 37% repeat(5, 11.35%) 1fr 1fr;
+    grid-template-rows: 100%;
+    height:2vmax;
+    align-items: center;
+    font-size:0.9vmax;
+}
+.th {
+    border-top-left-radius: 0.2vmax;
+    border-top-right-radius: 0.2vmax;
+    background-color: #F9F9F9;
+    border: 0.1vmax solid #C4EAB3;
+}
+.tr {
+    border-bottom: 0.1vmax solid #C4EAB3;
+    border-left: 0.1vmax solid #C4EAB3;
+    border-right: 0.1vmax solid #C4EAB3;
+    color:#9F9E9E;
+}
+
+.tr > div:last-child, .th > div:last-child {
+    border-right: 0;
+}
+.tr > div:first-child, .th > div:first-child {
+    border-left: 0;
+}
+.tr > div, .th > div {
+    padding-left: 0.5vmax;
+    display: grid;
+    height:100%;
+    align-items: center;
+    border-left: 0.1vmax solid #C4EAB3;
+}
+.double {
+    display:grid;
+    grid-template-columns: 15% 1fr;
+    grid-template-rows: 100%;
+    align-items: center;
+}
+.double img {
+    height:1.1vmax;
+}
+.js-c {
+    justify-self: center;
 }

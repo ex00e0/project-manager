@@ -1,0 +1,48 @@
+<?php require "header.php"; ?>
+
+<div class="sf">
+    <input type="text" class="c3-5 r1" name="search" placeholder="поиск проектов..">
+    <img src="images/image 11.svg" class="c4 r1 search_icon">
+    <select class="c6 r1" name="filter">
+        <option>все</option>
+        <option>высокий приоритет</option>
+        <option>средний приоритет</option>
+        <option>низкий приоритет</option>
+    </select>
+</div>
+<main>
+    <div class="c3 headline">
+        <h2>Мои задачи</h2>
+    </div>
+    <div class="c3 th">
+        <div>Название задачи</div>
+        <div>Руководитель</div>
+        <div>Исполнитель</div>
+        <div>Приоритет</div>
+        <div>Срок</div>
+        <div>Статус</div>
+    </div>
+    <div class="c3 tr">
+        <div>Задача 1</div>
+        <div class="double">
+            <img src="images/people 4.svg">
+            <div>Имя</div>
+        </div>
+        <div class="double">
+            <img src="images/people 4.svg">
+            <div>Имя</div>
+        </div>
+        <div class="double">
+            <img src="images/Group 1.svg">
+            <div>Высокий</div>
+        </div>
+        <div>до 22.10.2024</div>
+        <div class="double">
+            <div class="circle_gray js_c"></div>
+            <div>завершена</div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
