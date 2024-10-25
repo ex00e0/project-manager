@@ -2,7 +2,7 @@ $("document").ready(()=>{
     $("#login").submit((event)=>{
         event.preventDefault();
         $.ajax({
-            url: "http://backend/users/login",
+            url: "http://backend/login",
             method: "POST",
             data: $("#login").serialize(),
             success: (response)=>{

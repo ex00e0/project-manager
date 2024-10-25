@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 // Route::get('/posts', 'PostController@index')->name('posts');
 // Route::post('/posts', 'PostController@store')->name('posts.store');
-Route::post('/users/login', [UserController::class, 'login'])->name('login');
+Route::post('login', [UserController::class, 'login'])->name('login');

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function login () {
-        dd("ok");
+    public function login (Request $request) {
+        return response()->json($request);
     }
 }
