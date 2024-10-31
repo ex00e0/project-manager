@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/posts', 'PostController@index')->name('posts');
 // Route::post('/posts', 'PostController@store')->name('posts.store');
 Route::post('login', [UserController::class, 'login'])->name('login');
+Route::post('user_projects', [ProjectController::class, 'user_projects'])->name('user_projects');
