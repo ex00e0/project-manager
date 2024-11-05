@@ -188,6 +188,9 @@ main {
 .block_project div:not(.project_desc), .block_project img {
     align-self: center;
 }
+.project_desc {
+    align-self: center;
+}
 .trash {
     justify-self: center;
     width:1.1vmax;
