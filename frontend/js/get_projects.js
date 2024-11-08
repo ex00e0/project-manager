@@ -4,10 +4,8 @@ $("document").ready(()=>{
             method: "POST",
             data: {user_id : localStorage.getItem('user_id'), role: localStorage.getItem('role')},
             success: (response)=>{
-            //     let array_tasks = JSON.parse(response);
-            //    console.log( array_tasks);
 
-           console.log(response);
+        //    console.log(response);
             let projects = response.projects;
             $.each(projects, function(key, value){
                  
@@ -46,11 +44,6 @@ $("document").ready(()=>{
                     empty.classList.add('vh1-1');
                  document.getElementById('main').append(div);
                  document.getElementById('main').append(empty);
-                //   $.each(value, function(k, v){
-                //      let infoRow = 
-                //      console.log(v+'  :   '+k);
-                    
-                //   });
                });
            
             },
