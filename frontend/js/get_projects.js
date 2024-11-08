@@ -23,14 +23,23 @@ $("document").ready(()=>{
                           <img src="images/people 1.svg" class="c1 r1">
                           <div class="c3 r1">${value.name_of_user}</div>
                   </div>
-                  <div class="c6 r1">${value.status}</div>
+                  <div class="c6 r1">`;
+                  if (value.status == 'created') {
+                    html+= `создан  </div> <div class="c5 r1 circle_yellow"></div>`;
+                  } else if (value.status == 'in_process') {
+                    html+= `в процессе  </div> <div class="c5 r1 circle_green"></div>`;
+                  }
+                  else if (value.status == 'completed') {
+                    html+= `завершен   </div> <div class="c5 r1 circle_gray"></div>`;
+                  }
+                  html += `
                   <div class="c9-all r1">до 22.10.2024</div>
-                  <div class="c2-8 r2-all project_desc"`;
-                  html +=
-                   `>${value.description}</div>
+                  <div class="c2-8 r2-all project_desc">${value.description}</div>`;
+                  if (localStorage.getItem('role') == 'boss') {
+                   html +=`
                   <img src="images/pen (1).svg" class="c10 r2-all pen">
                   <img src="images/delete 3.svg" class="c11 r2-all trash"></img>
-                                  `;
+                                  `;}
                     div.innerHTML = html;
                     let empty = document.createElement('div');
                     empty.classList.add('c3');

@@ -182,7 +182,7 @@ main {
     display: grid;
     background-color: #F9F9F9;
    
-    grid-template-columns: 0.9% 1.3% 0.7% 7% 1.3% 6.5% 1fr 1.5% 1% 3.5% 2.2% 0.9%;
+    grid-template-columns: 0.9% 1.3% 0.7% 8% 1.3% 6.5% 1fr 1.5% 1% 3.5% 2.2% 0.9%;
     grid-template-rows: 1.2fr 1fr 1fr;
 }
 .block_project div:not(.project_desc), .block_project img {

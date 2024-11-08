@@ -15,7 +15,7 @@ class ProjectController extends Controller
         if ($request->role == 'admin') {
             $projects = ['projects'=>
             DB::table('users')
-            ->select('users.id','users.name','projects.*')
+            ->select('users.name as name_of_user','projects.*')
             ->join('projects','projects.boss_id','=','users.id')
             ->get()];
            
@@ -23,9 +23,9 @@ class ProjectController extends Controller
         else if ($request->role == 'boss') {
             $projects = ['projects'=>
             DB::table('users')
-            ->select('users.id','users.name','projects.*')
+            ->select('users.name as name_of_user','projects.*')
             ->join('projects','projects.boss_id','=','users.id')
-            ->where(['boss_id' => $request->user_id])
+            ->where(['projects.boss_id' => $request->user_id])
             ->get()];
         }
         else if ($request->role = 'doer') {
@@ -39,12 +39,6 @@ class ProjectController extends Controller
             }
             $projects = substr($projects, 0, -3);
             $projects = ['projects'=>DB::select($projects)];
-            // $projects = ['projects'=>
-            // DB::table('users')
-            // ->select('users.id','users.name','projects.*')
-            // ->join('projects','projects.boss_id','=','users.id')
-            // ->where(['boss_id' => $request->user_id])
-            // ->get()];
         }
        
         return response()->json($projects);
