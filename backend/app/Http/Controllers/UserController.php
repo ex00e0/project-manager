@@ -34,8 +34,10 @@ class UserController extends Controller
             //     $role = $row->role;
             
             if (Hash::check($request->password, $pass)) {
+                
                 Auth::login(User::find($id));
-                return response()->json($id);
+                $arr = ["id" => $id, "role" => $role];
+                return response()->json($arr);
             } else {
                 return response()->json('неверный пароль');
             // if (Auth::attempt(['email' => $email,

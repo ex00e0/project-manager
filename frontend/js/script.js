@@ -8,11 +8,13 @@ $("document").ready(()=>{
             
             success: (response)=>{
                 // console.log(response);
+
                 if (response == 'неверный пароль' || response == 'неверный логин' || response == 'валидация не прошла') {
                     alert(response);
                 }
                 else {
-                     localStorage.setItem('user_id', response);
+                     localStorage.setItem('user_id', response.id);
+                     localStorage.setItem('role', response.role);
                     location.href = 'projects.php';
                 }
                
