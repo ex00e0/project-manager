@@ -30,13 +30,15 @@ class ProjectController extends Controller
         }
         else if ($request->role = 'doer') {
 
-            $projects = DB::table('tasks')->select('project_id')->where('doer_id', $request->user_id)->get();
-            $select = 'select users.id, users.name, projects.* from projects join users on projects.boss_id = users.id where ';
+            $select = DB::table('tasks')->select('project_id')->distinct()->where('doer_id', $request->user_id)->get();
+            $projects = "select users.name as name_of_user, projects.* from projects join users on projects.boss_id = users.id where";
             
-            // foreach ($arr as $val) {
-            //     $select += $val;
-            // }
-            // $users = DB::select(, [0]);
+            foreach ($select as $val) {
+                $projects .= ' projects.id = '.$val->project_id.' or';
+                
+            }
+            $projects = substr($projects, 0, -3);
+            $projects = ['projects'=>DB::select($projects)];
             // $projects = ['projects'=>
             // DB::table('users')
             // ->select('users.id','users.name','projects.*')
