@@ -10,7 +10,7 @@
 <body>
     <main>
         <div class="shadow"></div>
-        <form class="modal_auth" id="login" method="post">
+        <form class="modal modal_auth" id="login" method="post">
             <div class="c1 r1 headline_modal">Вход</div>
             <input type="email" class="c1 r2" placeholder="электронная почта" name="email" required>
             <input type="password" class="c1 r4" placeholder="пароль" name="password" required>
