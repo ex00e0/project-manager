@@ -18,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 // Route::post('/posts', 'PostController@store')->name('posts.store');
 Route::post('login', [UserController::class, 'login'])->name('login');
 Route::post('user_projects', [ProjectController::class, 'user_projects'])->name('user_projects');
+Route::post('delete_project', [ProjectController::class, 'delete_project'])->name('delete_project');
+Route::post('edit_project', [ProjectController::class, 'edit_project'])->name('edit_project');

@@ -43,4 +43,16 @@ class ProjectController extends Controller
        
         return response()->json($projects);
     }
+
+    public function delete_project (Request $request) {
+        DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
+        DB::table('projects')->where('id', '=', $request->project_id)->delete();
+        return response()->json('Проект удален');
+    }
+
+    public function edit_project (Request $request) {
+        // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
+        // DB::table('projects')->where('id', '=', $request->project_id)->delete();
+        return response()->json('Информация о проекте обновлена');
+    }
 }
