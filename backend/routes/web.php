@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,4 @@ Route::post('user_projects', [ProjectController::class, 'user_projects'])->name(
 Route::post('delete_project', [ProjectController::class, 'delete_project'])->name('delete_project');
 Route::post('edit_project', [ProjectController::class, 'edit_project'])->name('edit_project');
 Route::post('one_project', [ProjectController::class, 'one_project'])->name('one_project');
+Route::post('get_tasks', [TaskController::class, 'get_tasks'])->name('get_tasks');

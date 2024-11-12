@@ -16,7 +16,7 @@ function get_projects () {
             html = 
             `
             <img src="images/image 2.svg" class="c2 r1 project_folder">
-            <div class="c4 r1 project_name">${value.name}</div>
+            <div class="c4 r1 project_name" onclick="to_tasks(${value.id})">${value.name}</div>
             <div class="c5 r1 circle_gray"></div>
             <div class="c7 r1 project_boss">
                     <img src="images/people 1.svg" class="c1 r1">
@@ -32,7 +32,7 @@ function get_projects () {
               html+= `завершен   </div> <div class="c5 r1 circle_gray"></div>`;
             }
             html += `
-            <div class="c9-all r1">до 22.10.2024</div>
+            <div class="c9-all r1">до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
             <div class="c2-8 r2-all project_desc">${value.description}</div>`;
             if (localStorage.getItem('role') == 'boss') {
              html +=`
@@ -74,7 +74,7 @@ function get_projects_with_remove () {
             html = 
             `
             <img src="images/image 2.svg" class="c2 r1 project_folder">
-            <div class="c4 r1 project_name">${value.name}</div>
+            <div class="c4 r1 project_name" onclick="to_tasks(${value.id})">${value.name}</div>
             <div class="c5 r1 circle_gray"></div>
             <div class="c7 r1 project_boss">
                     <img src="images/people 1.svg" class="c1 r1">
@@ -90,7 +90,7 @@ function get_projects_with_remove () {
               html+= `завершен   </div> <div class="c5 r1 circle_gray"></div>`;
             }
             html += `
-            <div class="c9-all r1">до 22.10.2024</div>
+            <div class="c9-all r1">до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
             <div class="c2-8 r2-all project_desc">${value.description}</div>`;
             if (localStorage.getItem('role') == 'boss') {
              html +=`
@@ -160,3 +160,6 @@ function close_edit () {
   document.getElementById("shadow_edit").style.display="none";
 }
 
+function to_tasks(id) {
+  location.href=`tasks.php?id=${id}`;
+}

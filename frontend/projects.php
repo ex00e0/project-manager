@@ -67,7 +67,7 @@
 <div class="shadow_modal" id="shadow_edit"></div>
         <form class="modal_edit modal" id="modal_edit" method="post">
             <div class="c1 r1 headline_modal">Редактирование проекта</div>
-            <input type="hidden" id="project_id">
+            <input type="hidden" id="project_id" name="id">
             <label class="c1 r2">Название</label>
             <input type="text" class="c1 r3" placeholder="название" name="name" required id="project_name">
             <label class="c1 r4">Описание</label>
