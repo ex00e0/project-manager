@@ -123,6 +123,8 @@ nav > a {
     grid-template-columns: 11% 6% 1fr;
     grid-template-rows: 100%;
     align-items: center;
+    text-decoration: none;
+    color: black;
 }
 .folder {
     height:1.4vmax;

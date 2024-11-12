@@ -12,7 +12,7 @@
         <a class="c2">
             <div class="c3 name">Имя</div>
         </a>
-        <a class="c2">
+        <a class="c2" href="projects.php">
             <img src="images/image 2.svg" class="folder">
             <div class="c3">Проекты</div>
         </a>
