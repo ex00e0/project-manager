@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 08 2024 г., 14:18
+-- Время создания: Ноя 12 2024 г., 12:45
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -115,8 +115,7 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `name`, `description`, `boss_id`, `start`, `end`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'proj1', 'p', 2, '2024-11-08', '2024-11-08', 'created', NULL, NULL),
-(2, '212', 'w22w', 2, '2024-11-05', '2024-11-13', 'created', NULL, NULL);
+(1, 'proj11sdfdsf', 'pwrd', 2, '2024-11-08', '2024-11-14', 'created', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -157,7 +156,7 @@ CREATE TABLE `tasks` (
 INSERT INTO `tasks` (`id`, `name`, `description`, `project_id`, `doer_id`, `priority`, `start`, `end`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'task1', 't', 1, 3, 'middle', '2024-11-08', '2024-11-08', 'created', NULL, NULL),
 (2, 'task2', 't', 1, 3, 'low', '2024-11-08', '2024-11-08', 'created', NULL, NULL),
-(3, 'dsds', 'dcs', 2, 3, 'low', '2024-11-05', '2024-11-13', 'created', NULL, NULL);
+(5, 'gf', 'gnghnh', 1, 5, 'middle', '2024-11-05', '2024-11-15', 'created', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -184,7 +183,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `boss_id`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@admin.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'admin', 1, NULL, '2024-11-08 03:58:35', '2024-11-08 03:58:35'),
 (2, 'boss', 'boss@boss.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'boss', 2, NULL, NULL, NULL),
-(3, 'doer', 'doer@doer.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'doer', 2, NULL, NULL, NULL);
+(3, 'doer', 'doer@doer.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'doer', 2, NULL, NULL, NULL),
+(4, 'boss2', 'boss2@boss.ru', 'admin', 'boss', 4, NULL, NULL, NULL),
+(5, 'doer2', 'doer2@doer.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'doer', 2, NULL, NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -272,7 +273,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT для таблицы `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `reports`
@@ -284,13 +285,13 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
