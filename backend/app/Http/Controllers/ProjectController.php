@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -28,7 +29,7 @@ class ProjectController extends Controller
             ->where(['projects.boss_id' => $request->user_id])
             ->get()];
         }
-        else if ($request->role = 'doer') {
+        else if ($request->role == 'doer') {
 
             $select = DB::table('tasks')->select('project_id')->distinct()->where('doer_id', $request->user_id)->get();
             $projects = "select users.name as name_of_user, projects.* from projects join users on projects.boss_id = users.id where";
@@ -51,8 +52,32 @@ class ProjectController extends Controller
     }
 
     public function edit_project (Request $request) {
-        // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
-        // DB::table('projects')->where('id', '=', $request->project_id)->delete();
-        return response()->json('Информация о проекте обновлена');
+        $validator = Validator::make($request->all(), [
+                "name"=>["max:50"],
+            ],
+            $messages = [
+                'name.max' => 'Слишком длинное название проекта',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        else {
+            DB::table('projects')
+                ->where('id', $request->id)
+                ->update([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'end' => $request->end,
+                ]);
+            // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
+            // DB::table('projects')->where('id', '=', $request->project_id)->delete();
+            return response()->json('Информация о проекте обновлена');
+        }
+    }
+
+    public function one_project (Request $request) {
+        $select = DB::table('projects')->where('id', '=', $request->project_id)->get();
+        return response()->json($select);
     }
 }

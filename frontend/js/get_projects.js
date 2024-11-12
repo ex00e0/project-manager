@@ -36,7 +36,7 @@ function get_projects () {
             <div class="c2-8 r2-all project_desc">${value.description}</div>`;
             if (localStorage.getItem('role') == 'boss') {
              html +=`
-            <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="edit_project(${value.id})">
+            <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="show_edit_project(${value.id})">
             <img src="images/delete 3.svg" class="c11 r2-all trash" onclick="delete_project(${value.id})"></img>
                             `;}
               div.innerHTML = html;
@@ -94,7 +94,7 @@ function get_projects_with_remove () {
             <div class="c2-8 r2-all project_desc">${value.description}</div>`;
             if (localStorage.getItem('role') == 'boss') {
              html +=`
-            <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="edit_project(${value.id})">
+            <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="show_edit_project(${value.id})">
             <img src="images/delete 3.svg" class="c11 r2-all trash" onclick="delete_project(${value.id})"></img>
                             `;}
               div.innerHTML = html;
@@ -115,6 +115,7 @@ function get_projects_with_remove () {
 
 $("document").ready(get_projects());
 
+
 function delete_project (id) {
   $.ajax({
     url: "http://backend/delete_project",
@@ -122,6 +123,7 @@ function delete_project (id) {
     data: {project_id : id},
     success: (response)=>{
     alert(response);
+   
     document.getElementById(`project_${id}`).remove();
     document.getElementById(`empty_${id}`).remove();
     },
@@ -131,17 +133,30 @@ function delete_project (id) {
 })
 }
 
-function edit_project (id) {
+
+function show_edit_project (id) {
   $.ajax({
-    url: "http://backend/edit_project",
+    url: "http://backend/one_project",
     method: "POST",
     data: {project_id : id},
     success: (response)=>{
-    alert(response);
-    get_projects_with_remove();
+    // console.log(response[0]);
+    document.getElementById("project_end").setAttribute("min", response[0].start);
+    document.getElementById("project_end").value = response[0].end;
+    document.getElementById("project_id").value = response[0].id;
+    document.getElementById("project_name").value = response[0].name;
+    document.getElementById("project_description").value = response[0].description;
     },
     error: ()=>{
         console.log("Ошибка запроса!");
     }
 })
+  document.getElementById("shadow_edit").style.display="block";
+  document.getElementById("modal_edit").style.display="grid";
 }
+
+function close_edit () {
+  document.getElementById("modal_edit").style.display="none";
+  document.getElementById("shadow_edit").style.display="none";
+}
+

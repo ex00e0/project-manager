@@ -64,17 +64,19 @@
        <img src="images/delete 3.svg" class="c11 r2-all trash">
     </div> -->
 </main>
-<div class="shadow_modal"></div>
-        <form class="modal_edit modal" id="login" method="post">
+<div class="shadow_modal" id="shadow_edit"></div>
+        <form class="modal_edit modal" id="modal_edit" method="post">
             <div class="c1 r1 headline_modal">Редактирование проекта</div>
+            <input type="hidden" id="project_id">
             <label class="c1 r2">Название</label>
-            <input type="text" class="c1 r3" placeholder="название" name="name" required>
+            <input type="text" class="c1 r3" placeholder="название" name="name" required id="project_name">
             <label class="c1 r4">Описание</label>
-            <textarea type="text" class="c1 r5" placeholder="описание" name="description" required>описание</textarea>
+            <textarea type="text" class="c1 r5" placeholder="описание" name="description" id="project_description" required>описание</textarea>
             <label class="c1 r6">Срок сдачи проекта</label>
-            <input type="date" class="c1 r7" placeholder="сроки" name="end" required>
+            <input type="date" class="c1 r7" placeholder="сроки" name="end" required id="project_end">
             <input type="submit" class="c1 r8" value="сохранить">
-            <div class="c1 r1 cross"><img src="images/cross.png"></div>
+            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit()"><img src="images/cross.png"></div>
         </form>
+<script src="js/edit_project.js"></script>
 </body>
 </html>

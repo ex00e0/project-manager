@@ -315,25 +315,28 @@ main {
     position: absolute;
     left:0;
     top:0;
+    display: none;
 }
 .modal_auth {
     width: 36%;
     height: 43%;
     grid-template-columns: 100%;
     grid-template-rows: 38% 1fr 7% 1fr 38%;
+    display: grid;
 }
 .modal_edit {
     width: 36%;
     height: 50%;
     grid-template-columns: 100%;
     grid-template-rows: 22% 8% 1fr 8% 1fr 8% 1fr 28%;
+    display: none;
 }
 .modal {
     position: absolute;
     background-size: cover;
     left:50%;
     top:50%;
-    display: grid;
+    
     background-color: #FFF;
     border-radius: 0.2vmax;
     border: 0.1vmax solid #C4EAB3;
