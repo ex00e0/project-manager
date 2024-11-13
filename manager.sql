@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 12 2024 г., 12:45
+-- Время создания: Ноя 13 2024 г., 22:14
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -106,7 +106,7 @@ CREATE TABLE `projects` (
   `start` date NOT NULL,
   `end` date NOT NULL,
   `status` enum('created','in_process','completed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'created',
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -115,7 +115,24 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `name`, `description`, `boss_id`, `start`, `end`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'proj11sdfdsf', 'pwrd', 2, '2024-11-08', '2024-11-14', 'created', NULL, NULL);
+(1, 'proj', 'pwrd3', 2, '2024-11-08', '2024-11-14', 'created', NULL, NULL),
+(5, 'проект для boss2 и doer2', 'должен быть виден только у них', 4, '2024-11-28', '2024-11-29', 'created', NULL, NULL),
+(6, 'namename', 'описание1', 2, '2024-11-14', '2024-11-16', 'created', NULL, NULL),
+(8, 'namename1', 'описание', 2, '2024-11-29', '2024-11-30', 'created', '2024-11-13 18:13:22', NULL),
+(9, 'Проект 0', 'описание 0', 2, '2024-11-20', '2024-11-30', 'created', '2024-11-13 18:19:00', NULL),
+(10, 'Проект ххх', 'ххх', 2, '2024-11-15', '2024-11-16', 'created', '2024-11-13 18:33:27', NULL),
+(11, 'proj10', 'описание', 2, '2024-11-23', '2024-11-24', 'created', '2024-11-13 18:34:07', NULL),
+(12, 'sdkjf', 'описаниеsdf', 2, '2024-11-16', '2024-11-17', 'created', '2024-11-13 18:35:41', NULL),
+(13, 'gjv', 'описаниеgh', 2, '2024-11-15', '2024-11-16', 'created', '2024-11-13 18:37:07', NULL),
+(14, 'adss', 'описание', 2, '2024-11-15', '2024-11-17', 'created', '2024-11-13 18:42:52', NULL),
+(15, '&&67', 'описание', 2, '2024-11-15', '2024-11-16', 'created', '2024-11-13 18:47:51', NULL),
+(16, '&&676', 'описание', 2, '2024-11-15', '2024-11-16', 'created', '2024-11-13 18:48:34', NULL),
+(17, 'hgvgv', 'описание', 2, '2024-11-23', '2024-12-08', 'created', '2024-11-13 18:49:25', NULL),
+(18, 'nb n mh', 'описаниеmgvhk', 2, '2024-11-15', '2024-11-17', 'created', '2024-11-13 18:51:32', NULL),
+(19, 'ghvjgmvg', 'описаниеgvjgv', 2, '2024-11-30', '2024-12-01', 'created', '2024-11-13 18:52:09', NULL),
+(20, 'ckndjk', 'описаниеdcdcc', 2, '2024-11-15', '2024-11-16', 'created', '2024-11-13 18:55:13', NULL),
+(21, 'jknjkd', 'описаниеsdds', 2, '2024-11-30', '2024-12-01', 'created', '2024-11-13 18:58:53', NULL),
+(22, 'bbbb', 'описание', 2, '2024-11-15', '2024-11-24', 'created', '2024-11-13 18:59:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -184,7 +201,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `boss_id`, `reme
 (1, 'admin', 'admin@admin.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'admin', 1, NULL, '2024-11-08 03:58:35', '2024-11-08 03:58:35'),
 (2, 'boss', 'boss@boss.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'boss', 2, NULL, NULL, NULL),
 (3, 'doer', 'doer@doer.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'doer', 2, NULL, NULL, NULL),
-(4, 'boss2', 'boss2@boss.ru', 'admin', 'boss', 4, NULL, NULL, NULL),
+(4, 'boss2', 'boss2@boss.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'boss', 4, NULL, NULL, NULL),
 (5, 'doer2', 'doer2@doer.ru', '$2y$10$3BEeQtqK0H7E/uiX2RYWZelf/TxX4P/aXPZL7kgRPTIkxjLeE5sb.', 'doer', 2, NULL, NULL, NULL);
 
 --
@@ -273,7 +290,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT для таблицы `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT для таблицы `reports`
