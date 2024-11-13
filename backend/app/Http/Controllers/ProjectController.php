@@ -77,7 +77,47 @@ class ProjectController extends Controller
     }
 
     public function one_project (Request $request) {
-        $select = DB::table('projects')->where('id', '=', $request->project_id)->get();
-        return response()->json($select);
+            $select = DB::table('projects')->where('id', '=', $request->project_id)->get();
+            return response()->json($select);
+    }
+
+    public function one_project_for_create (Request $request) {
+        $projects = 
+        DB::table('users')
+        ->select('users.name as name_of_user','projects.*')
+        ->join('projects','projects.boss_id','=','users.id')
+        ->where('projects.id', '=', $request->project_id)
+        ->get();
+        return response()->json($projects);
+    }
+    public function create_project (Request $request) {
+        // return response()->json($request->all());
+        $validator = Validator::make($request->all(), [
+                "name"=>["min:3","max:50", "unique:projects"],
+                "end"=>["after:start"],
+            ],
+            $messages = [
+                'name.min' => 'Слишком короткое название проекта',
+                'name.max' => 'Слишком длинное название проекта',
+                'name.unique' => 'Название не уникально',
+                'end.after' => 'Дата окончания не может быть раньше даты начала',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        else {
+            $id = DB::table('projects')
+                ->insertGetId([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'start' => $request->start,
+                    'end' => $request->end,
+                    'boss_id' => $request->user_id,
+                ]);
+            // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
+            // DB::table('projects')->where('id', '=', $request->project_id)->delete();
+            return response()->json($id);
+        }
     }
 }

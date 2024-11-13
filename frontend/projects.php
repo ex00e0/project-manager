@@ -1,6 +1,6 @@
 <?php require "header.php"; ?>
 <script>
-    alert(localStorage.getItem('user_id'));
+    // alert(localStorage.getItem('user_id'));
 </script>
 <div class="sf">
     <input type="text" class="c3-5 r1" name="search" placeholder="поиск проектов..">
@@ -11,9 +11,20 @@
         <option>в процессе</option>
         <option>завершен</option>
     </select>
+    <script>
+        if (localStorage.getItem('role') == "boss") {
+            let plus = document.createElement('img');
+              plus.classList.add('c8');
+              plus.classList.add('r1');
+              plus.classList.add('create_icon');
+              plus.setAttribute('src', `images/image 10.svg`);
+              plus.setAttribute('onclick', `open_create()`);
+            document.getElementsByClassName('sf')[0].append(plus);
+        }
+    </script>
 </div>
 <main id="main">
-    <div class="c3 headline">
+    <div class="c3 headline" id="headline_projects">
         <h2>Мои проекты</h2>
     </div>
     <script src="js/get_projects.js"></script>
@@ -77,6 +88,22 @@
             <input type="submit" class="c1 r8" value="сохранить">
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit()"><img src="images/cross.png"></div>
         </form>
+
+        <form class="modal_create modal" id="modal_create" method="post">
+            <div class="c1 r1 headline_modal">Создание проекта</div>
+            <input type="hidden" name="user_id" id="project_user_id_create">
+            <label class="c1 r2">Название</label>
+            <input type="text" class="c1 r3" placeholder="название" name="name" required id="project_name_create">
+            <label class="c1 r4">Описание</label>
+            <textarea type="text" class="c1 r5" placeholder="описание" name="description" required id="project_description_create">описание</textarea>
+            <label class="c1 r6">Дата начала проекта</label>
+            <input type="date" class="c1 r7" placeholder="сроки" name="start" required min="<?=date('Y-m-d')?>"  id="project_start_create">
+            <label class="c1 r8">Срок сдачи проекта</label>
+            <input type="date" class="c1 r9" placeholder="сроки" name="end" required min="<?=date('Y-m-d')?>" id="project_end_create">
+            <input type="submit" class="c1 r10" value="сохранить">
+            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create()"><img src="images/cross.png"></div>
+        </form>
+
 <script src="js/edit_project.js"></script>
 </body>
 </html>

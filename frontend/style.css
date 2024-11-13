@@ -145,12 +145,16 @@ nav > a > div:not(.name) {
     background-color: #F9F9F9;
     border-bottom: 0.1vmax solid #C4EAB3;
     display: grid;
-    grid-template-columns: 13.6% 1% 21% 1.5% 0.7% 13.5% 1fr;
+    grid-template-columns: 13.6% 1% 21% 1.5% 0.7% 13.5% 1fr 3%;
     grid-template-rows: 100%;
     align-items: center;
 }
 .search_icon {
     width:1.2vmax;
+}
+.create_icon {
+    width:1.2vmax;
+    justify-self: center;
 }
 .sf input, .sf select {
     outline: none;
@@ -333,6 +337,13 @@ main {
     grid-template-rows: 22% 8% 1fr 8% 1fr 8% 1fr 28%;
     display: none;
 }
+.modal_create {
+    width: 36%;
+    height: 65%;
+    grid-template-columns: 100%;
+    grid-template-rows: 18% 8% 1fr 8% 1fr 8% 1fr 8% 1fr 22%;
+    display: none;
+}
 .modal {
     position: absolute;
     background-size: cover;
@@ -378,6 +389,9 @@ main {
     height: 23%;
 }
 .modal_edit input[type='submit'] {
+    height: 28%;
+}
+.modal_create input[type='submit'] {
     height: 28%;
 }
 .headline_modal {
