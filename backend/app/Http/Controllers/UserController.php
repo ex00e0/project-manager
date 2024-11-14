@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\DB;
 
 //Password::min(8)->letters()->numbers()
 class UserController extends Controller
@@ -62,5 +63,13 @@ class UserController extends Controller
         // }
         //    } 
         
+    }
+
+    public function get_doers () {
+       $users =  DB::table('users')
+        ->select('users.id', 'users.name')
+        ->where('role', 'doer')
+        ->get();
+        return response()->json($users);
     }
 }

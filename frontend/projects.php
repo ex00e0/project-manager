@@ -100,7 +100,11 @@
             <input type="date" class="c1 r7" placeholder="сроки" name="start" required min="<?=date('Y-m-d')?>"  id="project_start_create">
             <label class="c1 r8">Срок сдачи проекта</label>
             <input type="date" class="c1 r9" placeholder="сроки" name="end" required min="<?=date('Y-m-d')?>" id="project_end_create">
-            <input type="submit" class="c1 r10" value="сохранить">
+            <label class="c1 r10">Команда</label>
+            <select class="c1 r11" placeholder="сроки" name="end" id="project_team_create">
+                <script src="js/get_doers.js"></script>
+            </select>
+            <input type="submit" class="c1 r12" value="сохранить">
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create()"><img src="images/cross.png"></div>
         </form>
 

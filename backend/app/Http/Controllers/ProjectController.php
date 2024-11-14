@@ -18,6 +18,7 @@ class ProjectController extends Controller
             DB::table('users')
             ->select('users.name as name_of_user','projects.*')
             ->join('projects','projects.boss_id','=','users.id')
+            ->orderBy('created_at', 'desc')
             ->get()];
            
         }
@@ -27,6 +28,7 @@ class ProjectController extends Controller
             ->select('users.name as name_of_user','projects.*')
             ->join('projects','projects.boss_id','=','users.id')
             ->where(['projects.boss_id' => $request->user_id])
+            ->orderBy('created_at', 'desc')
             ->get()];
         }
         else if ($request->role == 'doer') {
@@ -39,6 +41,7 @@ class ProjectController extends Controller
                 
             }
             $projects = substr($projects, 0, -3);
+            $projects .= ' order by created_at desc';
             $projects = ['projects'=>DB::select($projects)];
         }
        

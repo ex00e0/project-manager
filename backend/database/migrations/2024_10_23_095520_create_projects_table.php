@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('boss_id')->references('id')->on('users');
             $table->date('start');
             $table->date('end');
+            $table->json('team');
             $table->enum('status', ['created', 'in_process', 'completed'])->default('created');
             $table->timestamps();
 

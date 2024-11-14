@@ -19,11 +19,7 @@ class TaskController extends Controller
             ->join('tasks', 'users.id','=','tasks.doer_id')
             ->where('tasks.project_id', $request->project_id)
             ->where('tasks.doer_id', $request->user_id)
-            ->get(),
-        'boss_id' =>  DB::table('users')
-        ->select('users.boss_id as name_of_boss')
-        ->where('id', $request->user_id)
-        ->get()];
+            ->get()];
         }
         else if ($request->role == 'boss' || $request->role == 'admin') {
             $tasks = ['tasks'=>
@@ -31,11 +27,7 @@ class TaskController extends Controller
             ->select('users.name as name_of_doer', 'tasks.*')
             ->join('tasks', 'users.id','=','tasks.doer_id')
             ->where('tasks.project_id', $request->project_id)
-            ->get(),
-        'boss_id' =>  DB::table('users')
-        ->select('users.boss_id as name_of_boss')
-        ->where('id', $request->user_id)
-        ->get()];
+            ->get()];
         }
     }
         else {
@@ -45,22 +37,14 @@ class TaskController extends Controller
                 ->select('users.name as name_of_doer', 'tasks.*')
                 ->join('tasks', 'users.id','=','tasks.doer_id')
                 ->where('tasks.doer_id', $request->user_id)
-                ->get(),
-            'boss_id' =>  DB::table('users')
-            ->select('users.boss_id as name_of_boss')
-            ->where('id', $request->user_id)
-            ->get()];
+                ->get()];
             }
             else if ($request->role == 'boss' || $request->role == 'admin') {
                 $tasks = ['tasks'=>
                 DB::table('users')
                 ->select('users.name as name_of_doer', 'tasks.*')
                 ->join('tasks', 'users.id','=','tasks.doer_id')
-                ->get(),
-            'boss_id' =>  DB::table('users')
-            ->select('users.boss_id as name_of_boss')
-            ->where('id', $request->user_id)
-            ->get()];
+                ->get()];
             }
         }
         // else if ($request->role == 'doer') {

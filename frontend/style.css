@@ -90,6 +90,9 @@
 .r11 {
     grid-row: 11;
 }
+.r12 {
+    grid-row: 12;
+}
 .c11 {
     grid-column: 11;
 }
@@ -339,9 +342,9 @@ main {
 }
 .modal_create {
     width: 36%;
-    height: 65%;
+    height: 70%;
     grid-template-columns: 100%;
-    grid-template-rows: 18% 8% 1fr 8% 1fr 8% 1fr 8% 1fr 22%;
+    grid-template-rows: 18% 8% 1fr 8% 1fr 8% 1fr 8% 1fr 8% 1fr 20%;
     display: none;
 }
 .modal {
@@ -366,6 +369,17 @@ main {
     width: 70%;
     height: 100%;
     justify-self: center;
+}
+.modal select {
+    outline: none;
+    color:#9F9E9E;
+    border: 0.1vmax solid #C4EAB3;
+    border-radius: 0.2vmax;
+    font-size:0.9vmax;
+    width: 72%;
+    height: 100%;
+    justify-self: center;
+    padding-left: 2%;
 }
 .modal textarea {
     resize: none;

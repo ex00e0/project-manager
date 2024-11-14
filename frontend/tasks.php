@@ -16,7 +16,7 @@
     </div>
     <div class="c3 th">
         <div>Название задачи</div>
-        <div>Руководитель</div>
+        <div>Осталось</div>
         <div>Исполнитель</div>
         <div>Приоритет</div>
         <div>Срок</div>
@@ -27,8 +27,8 @@
     <div class="c3 tr">
         <div>Задача 1</div>
         <div class="double">
-            <img src="images/people 4.svg">
-            <div>Имя</div>
+            <img src="images/free-icon-wall-clock-1266978.png">
+            <div>1 день</div>
         </div>
         <div class="double">
             <img src="images/people 4.svg">
@@ -54,8 +54,8 @@
     <div class="c3 tr">
         <div>Задача 1</div>
         <div class="double">
-            <img src="images/people 4.svg">
-            <div>Имя</div>
+            <img src="images/free-icon-wall-clock-1266978.png">
+            <div>1 день</div>
         </div>
         <div class="double">
             <img src="images/people 4.svg">
@@ -81,8 +81,8 @@
     <div class="c3 tr last_tr">
         <div>Задача 1</div>
         <div class="double">
-            <img src="images/people 4.svg">
-            <div>Имя</div>
+            <img src="images/free-icon-wall-clock-1266978.png">
+            <div>1 день</div>
         </div>
         <div class="double">
             <img src="images/people 4.svg">
