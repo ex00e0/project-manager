@@ -10,13 +10,13 @@
         <option>низкий приоритет</option>
     </select>
 </div>
-<main>
+<main id="main">
     <div class="c3 headline">
         <h2>Мои задачи</h2>
     </div>
     <div class="c3 th">
         <div>Название задачи</div>
-        <div>Осталось</div>
+        <div>Осталось дней</div>
         <div>Исполнитель</div>
         <div>Приоритет</div>
         <div>Срок</div>
@@ -24,7 +24,7 @@
         <div></div>
         <div></div>
     </div>
-    <div class="c3 tr">
+    <!-- <div class="c3 tr">
         <div>Задача 1</div>
         <div class="double">
             <img src="images/free-icon-wall-clock-1266978.png">
@@ -103,7 +103,7 @@
         <div class="except">
             <img src="images/delete 3.svg" class="trash">
         </div>
-    </div>
+    </div> -->
 </main>
 
 </body>
