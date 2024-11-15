@@ -17,6 +17,7 @@ $.ajax({
           <div>
           ${value.name}
           </div>
+          <img src="images/checkmark.png" id="mark_${value.id}">
           `;
             div.innerHTML = html;
            
@@ -29,13 +30,21 @@ $.ajax({
     }
 })
 
+let doers_id_array = [];
+
 function change_color(id) {
-    console.log (getComputedStyle(document.getElementById(`doer_${id}`)).backgroundColor);
+    // console.log (getComputedStyle(document.getElementById(`doer_${id}`)).backgroundColor);
     if (getComputedStyle(document.getElementById(`doer_${id}`)).backgroundColor == 'rgb(255, 255, 255)') {
-        document.getElementById(`doer_${id}`).style.backgroundColor = 'rgb(0, 255, 255)';
+        document.getElementById(`doer_${id}`).style.backgroundColor = 'rgb(240, 252, 238)';
+        document.getElementById(`mark_${id}`).style.display = "block";
+        doers_id_array.push(id);
+        // console.log(doers_id_array);
     } 
     else {
         document.getElementById(`doer_${id}`).style.backgroundColor = 'rgb(255, 255, 255)';
+        document.getElementById(`mark_${id}`).style.display = "none";
+        doers_id_array = doers_id_array.filter((e) => e !== id);
+        // console.log(doers_id_array);
     }
     
 }

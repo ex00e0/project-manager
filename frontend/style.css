@@ -395,6 +395,7 @@ main {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 100%;
+    align-items: center;
 }
 .modal textarea {
     resize: none;
@@ -456,13 +457,31 @@ main {
     overflow-y: scroll;
     width: 70%;
     justify-self: center;
-    background-color: #C4EAB3;
+    /* background-color: #C4EAB3; */
 }
 #list_block > div {
     background-color: #FFFFFF;
+    border-top:0.1vmax solid #C4EAB3;
+    border-left:0.1vmax solid #C4EAB3;
+    border-right:0.1vmax solid #C4EAB3;
+    border-radius: 0.2vmax;
     height:1.5vmax;
     display: grid;
+    grid-template-columns: 90% 1fr;
 }
+#list_block > div:last-child {
+    border-bottom: 0.1vmax solid #C4EAB3;
+}
+
 .option_div > div {
     align-self: center;
+    font-size:0.9vmax;
+    padding-left: 2%;
+    
+}
+.option_div > img {
+    width:1.1vmax;
+    align-self: center;
+    justify-self: center;
+    display: none;
 }

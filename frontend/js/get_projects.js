@@ -71,7 +71,7 @@ function prepare_page () {
       let end_date = new Date(value.end);
       let last = end_date - today;
       last = Math.ceil(last/1000/60/60/24);
-      console.log(last);
+      // console.log(last);
          if ((last) < 0 && (last) != -0 && value.status != 'completed') {
           $.ajax({
             url: "http://backend/close_project",
@@ -216,7 +216,7 @@ function prepend_project (id) {
     method: "POST",
     data: {project_id : id},
     success: (response)=>{
-    console.log(response);
+    // console.log(response);
     let value = response[0];
     let div = document.createElement('div');
     div.classList.add('c3');
