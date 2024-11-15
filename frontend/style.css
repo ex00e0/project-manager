@@ -383,16 +383,18 @@ main {
     height: 100%;
     justify-self: center;
 }
-.modal select {
-    outline: none;
+.div_select {
     color:#9F9E9E;
     border: 0.1vmax solid #C4EAB3;
     border-radius: 0.2vmax;
     font-size:0.9vmax;
-    width: 72%;
+    width: 70%;
     height: 100%;
     justify-self: center;
     padding-left: 2%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
 }
 .modal textarea {
     resize: none;
@@ -445,9 +447,22 @@ main {
     height:1.5vmax;
 }
 
-.option_div {
-    position: relative;
-}
 .no_task {
     justify-self: center;
+}
+#list_block {
+    display: none;
+    max-height: 5vmax;
+    overflow-y: scroll;
+    width: 70%;
+    justify-self: center;
+    background-color: #C4EAB3;
+}
+#list_block > div {
+    background-color: #FFFFFF;
+    height:1.5vmax;
+    display: grid;
+}
+.option_div > div {
+    align-self: center;
 }

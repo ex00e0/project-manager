@@ -14,11 +14,13 @@ $.ajax({
           div.setAttribute('onclick', `change_color(${value.id})`);
           html = 
           `
+          <div>
           ${value.name}
+          </div>
           `;
             div.innerHTML = html;
            
-         document.getElementById('project_team_create').append(div);
+         document.getElementById('list_block').append(div);
        });
    
     },
@@ -28,14 +30,33 @@ $.ajax({
 })
 
 function change_color(id) {
-    document.getElementById(`doer_${id}`).style.backgroundColor = 'green';
-}
-function show_list () {
-    let autoFillJs = document.getElementsByClassName("autoFillJs");
-    let blockFill = document.getElementsByClassName("blockFill");
-    for(let fi1=0;fi1<autoFillJs.length;fi1++) {
-        autoFillJs[fi1].addEventListener("click", function () {
-            l
-        })
+    console.log (getComputedStyle(document.getElementById(`doer_${id}`)).backgroundColor);
+    if (getComputedStyle(document.getElementById(`doer_${id}`)).backgroundColor == 'rgb(255, 255, 255)') {
+        document.getElementById(`doer_${id}`).style.backgroundColor = 'rgb(0, 255, 255)';
+    } 
+    else {
+        document.getElementById(`doer_${id}`).style.backgroundColor = 'rgb(255, 255, 255)';
     }
+    
+}
+
+document.getElementById("project_team_create").addEventListener('click', function () {
+    if (getComputedStyle(document.getElementById("list_block")).display == 'none') {
+        document.getElementById("list_block").style.display = 'block';
+    } 
+    else {
+        document.getElementById("list_block").style.display = 'none';
+    }
+});
+
+function show_list () {
+    
+    let list_option = document.getElementsByClassName("list_option");
+    
+
+    // for(let fi1=0;fi1<autoFillJs.length;fi1++) {
+    //     autoFillJs[fi1].addEventListener("click", function () {
+            
+    //     })
+    // }
 }
