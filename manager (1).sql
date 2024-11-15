@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 14 2024 г., 13:27
+-- Время создания: Ноя 15 2024 г., 10:59
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -116,7 +116,10 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `name`, `description`, `boss_id`, `start`, `end`, `team`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'project', 'proj', 2, '2024-11-08', '2024-11-15', '{\"2\": [3]}', 'created', '2024-11-14 09:48:04', NULL);
+(1, 'project', 'proj', 2, '2024-11-08', '2024-11-15', '{\"2\": [3]}', 'completed', '2024-11-14 09:48:04', NULL),
+(2, 'bxbfgg', 'fbgfbgfbg', 2, '2024-11-08', '2024-11-09', '{}', 'completed', '2024-11-15 05:42:31', NULL),
+(3, 'rgdsg', 'dfgsfgfgds', 2, '2024-11-01', '2024-11-13', '{}', 'completed', '2024-11-15 05:49:32', NULL),
+(4, 'gfgdb', 'dfbgfbgdf', 2, '2024-11-06', '2024-11-07', '{}', 'completed', '2024-11-15 05:49:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -149,6 +152,15 @@ CREATE TABLE `tasks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `name`, `description`, `project_id`, `doer_id`, `priority`, `start`, `end`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'ghhj', 'ghjhgdj', 1, 4, 'low', '2024-11-01', '2024-11-23', 'completed', NULL, NULL),
+(2, '546', '45564', 1, 4, 'middle', '2024-11-14', '2024-11-14', 'completed', NULL, NULL),
+(3, 'hgnh', 'nhnhfnhhnh', 4, 3, 'middle', '2024-11-01', '2024-11-22', 'created', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -263,7 +275,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT для таблицы `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `reports`
@@ -275,7 +287,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `users`

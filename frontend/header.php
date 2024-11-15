@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-    <nav>
+    <nav id="nav">
         <a class="c2">
             <div class="c3 name">Имя</div>
         </a>
@@ -16,14 +16,19 @@
             <img src="images/image 2.svg" class="folder">
             <div class="c3">Проекты</div>
         </a>
-        <a class="c2">
+        <a class="c2" href="tasks.php">
             <img src="images/image 3.svg">
             <div class="c3">Задачи</div>
         </a>
-        <a class="c2">
-            <img src="images/image.svg">
-            <div class="c3">Пользователи</div>
-        </a>
+        <script>  
+        if (localStorage.getItem('role') == "admin") {
+            let user_a = document.createElement('a');
+              user_a.classList.add('c2');
+              user_a.innerHTML = ` <img src="images/image.svg">
+            <div class="c3">Пользователи</div>`;
+            document.getElementById('nav').append(user_a);
+        }
+        </script>
         <a class="c2">
             <img src="images/image 4.svg">
             <div class="c3">Отчеты</div>

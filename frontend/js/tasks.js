@@ -8,8 +8,53 @@ function get_tasks () {
         method: "POST",
         data: {project_id : project_id, role: localStorage.getItem('role'), user_id : localStorage.getItem('user_id')},
         success: (response)=>{
-  
-       console.log(response.tasks);
+        if (project_id == null) {
+          let headline = document.createElement('div');
+          headline.classList.add('c3');
+          headline.classList.add('headline');
+        html_headline = `
+       <h2>Все задачи</h2>
+        `;
+        headline.innerHTML = html_headline;
+        document.getElementById('main').append(headline);
+        }
+        else {
+          let headline = document.createElement('div');
+          headline.classList.add('c3');
+          headline.classList.add('headline');
+        html_headline = `
+       <h2>Задачи проекта ${project_id}</h2>
+        `;
+        headline.innerHTML = html_headline;
+        document.getElementById('main').append(headline);
+        }
+       if (response.tasks.length !=0) {
+        let div_th = document.createElement('div');
+        div_th.classList.add('c3');
+        div_th.classList.add('th');
+        html_th = `
+        <div>Название задачи</div>
+        <div>Осталось дней</div>
+        <div>Исполнитель</div>
+        <div>Приоритет</div>
+        <div>Срок</div>
+        <div>Статус</div>
+        <div></div>
+        <div></div>
+        `;
+        div_th.innerHTML = html_th;
+        document.getElementById('main').append(div_th);
+       }
+       else {
+        let div_th = document.createElement('div');
+        div_th.classList.add('no_task');
+        div_th.classList.add('c3');
+        html_th = `
+        <div>Задач нет..</div>
+        `;
+        div_th.innerHTML = html_th;
+        document.getElementById('main').append(div_th);
+       }
         let tasks = response.tasks;
         let today = new Date();
         $.each(tasks, function(key, value){
@@ -21,6 +66,9 @@ function get_tasks () {
               let end_date = new Date(value.end);
               let last = end_date - today;
               last = Math.ceil(last/1000/60/60/24);
+              if (last < 0) {
+                last = 'Просрочено';
+              }
               html = 
               `
               <div>${value.name}</div>
@@ -83,3 +131,14 @@ function get_tasks () {
   }
 
   $("document").ready(get_tasks());
+
+  function open_create () {
+    document.getElementById("shadow_edit").style.display="block";
+    document.getElementById("modal_create_task").style.display="grid";
+  }
+  function close_create () {
+    document.getElementById("modal_create_task").style.display="none";
+    document.getElementById("shadow_edit").style.display="none";
+  }
+
+ 

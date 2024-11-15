@@ -22,6 +22,7 @@ Route::post('get_doers', [UserController::class, 'get_doers'])->name('get_doers'
 
 Route::post('user_projects', [ProjectController::class, 'user_projects'])->name('user_projects');
 Route::post('delete_project', [ProjectController::class, 'delete_project'])->name('delete_project');
+Route::post('close_project', [ProjectController::class, 'close_project'])->name('close_project');
 Route::post('edit_project', [ProjectController::class, 'edit_project'])->name('edit_project');
 Route::post('create_project', [ProjectController::class, 'create_project'])->name('create_project');
 Route::post('one_project', [ProjectController::class, 'one_project'])->name('one_project');

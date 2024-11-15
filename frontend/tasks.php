@@ -9,21 +9,21 @@
         <option>средний приоритет</option>
         <option>низкий приоритет</option>
     </select>
+    <script>
+        if (localStorage.getItem('role') == "boss") {
+            let plus = document.createElement('img');
+              plus.classList.add('c8');
+              plus.classList.add('r1');
+              plus.classList.add('create_icon');
+              plus.setAttribute('src', `images/image 10.svg`);
+              plus.setAttribute('onclick', `open_create()`);
+            document.getElementsByClassName('sf')[0].append(plus);
+        }
+    </script>
 </div>
 <main id="main">
-    <div class="c3 headline">
-        <h2>Мои задачи</h2>
-    </div>
-    <div class="c3 th">
-        <div>Название задачи</div>
-        <div>Осталось дней</div>
-        <div>Исполнитель</div>
-        <div>Приоритет</div>
-        <div>Срок</div>
-        <div>Статус</div>
-        <div></div>
-        <div></div>
-    </div>
+   
+    
     <!-- <div class="c3 tr">
         <div>Задача 1</div>
         <div class="double">
@@ -105,6 +105,29 @@
         </div>
     </div> -->
 </main>
+<div class="shadow_modal" id="shadow_edit"></div>
 
+        <form class="modal_create_task modal" id="modal_create_task" method="post">
+            <div class="c1 r1 headline_modal">Создание задачи</div>
+            <input type="hidden" name="user_id" id="project_user_id_create">
+            <label class="c1 r2">Название</label>
+            <input type="text" class="c1 r3" placeholder="название" name="name" required id="project_name_create">
+            <label class="c1 r4">Описание</label>
+            <textarea type="text" class="c1 r5" placeholder="описание" name="description" required id="project_description_create">описание</textarea>
+            <label class="c1 r6">Дата начала задачи</label>
+            <input type="date" class="c1 r7" placeholder="сроки" name="start" required min="<?=date('Y-m-d')?>"  id="project_start_create">
+            <label class="c1 r8">Срок сдачи задачи</label>
+            <input type="date" class="c1 r9" placeholder="сроки" name="end" required min="<?=date('Y-m-d')?>" id="project_end_create">
+            <label class="c1 r10">Исполнитель</label>
+            <select class="c1 r11" placeholder="сроки" name="doer_id" id="project_team_create">
+                <script></script>
+            </select>
+            <label class="c1 r12">Приоритет</label>
+            <select class="c1 r13" placeholder="сроки" name="priority" id="project_team_create">
+                
+            </select>
+            <input type="submit" class="c1 r14" value="сохранить">
+            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create()"><img src="images/cross.png"></div>
+        </form>
 </body>
 </html>

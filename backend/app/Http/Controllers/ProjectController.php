@@ -53,6 +53,15 @@ class ProjectController extends Controller
         DB::table('projects')->where('id', '=', $request->project_id)->delete();
         return response()->json('Проект удален');
     }
+    public function close_project (Request $request) {
+        // DB::table('tasks')->where('project_id', '=', $request->project_id)->update([
+        //     'status' => 'completed',
+        // ]);
+        DB::table('projects')->where('id', '=', $request->project_id)->update([
+            'status' => 'completed',
+        ]);
+        return response()->json('Проект обновлен');
+    }
 
     public function edit_project (Request $request) {
         $validator = Validator::make($request->all(), [

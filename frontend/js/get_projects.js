@@ -1,13 +1,15 @@
 function get_projects () {
   $.ajax({
-      url: "http://backend/user_projects",
-      method: "POST",
-      data: {user_id : localStorage.getItem('user_id'), role: localStorage.getItem('role')},
-      success: (response)=>{
+    url: "http://backend/user_projects",
+    method: "POST",
+    data: {user_id : localStorage.getItem('user_id'), role: localStorage.getItem('role')},
+    success: (response)=>{
 
-  //    console.log(response);
-      let projects = response.projects;
-      $.each(projects, function(key, value){
+//    console.log(response);
+    let projects = response.projects;
+   
+    $.each(projects, function(key, value){
+     
            
             let div = document.createElement('div');
             div.classList.add('c3');
@@ -55,6 +57,39 @@ function get_projects () {
   })
 }
 
+function prepare_page () {
+  $.ajax({
+    url: "http://backend/user_projects",
+    method: "POST",
+    data: {user_id : localStorage.getItem('user_id'), role: localStorage.getItem('role')},
+    success: (response)=>{
+
+//    console.log(response);
+    let projects = response.projects;
+    let today = new Date();
+    $.each(projects, function(key, value){
+      let end_date = new Date(value.end);
+      let last = end_date - today;
+      last = Math.ceil(last/1000/60/60/24);
+      console.log(last);
+         if ((last) < 0 && (last) != -0 && value.status != 'completed') {
+          $.ajax({
+            url: "http://backend/close_project",
+            method: "POST",
+            data: {project_id : value.id},
+            success: (response)=>{
+              console.log(response);
+             
+            },
+            error: ()=>{
+                console.log("Ошибка запроса закрытия проекта!");
+            }
+        })
+         }
+        })
+      }
+      })
+}
 function get_projects_with_remove () {
   $.ajax({
       url: "http://backend/user_projects",
@@ -113,7 +148,10 @@ function get_projects_with_remove () {
   })
 }
 
-$("document").ready(get_projects());
+$("document").ready(()=>{
+  prepare_page();
+  setTimeout(() => get_projects(), 2000);
+  });
 
 
 function delete_project (id) {
