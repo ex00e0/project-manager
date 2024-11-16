@@ -137,4 +137,25 @@ class ProjectController extends Controller
             return response()->json($id);
         }
     }
+
+    public function get_doers_of_project (Request $request) {
+        $projects = 
+        DB::table('projects')
+        ->select('projects.team')
+        ->where('projects.id', '=', $request->project_id)
+        ->get();
+        $team = json_decode($projects[0]->team)->doers;
+        $array_users = [];
+        foreach ($team as $id) {
+                    $users = 
+                DB::table('users')
+                ->select('users.name')
+                ->where('users.id', '=', $id)
+                ->get();
+                $name = $users[0]->name;
+                array_push($array_users, [$name => $id]);
+                
+        }
+        return response()->json($array_users);
+    }
 }

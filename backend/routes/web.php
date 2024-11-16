@@ -27,5 +27,6 @@ Route::post('edit_project', [ProjectController::class, 'edit_project'])->name('e
 Route::post('create_project', [ProjectController::class, 'create_project'])->name('create_project');
 Route::post('one_project', [ProjectController::class, 'one_project'])->name('one_project');
 Route::post('one_project_for_create', [ProjectController::class, 'one_project_for_create'])->name('one_project_for_create');
+Route::post('get_doers_of_project', [ProjectController::class, 'get_doers_of_project'])->name('get_doers_of_project');
 
 Route::post('get_tasks', [TaskController::class, 'get_tasks'])->name('get_tasks');

@@ -119,12 +119,14 @@
             <label class="c1 r8">Срок сдачи задачи</label>
             <input type="date" class="c1 r9" placeholder="сроки" name="end" required min="<?=date('Y-m-d')?>" id="project_end_create">
             <label class="c1 r10">Исполнитель</label>
-            <select class="c1 r11" placeholder="сроки" name="doer_id" id="project_team_create">
-                <script></script>
+            <select class="c1 r11" placeholder="сроки" name="doer_id" id="project_doer_create">
+                <script src="js/get_doers_of_project.js"></script>
             </select>
             <label class="c1 r12">Приоритет</label>
-            <select class="c1 r13" placeholder="сроки" name="priority" id="project_team_create">
-                
+            <select class="c1 r13" placeholder="сроки" name="priority" id="project_priority_create">
+                <option value="low">низкий</option>
+                <option value="middle">средний</option>
+                <option value="high">высокий</option>
             </select>
             <input type="submit" class="c1 r14" value="сохранить">
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create()"><img src="images/cross.png"></div>
