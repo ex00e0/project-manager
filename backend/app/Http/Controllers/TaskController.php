@@ -62,4 +62,48 @@ class TaskController extends Controller
        
         return response()->json($tasks);
     }
+    public function create_task (Request $request) {
+        
+        // return response()->json($request->all());
+        $validator = Validator::make($request->all(), [
+                "end"=>["after:start"],
+            ],
+            $messages = [
+                'end.after' => 'Дата окончания не может быть раньше даты начала',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        else {
+            $id = DB::table('tasks')
+                ->insertGetId([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'start' => $request->start,
+                    'end' => $request->end,
+                    'doer_id' => $request->doer_id,
+                    'priority' => $request->priority,
+                    'project_id' => $request->project_id,
+                ]);
+            
+            return response()->json($id);
+        }
+    }
+
+    public function one_task_for_create (Request $request) {
+        $tasks = 
+        DB::table('users')
+        ->select('users.name as name_of_doer','tasks.*')
+        ->join('tasks','tasks.doer_id','=','users.id')
+        ->where('tasks.id', '=', $request->task_id)
+        ->get();
+        $all_tasks = DB::table('tasks')
+        ->select('tasks.*')
+        ->where('tasks.project_id', '=', $tasks[0]->project_id)
+        ->get();
+        $count = $all_tasks->count();
+        $arr = ["task"=>$tasks, "count" => $count];
+        return response()->json($arr);
+    }
 }

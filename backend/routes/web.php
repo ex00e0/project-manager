@@ -30,3 +30,5 @@ Route::post('one_project_for_create', [ProjectController::class, 'one_project_fo
 Route::post('get_doers_of_project', [ProjectController::class, 'get_doers_of_project'])->name('get_doers_of_project');
 
 Route::post('get_tasks', [TaskController::class, 'get_tasks'])->name('get_tasks');
+Route::post('create_task', [TaskController::class, 'create_task'])->name('create_task');
+Route::post('one_task_for_create', [TaskController::class, 'one_task_for_create'])->name('one_task_for_create');

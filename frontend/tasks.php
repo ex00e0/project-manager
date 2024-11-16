@@ -109,7 +109,7 @@
 
         <form class="modal_create_task modal" id="modal_create_task" method="post">
             <div class="c1 r1 headline_modal">Создание задачи</div>
-            <input type="hidden" name="user_id" id="project_user_id_create">
+            <input type="hidden" name="project_id" id="project_project_id_create">
             <label class="c1 r2">Название</label>
             <input type="text" class="c1 r3" placeholder="название" name="name" required id="project_name_create">
             <label class="c1 r4">Описание</label>
@@ -131,5 +131,6 @@
             <input type="submit" class="c1 r14" value="сохранить">
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create()"><img src="images/cross.png"></div>
         </form>
+<script src="js/edit_task.js"></script>
 </body>
 </html>
