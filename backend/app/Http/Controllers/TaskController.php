@@ -19,6 +19,7 @@ class TaskController extends Controller
             ->join('tasks', 'users.id','=','tasks.doer_id')
             ->where('tasks.project_id', $request->project_id)
             ->where('tasks.doer_id', $request->user_id)
+            ->orderBy('created_at', 'desc')
             ->get()];
         }
         else if ($request->role == 'boss' || $request->role == 'admin') {
@@ -27,6 +28,7 @@ class TaskController extends Controller
             ->select('users.name as name_of_doer', 'tasks.*')
             ->join('tasks', 'users.id','=','tasks.doer_id')
             ->where('tasks.project_id', $request->project_id)
+            ->orderBy('created_at', 'desc')
             ->get()];
         }
     }
@@ -37,6 +39,7 @@ class TaskController extends Controller
                 ->select('users.name as name_of_doer', 'tasks.*')
                 ->join('tasks', 'users.id','=','tasks.doer_id')
                 ->where('tasks.doer_id', $request->user_id)
+                ->orderBy('created_at', 'desc')
                 ->get()];
             }
             else if ($request->role == 'boss' || $request->role == 'admin') {
@@ -44,6 +47,7 @@ class TaskController extends Controller
                 DB::table('users')
                 ->select('users.name as name_of_doer', 'tasks.*')
                 ->join('tasks', 'users.id','=','tasks.doer_id')
+                ->orderBy('created_at', 'desc')
                 ->get()];
             }
         }

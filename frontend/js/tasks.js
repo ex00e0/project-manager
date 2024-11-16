@@ -249,3 +249,20 @@ function get_tasks () {
       }
   })
   }
+
+  function delete_task (id) {
+    $.ajax({
+      url: "http://backend/delete_task",
+      method: "POST",
+      data: {project_id : id},
+      success: (response)=>{
+      alert(response);
+     
+      document.getElementById(`task_${id}`).remove();
+      },
+      error: ()=>{
+          console.log("Ошибка запроса!");
+      }
+  })
+  }
+  
