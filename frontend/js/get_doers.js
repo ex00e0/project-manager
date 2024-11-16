@@ -38,13 +38,15 @@ function change_color(id) {
         document.getElementById(`doer_${id}`).style.backgroundColor = 'rgb(240, 252, 238)';
         document.getElementById(`mark_${id}`).style.display = "block";
         doers_id_array.push(id);
-        // console.log(doers_id_array);
+        document.getElementById('project_team_array_create').value = doers_id_array;
+        // console.log(document.getElementById('project_team_array_create').value);
     } 
     else {
         document.getElementById(`doer_${id}`).style.backgroundColor = 'rgb(255, 255, 255)';
         document.getElementById(`mark_${id}`).style.display = "none";
         doers_id_array = doers_id_array.filter((e) => e !== id);
-        // console.log(doers_id_array);
+        document.getElementById('project_team_array_create').value = doers_id_array;
+        // console.log(document.getElementById('project_team_array_create').value);
     }
     
 }
@@ -58,14 +60,33 @@ document.getElementById("project_team_create").addEventListener('click', functio
     }
 });
 
-function show_list () {
-    
-    let list_option = document.getElementsByClassName("list_option");
-    
+  $("#modal_create").submit((event)=>{
+    event.preventDefault();
+    document.getElementById("project_user_id_create").value = localStorage.getItem("user_id");
+    $.ajax({
+        url: "http://backend/create_project",
+        method: "POST",
+        data: $("#modal_create").serialize(),
+        
+        success: (response)=>{
 
-    // for(let fi1=0;fi1<autoFillJs.length;fi1++) {
-    //     autoFillJs[fi1].addEventListener("click", function () {
+            // console.log(response);
+          if (typeof(response) == 'object') {
+            for (key in response) {
+              alert(response[key][0]);
+            }
+          }
+          else {
+            document.getElementById("modal_create").style.display="none";
+            document.getElementById("shadow_edit").style.display="none";
+            alert('Проект создан');
+            prepend_project(response);
+          }
             
-    //     })
-    // }
-}
+           
+        },
+        error: ()=>{
+            console.log("Ошибка запроса!");
+        }
+    })
+  })

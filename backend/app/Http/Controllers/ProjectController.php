@@ -103,22 +103,27 @@ class ProjectController extends Controller
         return response()->json($projects);
     }
     public function create_project (Request $request) {
+        
         // return response()->json($request->all());
         $validator = Validator::make($request->all(), [
                 "name"=>["min:3","max:50", "unique:projects"],
                 "end"=>["after:start"],
+                "team"=>["required"],
             ],
             $messages = [
                 'name.min' => 'Слишком короткое название проекта',
                 'name.max' => 'Слишком длинное название проекта',
                 'name.unique' => 'Название не уникально',
                 'end.after' => 'Дата окончания не может быть раньше даты начала',
+                'team.required' => 'Нужно выбрать хотя бы одного исполнителя'
             ]
         );
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
         else {
+            $team = explode(',', $request->team);
+            $team = json_encode(["doers" => $team]);
             $id = DB::table('projects')
                 ->insertGetId([
                     'name' => $request->name,
@@ -126,9 +131,9 @@ class ProjectController extends Controller
                     'start' => $request->start,
                     'end' => $request->end,
                     'boss_id' => $request->user_id,
+                    'team' => $team,
                 ]);
-            // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
-            // DB::table('projects')->where('id', '=', $request->project_id)->delete();
+            
             return response()->json($id);
         }
     }

@@ -92,6 +92,7 @@
         <form class="modal_create modal" id="modal_create" method="post">
             <div class="c1 r1 headline_modal">Создание проекта</div>
             <input type="hidden" name="user_id" id="project_user_id_create">
+            <input type="hidden" name="team" id="project_team_array_create">
             <label class="c1 r2">Название</label>
             <input type="text" class="c1 r3" placeholder="название" name="name" required id="project_name_create">
             <label class="c1 r4">Описание</label>
@@ -101,7 +102,7 @@
             <label class="c1 r8">Срок сдачи проекта</label>
             <input type="date" class="c1 r9" placeholder="сроки" name="end" required min="<?=date('Y-m-d')?>" id="project_end_create">
             <label class="c1 r10">Команда</label>
-            <div class="c1 r11 div_select" placeholder="сроки" name="end" id="project_team_create">
+            <div class="c1 r11 div_select" placeholder="сроки" id="project_team_create">
                 <div>-нажать для выбора-</div>
             </div>
             <input type="submit" class="c1 r12" value="сохранить">
