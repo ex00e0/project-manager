@@ -7,7 +7,16 @@ function get_projects () {
 
 //    console.log(response);
     let projects = response.projects;
-   
+    if (projects.length ==0) {
+      let div_th = document.createElement('div');
+      div_th.classList.add('no_task');
+      div_th.classList.add('c3');
+      html_th = `
+      <div>Проектов нет..</div>
+      `;
+      div_th.innerHTML = html_th;
+      document.getElementById('main').append(div_th);
+     }
     $.each(projects, function(key, value){
      
            
@@ -99,6 +108,16 @@ function get_projects_with_remove () {
 
   //    console.log(response);
       let projects = response.projects;
+      if (projects.length == 0) {
+        let div_th = document.createElement('div');
+        div_th.classList.add('no_task');
+        div_th.classList.add('c3');
+        html_th = `
+        <div>Проектов нет..</div>
+        `;
+        div_th.innerHTML = html_th;
+        document.getElementById('main').append(div_th);
+       }
       $.each(projects, function(key, value){
             document.getElementById(`project_${value.id}`).remove();
             document.getElementById(`empty_${value.id}`).remove();
@@ -158,12 +177,23 @@ function delete_project (id) {
   $.ajax({
     url: "http://backend/delete_project",
     method: "POST",
-    data: {project_id : id},
+    data: {project_id : id, user_id : localStorage.getItem('user_id')},
     success: (response)=>{
-    alert(response);
-   
+    alert(response.message);
+    
     document.getElementById(`project_${id}`).remove();
     document.getElementById(`empty_${id}`).remove();
+
+    if (response.count == 0) {
+      let div_th = document.createElement('div');
+      div_th.classList.add('no_task');
+      div_th.classList.add('c3');
+      html_th = `
+      <div>Проектов нет..</div>
+      `;
+      div_th.innerHTML = html_th;
+      document.getElementById('main').append(div_th);
+    }
     },
     error: ()=>{
         console.log("Ошибка запроса!");
@@ -214,10 +244,14 @@ function prepend_project (id) {
   $.ajax({
     url: "http://backend/one_project_for_create",
     method: "POST",
-    data: {project_id : id},
+    data: {project_id : id, user_id : localStorage.getItem('user_id')},
     success: (response)=>{
     // console.log(response);
-    let value = response[0];
+    let count = response.count;
+      if (count == 1) {
+          document.getElementsByClassName('no_task')[0].remove();
+      }
+    let value = response.projects[0];
     let div = document.createElement('div');
     div.classList.add('c3');
     div.classList.add('block_project');

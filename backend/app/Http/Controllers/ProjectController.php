@@ -51,7 +51,13 @@ class ProjectController extends Controller
     public function delete_project (Request $request) {
         DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
         DB::table('projects')->where('id', '=', $request->project_id)->delete();
-        return response()->json('Проект удален');
+        $all_projects = DB::table('projects')
+        ->select('projects.*')
+        ->where('projects.boss_id', '=', $request->user_id)
+        ->get();
+        $count = $all_projects->count();
+        $arr = ["message"=>'Проект удален', "count" => $count];
+        return response()->json($arr);
     }
     public function close_project (Request $request) {
         // DB::table('tasks')->where('project_id', '=', $request->project_id)->update([
@@ -100,7 +106,13 @@ class ProjectController extends Controller
         ->join('projects','projects.boss_id','=','users.id')
         ->where('projects.id', '=', $request->project_id)
         ->get();
-        return response()->json($projects);
+        $all_projects = DB::table('projects')
+        ->select('projects.*')
+        ->where('projects.boss_id', '=', $request->user_id)
+        ->get();
+        $count = $all_projects->count();
+        $arr = ["projects"=>$projects, "count" => $count];
+        return response()->json($arr);
     }
     public function create_project (Request $request) {
         
