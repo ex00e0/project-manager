@@ -7,7 +7,7 @@ function get_projects () {
 
 //    console.log(response);
     let projects = response.projects;
-    if (projects.length ==0) {
+    if (projects == undefined || projects == null || projects.length == 0 ) {
       let div_th = document.createElement('div');
       div_th.classList.add('no_task');
       div_th.classList.add('c3');
@@ -108,7 +108,7 @@ function get_projects_with_remove () {
 
   //    console.log(response);
       let projects = response.projects;
-      if (projects.length == 0) {
+      if (projects == undefined || projects == null || projects.length == 0 ) {
         let div_th = document.createElement('div');
         div_th.classList.add('no_task');
         div_th.classList.add('c3');

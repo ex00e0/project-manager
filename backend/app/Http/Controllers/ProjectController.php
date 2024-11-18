@@ -40,9 +40,16 @@ class ProjectController extends Controller
                 $projects .= ' projects.id = '.$val->project_id.' or';
                 
             }
-            $projects = substr($projects, 0, -3);
-            $projects .= ' order by created_at desc';
-            $projects = ['projects'=>DB::select($projects)];
+            if ($select->count() != 0) {
+                $projects = substr($projects, 0, -3); 
+                $projects .= ' order by created_at desc';
+                $projects = ['projects'=>DB::select($projects)];
+            }
+            else {
+                $projects = '';
+            }
+           
+            
         }
        
         return response()->json($projects);

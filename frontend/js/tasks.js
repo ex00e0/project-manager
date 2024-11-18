@@ -70,7 +70,7 @@ function get_tasks () {
               }
               html = 
               `
-              <div>${value.name}</div>
+              <div title='${value.description}'>${value.name}</div>
         <div class="double">
             <img src="images/free-icon-wall-clock-1266978.png">
             <div>${last}</div>
@@ -111,13 +111,35 @@ function get_tasks () {
             }
             html += `
             
-        </div>
-        <div class="except">
-            <img src="images/pen (1).svg" class="pen">
-        </div>
-        <div class="except">
-            <img src="images/delete 3.svg" class="trash">
         </div>`;
+       
+       if (localStorage.getItem('role') == 'boss') {
+        html += `
+      <div class="except">
+          <img src="images/pen (1).svg" class="pen"   onclick="show_edit_task(${value.id})">
+      </div>
+      <div class="except">
+          <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
+      </div>`;
+      } 
+      else if (localStorage.getItem('role') == 'admin') {
+        html += `
+      <div class="except">
+         
+      </div>
+      <div class="except">
+          
+      </div>`;
+      }
+      else if (localStorage.getItem('role') == 'doer') {
+        html += `
+      <div class="except">
+         
+      </div>
+      <div class="except">
+          
+      </div>`;
+      }
                 div.innerHTML = html;
              document.getElementById('main').append(div);
            });
@@ -139,7 +161,10 @@ function get_tasks () {
     document.getElementById("modal_create_task").style.display="none";
     document.getElementById("shadow_edit").style.display="none";
   }
-
+  function close_edit () {
+    document.getElementById("modal_edit_task").style.display="none";
+    document.getElementById("shadow_edit").style.display="none";
+  }
   function prepend_task (id) {
     $.ajax({
       url: "http://backend/one_task_for_create",
@@ -225,14 +250,36 @@ function get_tasks () {
           }
           html += `
           
-      </div>
-      <div class="except">
-          <img src="images/pen (1).svg" class="pen">
-      </div>
-      <div class="except">
-          <img src="images/delete 3.svg" class="trash">
       </div>`;
-              div.innerHTML = html;
+       
+       if (localStorage.getItem('role') == 'boss') {
+        html += `
+      <div class="except">
+          <img src="images/pen (1).svg" class="pen"  onclick="show_edit_task(${value.id})">
+      </div>
+      <div class="except">
+          <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
+      </div>`;
+      }
+      else if (localStorage.getItem('role') == 'admin') {
+        html += `
+      <div class="except">
+         
+      </div>
+      <div class="except">
+          
+      </div>`;
+      }
+      else if (localStorage.getItem('role') == 'doer') {
+        html += `
+      <div class="except">
+         
+      </div>
+      <div class="except">
+          
+      </div>`;
+      }
+        div.innerHTML = html;
               if (count == 1) {
                 document.getElementById('main').append(div);
             }
@@ -252,11 +299,22 @@ function get_tasks () {
     $.ajax({
       url: "http://backend/delete_task",
       method: "POST",
-      data: {project_id : id},
+      data: {task_id: id},
       success: (response)=>{
-      alert(response);
-     
+      alert(response.message);
       document.getElementById(`task_${id}`).remove();
+      document.getElementById(`th`).remove();
+        if (response.count == 0) {
+          let div_th = document.createElement('div');
+          div_th.classList.add('no_task');
+          div_th.classList.add('c3');
+          html_th = `
+          <div>Задач нет..</div>
+          `;
+          div_th.innerHTML = html_th;
+          document.getElementById('main').append(div_th);
+      }
+      
       },
       error: ()=>{
           console.log("Ошибка запроса!");
@@ -264,3 +322,25 @@ function get_tasks () {
   })
   }
   
+  function show_edit_task (id) {
+    $.ajax({
+      url: "http://backend/one_task",
+      method: "POST",
+      data: {task_id : id},
+      success: (response)=>{
+      // console.log(response[0]);
+      document.getElementById("task_end_edit").setAttribute("min", response[0].start);
+      document.getElementById("task_start_edit").value = response[0].start;
+      document.getElementById("task_end_edit").value = response[0].end;
+      document.getElementById("task_id_edit").value = response[0].id;
+      document.getElementById("task_name_edit").value = response[0].name;
+      document.getElementById("task_priority_edit").value = response[0].priority;
+      document.getElementById("task_description_edit").value = response[0].description;
+      },
+      error: ()=>{
+          console.log("Ошибка запроса!");
+      }
+  })
+    document.getElementById("shadow_edit").style.display="block";
+    document.getElementById("modal_edit_task").style.display="grid";
+  }

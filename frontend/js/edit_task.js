@@ -26,3 +26,29 @@ $("#modal_create_task").submit((event)=>{
         }
     })
   })
+
+  $("#modal_edit_task").submit((event)=>{
+    event.preventDefault();
+    $.ajax({
+        url: "http://backend/edit_task",
+        method: "POST",
+        data: $("#modal_edit_task").serialize(),
+        
+        success: (response)=>{
+          if (typeof(response) == 'object') {
+            alert(response.name[0]);
+          }
+          else {
+            document.getElementById("modal_edit_task").style.display="none";
+            document.getElementById("shadow_edit").style.display="none";
+            alert(response);
+            get_tasks_with_remove();
+          }
+            
+           
+        },
+        error: ()=>{
+            console.log("Ошибка запроса!");
+        }
+    })
+  })

@@ -117,4 +117,59 @@ class TaskController extends Controller
         $arr = ["task"=>$tasks, "count" => $count];
         return response()->json($arr);
     }
+
+    public function delete_task (Request $request) {
+        $tasks = 
+        DB::table('users')
+        ->select('users.name as name_of_doer','tasks.*')
+        ->join('tasks','tasks.doer_id','=','users.id')
+        ->where('tasks.id', '=', $request->task_id)
+        ->get();
+        DB::table('tasks')->where('id', '=', $request->task_id)->delete();
+
+        
+        $all_tasks = DB::table('tasks')
+        ->select('tasks.*')
+        ->where('tasks.project_id', '=',  $tasks[0]->project_id)
+        ->get();
+        $count = $all_tasks->count();
+        
+        $arr = ["message"=>'Задача удалена', "count" => $count];
+        return response()->json($arr);
+    }
+
+    public function one_task (Request $request) {
+        $select = DB::table('tasks')->where('id', '=', $request->task_id)->get();
+        return response()->json($select);
+    }
+
+    
+    public function edit_task (Request $request) {
+        $validator = Validator::make($request->all(), [
+                "name"=>["max:50"],
+                "end"=>["after:start"],
+            ],
+            $messages = [
+                'name.max' => 'Слишком длинное название проекта',
+                'end.after' => 'Дата окончания не может быть раньше даты начала',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        else {
+            DB::table('tasks')
+                ->where('id', $request->task_id)
+                ->update([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'start' => $request->start,
+                    'end' => $request->end,
+                    'priority' => $request->priority,
+                ]);
+            // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
+            // DB::table('projects')->where('id', '=', $request->project_id)->delete();
+            return response()->json('Информация о задаче обновлена');
+        }
+    }
 }

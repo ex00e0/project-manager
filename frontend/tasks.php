@@ -136,6 +136,27 @@
             <input type="submit" class="c1 r14" value="сохранить">
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create()"><img src="images/cross.png"></div>
         </form>
+
+        <form class="modal_create modal" id="modal_edit_task" method="post">
+            <div class="c1 r1 headline_modal">Редактирование задачи</div>
+            <input type="hidden" name="task_id" id="task_id_edit">
+            <label class="c1 r2">Название</label>
+            <input type="text" class="c1 r3" placeholder="название" name="name" required id="task_name_edit">
+            <label class="c1 r4">Описание</label>
+            <textarea type="text" class="c1 r5" placeholder="описание" name="description" required id="task_description_edit">описание</textarea>
+            <label class="c1 r6">Дата начала задачи</label>
+            <input type="date" class="c1 r7" placeholder="сроки" name="start" required min="<?=date('Y-m-d')?>"  id="task_start_edit">
+            <label class="c1 r8">Срок сдачи задачи</label>
+            <input type="date" class="c1 r9" placeholder="сроки" name="end" required min="<?=date('Y-m-d')?>" id="task_end_edit">
+            <label class="c1 r10">Приоритет</label>
+            <select class="c1 r11" placeholder="сроки" name="priority" id="task_priority_edit">
+                <option value="low">низкий</option>
+                <option value="middle">средний</option>
+                <option value="high">высокий</option>
+            </select>
+            <input type="submit" class="c1 r12" value="сохранить">
+            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit()"><img src="images/cross.png"></div>
+        </form>
 <script src="js/edit_task.js"></script>
 </body>
 </html>
