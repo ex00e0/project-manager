@@ -1,3 +1,5 @@
+
+if (project_id != null) {
 $.ajax({
     url: "http://backend/get_doers_of_project",
     method: "POST",
@@ -29,3 +31,4 @@ $.ajax({
         console.log("Ошибка запроса!");
     }
 })
+}

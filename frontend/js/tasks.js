@@ -1,6 +1,4 @@
-var url_string = window.location.href; 
-var url = new URL(url_string);
-var project_id = url.searchParams.get("id");
+
 
 function get_tasks () {
     $.ajax({

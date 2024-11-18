@@ -1,4 +1,9 @@
 <?php require "header.php"; ?>
+<script>
+    var url_string = window.location.href; 
+    var url = new URL(url_string);
+    var project_id = url.searchParams.get("id");
+</script>
 <script src="js/tasks.js"></script>
 <div class="sf">
     <input type="text" class="c3-5 r1" name="search" placeholder="поиск проектов..">
@@ -10,7 +15,7 @@
         <option>низкий приоритет</option>
     </select>
     <script>
-        if (localStorage.getItem('role') == "boss") {
+        if (localStorage.getItem('role') == "boss" && project_id!=null) {
             let plus = document.createElement('img');
               plus.classList.add('c8');
               plus.classList.add('r1');

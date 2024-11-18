@@ -107,6 +107,13 @@ class TaskController extends Controller
         ->where('tasks.project_id', '=', $tasks[0]->project_id)
         ->get();
         $count = $all_tasks->count();
+        if ($count == 1) {
+            DB::table('projects')
+                ->where('id', $tasks[0]->project_id)
+                ->update([
+                    'status' => 'in_process',
+                ]);
+        }
         $arr = ["task"=>$tasks, "count" => $count];
         return response()->json($arr);
     }
