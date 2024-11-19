@@ -17,6 +17,7 @@ $("#modal_create_task").submit((event)=>{
             document.getElementById("shadow_edit").style.display="none";
             alert('Задача создана');
             prepend_task(response);
+            $("#modal_create_task").trigger('reset');
           }
             
            
@@ -43,6 +44,7 @@ $("#modal_create_task").submit((event)=>{
             document.getElementById("shadow_edit").style.display="none";
             alert(response);
             get_tasks_with_remove();
+            $("#modal_edit_task").trigger('reset');
           }
             
            

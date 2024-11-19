@@ -15,6 +15,7 @@
             document.getElementById("shadow_edit").style.display="none";
             alert(response);
             get_projects_with_remove();
+            $("#modal_edit").trigger('reset');
           }
             
            

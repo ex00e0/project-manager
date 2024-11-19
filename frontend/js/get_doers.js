@@ -81,6 +81,7 @@ document.getElementById("project_team_create").addEventListener('click', functio
             document.getElementById("shadow_edit").style.display="none";
             alert('Проект создан');
             prepend_project(response);
+            $("#modal_create").trigger('reset');
           }
             
            

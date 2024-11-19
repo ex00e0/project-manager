@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 18 2024 г., 14:23
+-- Время создания: Ноя 19 2024 г., 10:58
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -148,7 +148,7 @@ CREATE TABLE `tasks` (
   `start` date NOT NULL,
   `end` date NOT NULL,
   `status` enum('created','in_process','completed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'created',
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -157,8 +157,11 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `name`, `description`, `project_id`, `doer_id`, `priority`, `start`, `end`, `status`, `created_at`, `updated_at`) VALUES
-(9, 'Задача 1', 'описание 1', 9, 3, 'middle', '2024-11-21', '2024-11-23', 'created', NULL, NULL),
-(10, 'Задача 2', 'описаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописаниеописание', 9, 3, 'low', '2024-11-19', '2024-11-21', 'created', NULL, NULL);
+(11, 'Задача 1', 'описание 1', 9, 3, 'low', '2024-11-22', '2024-11-23', 'created', '2024-11-19 05:27:40', NULL),
+(13, 'Задача 2', 'описание 2', 9, 3, 'middle', '2024-11-19', '2027-12-10', 'created', '2024-11-18 21:00:00', NULL),
+(14, 'Новый год', 'happy new year', 9, 3, 'high', '2024-11-19', '2024-12-31', 'created', '2024-11-18 21:00:00', NULL),
+(15, 'Задача 4', 'описание 444', 9, 3, 'middle', '2024-11-21', '2024-11-23', 'created', '2024-11-19 06:22:54', NULL),
+(16, 'Отдыхай', 'описание 585', 9, 3, 'high', '2024-11-19', '2024-11-20', 'created', '2024-11-19 06:27:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -184,7 +187,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@admin.ru', '$2y$10$7brmrMzmeulYKKoFR9.vKOJj/AW.r7Udyht7uL50Yn8i2qdO1pMTi', 'admin', NULL, '2024-11-14 06:45:00', '2024-11-14 06:45:00'),
 (2, 'boss', 'boss@boss.ru', '$2y$10$7brmrMzmeulYKKoFR9.vKOJj/AW.r7Udyht7uL50Yn8i2qdO1pMTi', 'boss', NULL, '2024-11-14 09:46:46', NULL),
-(3, 'doer', 'doer@doer.ru', '$2y$10$7brmrMzmeulYKKoFR9.vKOJj/AW.r7Udyht7uL50Yn8i2qdO1pMTi', 'doer', NULL, '2024-11-14 09:47:20', NULL),
+(3, 'Полина', 'doer@doer.ru', '$2y$10$7brmrMzmeulYKKoFR9.vKOJj/AW.r7Udyht7uL50Yn8i2qdO1pMTi', 'doer', NULL, '2024-11-14 09:47:20', NULL),
 (4, 'doer2', 'doer2@doer.ru', '$2y$10$7brmrMzmeulYKKoFR9.vKOJj/AW.r7Udyht7uL50Yn8i2qdO1pMTi', 'doer', NULL, '2024-11-14 10:21:45', NULL);
 
 --
@@ -285,7 +288,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
