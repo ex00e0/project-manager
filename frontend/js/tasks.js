@@ -147,7 +147,7 @@ function get_tasks () {
         }
       html+= `</div>
       <div class="except">
-          
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="">
       </div>`;
       }
                 div.innerHTML = html;
