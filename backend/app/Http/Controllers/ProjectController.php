@@ -177,4 +177,5 @@ class ProjectController extends Controller
         }
         return response()->json($array_users);
     }
+
 }

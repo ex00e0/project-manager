@@ -72,4 +72,12 @@ class UserController extends Controller
         ->get();
         return response()->json($users);
     }
+
+    public function get_bosses () {
+        $users =  DB::table('users')
+         ->select('users.id', 'users.name')
+         ->where('role', 'boss')
+         ->get();
+         return response()->json($users);
+     }
 }

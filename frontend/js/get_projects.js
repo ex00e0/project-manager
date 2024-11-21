@@ -50,6 +50,12 @@ function get_projects () {
             <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="show_edit_project(${value.id})">
             <img src="images/delete 3.svg" class="c11 r2-all trash" onclick="delete_project(${value.id})"></img>
                             `;}
+              else if (localStorage.getItem('role') == 'admin') {
+                html +=`
+                <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="show_edit_team(${value.id},${value.boss_id})">
+                <img src="images/delete 3.svg" class="c11 r2-all trash" onclick="delete_project(${value.id})"></img>
+                                `;
+              }
               div.innerHTML = html;
               let empty = document.createElement('div');
               empty.classList.add('c3');
@@ -227,6 +233,10 @@ function close_edit () {
   document.getElementById("modal_edit").style.display="none";
   document.getElementById("shadow_edit").style.display="none";
 }
+function close_edit_team () {
+  document.getElementById("modal_edit_team").style.display="none";
+  document.getElementById("shadow_edit").style.display="none";
+}
 function open_create () {
   document.getElementById("shadow_edit").style.display="block";
   document.getElementById("modal_create").style.display="grid";
@@ -294,4 +304,29 @@ function prepend_project (id) {
         console.log("Ошибка запроса!");
     }
 })
+}
+
+
+function show_edit_team (id, boss_id) {
+  $.ajax({
+    url: "http://backend/get_doers_of_project",
+    method: "POST",
+    data: {project_id : id},
+    success: (response)=>{
+    // console.log(response);
+    document.getElementById("boss_list").value = boss_id;
+    $.each(response, function(key, value){
+      for (val in value) {
+        document.getElementById(`doer_t_${value[val]}`).click();
+        // console.log(team_array);
+     }
+      
+   });
+    },
+    error: ()=>{
+        console.log("Ошибка запроса!");
+    }
+})
+  document.getElementById("shadow_edit").style.display="block";
+  document.getElementById("modal_edit_team").style.display="grid";
 }

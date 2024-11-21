@@ -354,6 +354,13 @@ main {
     grid-template-rows: 38% 1fr 7% 1fr 38%;
     display: grid;
 }
+.modal_edit_team {
+    width: 36%;
+    height: 40%;
+    grid-template-columns: 100%;
+    grid-template-rows: 30% 8% 1fr 8% 1fr 30%;
+    display: none;
+}
 .modal_edit {
     width: 36%;
     height: 50%;
@@ -444,7 +451,7 @@ main {
 .modal_auth input[type='submit'] {
     height: 23%;
 }
-.modal_edit input[type='submit'] {
+.modal_edit input[type='submit'], .modal_edit_team input[type='submit'] {
     height: 28%;
 }
 .modal_create input[type='submit'] {
@@ -477,7 +484,7 @@ main {
 .no_task {
     justify-self: center;
 }
-#list_block {
+#list_block, #team_list {
     display: none;
     max-height: 5vmax;
     overflow-y: scroll;
@@ -485,7 +492,7 @@ main {
     justify-self: center;
     /* background-color: #C4EAB3; */
 }
-#list_block > div {
+#list_block > div, #team_list > div {
     background-color: #FFFFFF;
     border-top:0.1vmax solid #C4EAB3;
     border-left:0.1vmax solid #C4EAB3;
@@ -495,7 +502,7 @@ main {
     display: grid;
     grid-template-columns: 90% 1fr;
 }
-#list_block > div:last-child {
+#list_block > div:last-child, #team_list > div:last-child {
     border-bottom: 0.1vmax solid #C4EAB3;
 }
 

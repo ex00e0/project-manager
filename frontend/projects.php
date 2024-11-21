@@ -113,6 +113,25 @@
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create()"><img src="images/cross.png"></div>
         </form>
 
+        <form class="modal_edit_team modal" id="modal_edit_team" method="post">
+            <div class="c1 r1 headline_modal">Редактирование команды проекта</div>
+            <input type="hidden" name="team" id="team_array">
+            <label class="c1 r2">Руководитель</label>
+            <select type="text" class="c1 r3" placeholder="название" name="boss_id" required id="boss_list">
+                <script src="js/get_bosses.js"></script>
+            </select>
+            <label class="c1 r4">Исполнители</label>
+            <div class="c1 r5 div_select" placeholder="сроки" id="team_click">
+                <div>-нажать для выбора-</div>
+            </div>
+            <input type="submit" class="c1 r6" value="сохранить">
+            <div id="team_list" class="c1 r6">
+                    <script src="js/get_team.js"></script>
+            </div>  
+           
+            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit_team()"><img src="images/cross.png"></div>
+        </form>
+
 <script src="js/edit_project.js"></script>
 </body>
 </html>
