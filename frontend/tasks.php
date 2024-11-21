@@ -157,19 +157,6 @@
             <input type="submit" class="c1 r12" value="сохранить">
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit()"><img src="images/cross.png"></div>
         </form>
-
-        <form class="modal_status modal" id="modal_status" method="post">
-            <div class="c1 r1 headline_modal">Смена статуса задачи</div>
-            <input type="hidden" name="task_id" id="task_id_edit">
-            <label class="c1 r2">Название</label>
-            <select class="c1 r3" name="status" id="task_status">
-                <option value="created">назначена</option>
-                <option value="in_process">выполняется</option>
-                <option value="completed">высокий</option>
-            </select>
-            <input type="submit" class="c1 r4" value="сохранить">
-            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit()"><img src="images/cross.png"></div>
-        </form>
 <script src="js/edit_task.js"></script>
 </body>
 </html>

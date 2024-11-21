@@ -8,6 +8,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
+    <script>
+    if (localStorage.getItem('user_id') == null) {
+      
+        location.href="index.php";
+    } 
+    </script>
+    <script src="js/exit.js"></script>
     <nav id="nav">
         <a class="c2">
             <div class="c3 name">Имя</div>
@@ -33,4 +40,8 @@
             <img src="images/image 4.svg">
             <div class="c3">Отчеты</div>
         </a>
+        <div class="c2 r6" onclick="exit()">
+            <img src="images/log-out 1.svg">
+            <div class="c3">Выйти</div>
+        </div>
     </nav>

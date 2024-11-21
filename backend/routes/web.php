@@ -35,3 +35,4 @@ Route::post('one_task_for_create', [TaskController::class, 'one_task_for_create'
 Route::post('delete_task', [TaskController::class, 'delete_task'])->name('delete_task');
 Route::post('one_task', [TaskController::class, 'one_task'])->name('one_task');
 Route::post('edit_task', [TaskController::class, 'edit_task'])->name('edit_task');
+Route::post('edit_status', [TaskController::class, 'edit_status'])->name('edit_status');

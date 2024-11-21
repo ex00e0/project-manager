@@ -172,4 +172,29 @@ class TaskController extends Controller
             return response()->json('Информация о задаче обновлена');
         }
     }
+
+    public function edit_status (Request $request) {
+        if ($request->status == 'completed') {
+            DB::table('tasks')
+            ->where('id', $request->task_id)
+            ->update([
+                'status' => 'in_process',
+            ]);
+        }
+        else if ($request->status == 'created') {
+            DB::table('tasks')
+            ->where('id', $request->task_id)
+            ->update([
+                'status' => 'in_process',
+            ]);
+        }
+        else if ($request->status == 'in_process') {
+            DB::table('tasks')
+            ->where('id', $request->task_id)
+            ->update([
+                'status' => 'completed',
+            ]);
+        }
+        return response()->json('Статус задачи изменен');
+    }
 }

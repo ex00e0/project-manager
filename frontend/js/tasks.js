@@ -133,9 +133,19 @@ function get_tasks () {
       }
       else if (localStorage.getItem('role') == 'doer') {
         html += `
-      <div class="except">
-          <img src="images/pen (1).svg" class="pen" onclick="show_edit_status(${value.id})">
-      </div>
+      <div class="except">`;
+       if (value.status == 'created') {html += `
+          <img src="images/Group 5 (2).svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+        `;} else if (value.status == 'in_process') {
+          html += `
+          <img src="images/Group 4.svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+        `;
+        } else if (value.status == 'completed') {
+          html += `
+          <img src="images/Group 6 (1).svg" class="pen" onclick="edit_status(${value.id},'${value.status}')">
+        `;
+        }
+      html+= `</div>
       <div class="except">
           
       </div>`;
@@ -237,12 +247,22 @@ function get_tasks () {
     }
     else if (localStorage.getItem('role') == 'doer') {
       html += `
-    <div class="except">
-       
-    </div>
-    <div class="except">
-        
-    </div>`;
+      <div class="except">`;
+       if (value.status == 'created') {html += `
+          <img src="images/Group 5 (2).svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+        `;} else if (value.status == 'in_process') {
+          html += `
+          <img src="images/Group 4.svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+        `;
+        } else if (value.status == 'completed') {
+          html += `
+          <img src="images/Group 6 (1).svg" class="pen" onclick="edit_status(${value.id},'${value.status}')">
+        `;
+        }
+      html+= `</div>
+      <div class="except">
+          
+      </div>`;
     }
               div.innerHTML = html;
            document.getElementById('main').append(div);
@@ -377,7 +397,7 @@ function get_tasks () {
       else if (localStorage.getItem('role') == 'doer') {
         html += `
       <div class="except">
-         <img src="images/pen (1).svg" class="pen" onclick="show_edit_status(${value.id})">
+         
       </div>
       <div class="except">
           
@@ -450,19 +470,17 @@ function get_tasks () {
     document.getElementById("modal_edit_task").style.display="grid";
   }
 
-  function show_edit_status (id) {
+  function edit_status (id, status) {
     $.ajax({
-      url: "http://backend/one_task",
+      url: "http://backend/edit_status",
       method: "POST",
-      data: {task_id : id},
+      data: {task_id : id, status: status},
       success: (response)=>{
-      // console.log(response[0]);
-      document.getElementById("task_status").value = response[0].status;
+        alert(response);
+        get_tasks_with_remove();
       },
       error: ()=>{
           console.log("Ошибка запроса!");
       }
   })
-    document.getElementById("shadow_edit").style.display="block";
-    document.getElementById("modal_status").style.display="grid";
   }
