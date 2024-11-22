@@ -115,6 +115,7 @@
 
         <form class="modal_edit_team modal" id="modal_edit_team" method="post">
             <div class="c1 r1 headline_modal">Редактирование команды проекта</div>
+            <input type="hidden" id="project_id_team" name="id">
             <input type="hidden" name="team" id="team_array">
             <label class="c1 r2">Руководитель</label>
             <select type="text" class="c1 r3" placeholder="название" name="boss_id" required id="boss_list">

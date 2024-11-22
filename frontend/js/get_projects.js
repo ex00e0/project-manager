@@ -157,6 +157,12 @@ function get_projects_with_remove () {
             <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="show_edit_project(${value.id})">
             <img src="images/delete 3.svg" class="c11 r2-all trash" onclick="delete_project(${value.id})"></img>
                             `;}
+              else if (localStorage.getItem('role') == 'admin') {
+                    html +=`
+                              <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="show_edit_team(${value.id},${value.boss_id})">
+                              <img src="images/delete 3.svg" class="c11 r2-all trash" onclick="delete_project(${value.id})"></img>
+                                              `;
+                            }              
               div.innerHTML = html;
               let empty = document.createElement('div');
               empty.classList.add('c3');
@@ -183,7 +189,7 @@ function delete_project (id) {
   $.ajax({
     url: "http://backend/delete_project",
     method: "POST",
-    data: {project_id : id, user_id : localStorage.getItem('user_id')},
+    data: {project_id : id, user_id : localStorage.getItem('user_id'), role: localStorage.getItem('role')},
     success: (response)=>{
     alert(response.message);
     
@@ -292,6 +298,12 @@ function prepend_project (id) {
     <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="show_edit_project(${value.id})">
     <img src="images/delete 3.svg" class="c11 r2-all trash" onclick="delete_project(${value.id})"></img>
                     `;}
+                    else if (localStorage.getItem('role') == 'admin') {
+                      html +=`
+                      <img src="images/pen (1).svg" class="c10 r2-all pen" onclick="show_edit_team(${value.id},${value.boss_id})">
+                      <img src="images/delete 3.svg" class="c11 r2-all trash" onclick="delete_project(${value.id})"></img>
+                                      `;
+                    }
       div.innerHTML = html;
       let empty = document.createElement('div');
       empty.classList.add('c3');
@@ -313,15 +325,28 @@ function show_edit_team (id, boss_id) {
     method: "POST",
     data: {project_id : id},
     success: (response)=>{
-    // console.log(response);
+    
+    $("#modal_edit_team").trigger('reset');
+    team_array = [];
+    let array = document.getElementsByClassName('option_div_team');
+    $.each(array, function(key, value){
+      document.getElementsByClassName('option_div_team')[key].style.backgroundColor = 'rgb(255, 255, 255)';
+      document.getElementsByClassName('mark_team')[key].style.display = "none";
+
+     });
+    console.log(team_array);
     document.getElementById("boss_list").value = boss_id;
+    document.getElementById("project_id_team").value = id;
     $.each(response, function(key, value){
       for (val in value) {
+        // if (getComputedStyle(document.getElementById(`doer_t_${value[val]}`)).backgroundColor == 'rgb(255, 255, 255)') {
         document.getElementById(`doer_t_${value[val]}`).click();
+        // }
         // console.log(team_array);
      }
       
    });
+   console.log(team_array);
     },
     error: ()=>{
         console.log("Ошибка запроса!");

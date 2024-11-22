@@ -157,6 +157,34 @@
             <input type="submit" class="c1 r12" value="сохранить">
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit()"><img src="images/cross.png"></div>
         </form>
+
+        <form class="modal_comment modal" id="modal_edit_task" method="post">
+            <div class="c1 r1 headline_modal">Комментарии к задаче</div>
+            <div class="c1 r2 scroll_comment">
+                <div class="c2 comment">
+                    <div class="c2 r1 comment_date">10:00:00 12.12.2024</div>
+                    <div class="c2 r1 comment_doer">
+                        <img src="images/people 4.svg">
+                        <div class="c3">ИмяИмяИмяИмяИмяИмяИмяИмя</div>
+                    </div>
+                    <div class="c2 r2 comment_text">Текст КомментарияТекст КомментарияТекст КомментарияТекст КомментарияТекст КомментарияТекст КомментарияТекст КомментарияТекст КомментарияТекст Комментария</div>
+                </div>
+                <div class="c2 comment_void"></div>
+                <div class="c2 comment">
+                    <div class="c2 r1 comment_date">10:00:00 12.12.2024</div>
+                    <div class="c2 r1 comment_doer">
+                        <img src="images/people 4.svg">
+                        <div class="c3">Имя</div>
+                    </div>
+                    <div class="c2 r2 comment_text">Текст Комментария</div>
+                </div>
+            </div>
+            <div class="c1 r3 send_comment">
+                <input type="text" id="input_comment" class="c2-4 r1" placeholder="Введите комментарий..">
+                <img src="images/image 13.svg" class="c3 r1">
+            </div>
+            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_comment()"><img src="images/cross.png"></div>
+        </form>
 <script src="js/edit_task.js"></script>
 </body>
 </html>

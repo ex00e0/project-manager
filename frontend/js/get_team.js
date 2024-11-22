@@ -11,13 +11,14 @@ $.ajax({
           div.setAttribute('id', `doer_t_${value.id}`);
           div.setAttribute('value', `${value.id}`);
           div.classList.add('option_div');
+          div.classList.add('option_div_team');
           div.setAttribute('onclick', `change_color_team(${value.id})`);
           html = 
           `
           <div>
           ${value.name}
           </div>
-          <img src="images/checkmark.png" id="mark_t_${value.id}">
+          <img src="images/checkmark.png" id="mark_t_${value.id}" class="mark_team">
           `;
             div.innerHTML = html;
            
@@ -59,3 +60,35 @@ document.getElementById("team_click").addEventListener('click', function () {
         document.getElementById("team_list").style.display = 'none';
     }
 });
+
+
+$("#modal_edit_team").submit((event)=>{
+    event.preventDefault();
+    $.ajax({
+        url: "http://backend/edit_team",
+        method: "POST",
+        data: $("#modal_edit_team").serialize(),
+        
+        success: (response)=>{
+
+            // console.log(response);
+          if (typeof(response) == 'object') {
+            for (key in response) {
+              alert(response[key][0]);
+            }
+          }
+          else {
+            document.getElementById("modal_edit_team").style.display="none";
+            document.getElementById("shadow_edit").style.display="none";
+            alert('Команда проекта изменена');
+            get_projects_with_remove();
+            $("#modal_edit_team").trigger('reset');
+          }
+            
+           
+        },
+        error: ()=>{
+            console.log("Ошибка запроса!");
+        }
+    })
+  })

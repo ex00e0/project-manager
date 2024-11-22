@@ -75,6 +75,9 @@
 .c2-8 {
     grid-column:2/8;
 }
+.c2-4 {
+    grid-column:2/4;
+}
 .r2-all {
     grid-row:2/all;
 }
@@ -375,6 +378,73 @@ main {
     grid-template-rows: 18% 7% 1fr 7% 1fr 7% 1fr 7% 1fr 7% 1fr 20%;
     display: none;
 }
+
+.modal_comment {
+    width: 36%;
+    height: 70%;
+    grid-template-columns: 100%;
+    grid-template-rows: 18% 1fr 12%;
+    display: grid;
+}
+.send_comment {
+    grid-template-columns: 3% 1fr 7% 3%;
+    grid-template-rows: 100%;
+    display: grid;
+}
+.send_comment img {
+    align-self: center;
+    width:1.8vmax;
+    justify-self: center;
+}
+.scroll_comment {
+    overflow-y: scroll;
+    grid-template-columns: 3% 1fr 3%;
+    display: grid;
+    height: max-content;
+}
+.comment {
+    height:auto;
+    border: 0.1vmax solid #C4EAB3;
+    border-radius: 0.2vmax;
+    grid-template-columns: 3% 1fr 3%;
+    grid-template-rows: 1.5vmax 1fr 0.5vmax;
+    display: grid;
+}
+.comment_date {
+    font-size: 0.9vmax;
+    align-self: center;
+    color:#9F9E9E;
+}
+.comment_doer {
+    justify-self: end;
+    font-size: 0.9vmax;
+    align-self: center;
+    color:#9F9E9E;
+    display: grid;
+    width:auto;
+    grid-template-columns: 1.3vmax 0.4vmax 1fr;
+    grid-template-rows: 100%;
+    align-items: center;
+}
+.comment_doer img {
+    width: 1.2vmax;
+}
+.comment_text {
+    font-size: 1vmax;
+}
+.comment_void {
+    height:1vmax;
+}
+#input_comment {
+    outline: none;
+    color:#9F9E9E;
+    border: 0.1vmax solid #C4EAB3;
+    border-radius: 0.2vmax;
+    font-size:0.9vmax;
+    padding-left: 2%;
+    height: 55%;
+    align-self: center;
+}
 .modal_create_task {
     width: 36%;
     height: 75%;
@@ -394,7 +464,7 @@ main {
     transform: translate(-50%, -50%);
     
 }
-.modal input[type='email'], .modal input[type='password'], .modal input[type='text'], .modal textarea, .modal input[type='date'] {
+.modal input[type='email'], .modal input[type='password'], .modal input[type='text']:not(#input_comment), .modal textarea, .modal input[type='date'] {
     outline: none;
     color:#9F9E9E;
     border: 0.1vmax solid #C4EAB3;
@@ -451,7 +521,7 @@ main {
 .modal_auth input[type='submit'] {
     height: 23%;
 }
-.modal_edit input[type='submit'], .modal_edit_team input[type='submit'] {
+.modal_edit input[type='submit'], .modal_edit_team input[type='submit'], .modal_comment input[type='submit'] {
     height: 28%;
 }
 .modal_create input[type='submit'] {

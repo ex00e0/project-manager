@@ -58,10 +58,17 @@ class ProjectController extends Controller
     public function delete_project (Request $request) {
         DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
         DB::table('projects')->where('id', '=', $request->project_id)->delete();
-        $all_projects = DB::table('projects')
-        ->select('projects.*')
-        ->where('projects.boss_id', '=', $request->user_id)
-        ->get();
+        if ($request->role == 'boss') {
+            $all_projects = DB::table('projects')
+            ->select('projects.*')
+            ->where('projects.boss_id', '=', $request->user_id)
+            ->get();
+        }
+        else if ($request->role == 'admin') {
+            $all_projects = DB::table('projects')
+            ->select('projects.*')
+            ->get();
+        }
         $count = $all_projects->count();
         $arr = ["message"=>'Проект удален', "count" => $count];
         return response()->json($arr);
@@ -178,4 +185,28 @@ class ProjectController extends Controller
         return response()->json($array_users);
     }
 
+    public function edit_team (Request $request) {
+        $validator = Validator::make($request->all(), [
+            "team"=>["required"],
+        ],
+        $messages = [
+            'team.required' => 'Нужно выбрать хотя бы одного исполнителя'
+        ]
+    );
+    if ($validator->fails()) {
+        return response()->json($validator->errors());
+    }
+    else {
+        $team = explode(',', $request->team);
+        $team = json_encode(["doers" => $team]);
+        
+        DB::table('projects')
+        ->where('id', $request->id)
+        ->update([
+            'boss_id' => $request->boss_id,
+            'team' => $team,
+        ]);
+        return response()->json('');
+    }
+    }
 }
