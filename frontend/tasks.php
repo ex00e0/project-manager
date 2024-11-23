@@ -160,7 +160,7 @@
 
         <form class="modal_comment modal" id="modal_comment" method="post">
             <div class="c1 r1 headline_modal">Комментарии к задаче</div>
-            <div class="c1 r2 scroll_comment">
+            <div class="c1 r2 scroll_comment" id="scroll_comment">
                 <div class="c2 comment">
                     <div class="c2 r1 comment_date">10:00:00 12.12.2024</div>
                     <div class="c2 r1 comment_doer">
@@ -180,8 +180,9 @@
                 </div>
             </div>
             <div class="c1 r3 send_comment">
+                <input type="hidden" id="comment_task_id" name="task_id">
                 <input type="text" id="input_comment" class="c2-4 r1" placeholder="Введите комментарий..">
-                <img src="images/image 13.svg" class="c3 r1">
+                <img src="images/image 13.svg" class="c3 r1" onclick="send_comment()">
             </div>
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_comment()"><img src="images/cross.png"></div>
         </form>

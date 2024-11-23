@@ -147,7 +147,7 @@ function get_tasks () {
         }
       html+= `</div>
       <div class="except">
-           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id})">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
       </div>`;
       }
                 div.innerHTML = html;
@@ -489,20 +489,35 @@ function get_tasks () {
   })
   }
 
-  function show_comment (id) {
+  function show_comment (id, name_of_doer) {
     $.ajax({
       url: "http://backend/get_comments",
       method: "POST",
       data: {task_id : id},
       success: (response)=>{
         console.log(response);
+        document.getElementById('scroll_comment').innerHTML = '';
+        document.getElementById('comment_task_id').value = id;
           for (val in response) {
-            console.log(val);
-            console.log(response[val]);
-            // if (getComputedStyle(document.getElementById(`doer_t_${value[val]}`)).backgroundColor == 'rgb(255, 255, 255)') {
-            // document.getElementById(`doer_t_${value[val]}`).click();
-            // }
-            // console.log(team_array);
+            let div = document.createElement('div');
+            div.classList.add('c2');
+            div.classList.add('comment');
+            // div.setAttribute('id', `task_${value.id}`);
+            html = `
+                    <div class="c2 r1 comment_date">${val}</div>
+                    <div class="c2 r1 comment_doer">
+                        <img src="images/people 4.svg">
+                        <div class="c3">${name_of_doer}</div>
+                    </div>
+                    <div class="c2 r2 comment_text">${response[val]}</div>
+               
+            `;
+            div.innerHTML = html;
+            document.getElementById('scroll_comment').append(div);
+            let div2 = document.createElement('div');
+            div2.classList.add('c2');
+            div2.classList.add('comment_void');
+            document.getElementById('scroll_comment').append(div2);
          }   
       },
       error: ()=>{
@@ -511,4 +526,44 @@ function get_tasks () {
   })
     document.getElementById("shadow_edit").style.display="block";
     document.getElementById("modal_comment").style.display="grid";
+  }
+
+  function send_comment () {
+    today = new Date();
+    date = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} ${today.getDate()}.${today.getMonth()}.${today.getFullYear()}`
+    $.ajax({
+      url: "http://backend/send_comment",
+      method: "POST",
+      data: {task_id: document.getElementById('comment_task_id').value, text: document.getElementById('input_comment').value, date: date},
+      success: (response)=>{
+        console.log(response);
+        console.log(document.getElementById('input_comment').value);
+        // document.getElementById('scroll_comment').innerHTML = '';
+        // document.getElementById('comment_task_id').value = id;
+        //   for (val in response) {
+        //     let div = document.createElement('div');
+        //     div.classList.add('c2');
+        //     div.classList.add('comment');
+        //     // div.setAttribute('id', `task_${value.id}`);
+        //     html = `
+        //             <div class="c2 r1 comment_date">${val}</div>
+        //             <div class="c2 r1 comment_doer">
+        //                 <img src="images/people 4.svg">
+        //                 <div class="c3">${name_of_doer}</div>
+        //             </div>
+        //             <div class="c2 r2 comment_text">${response[val]}</div>
+               
+        //     `;
+        //     div.innerHTML = html;
+        //     document.getElementById('scroll_comment').append(div);
+        //     let div2 = document.createElement('div');
+        //     div2.classList.add('c2');
+        //     div2.classList.add('comment_void');
+        //     document.getElementById('scroll_comment').append(div2);
+        //  }   
+      },
+      error: ()=>{
+          console.log("Ошибка запроса!");
+      }
+  })
   }

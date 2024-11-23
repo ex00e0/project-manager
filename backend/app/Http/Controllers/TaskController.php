@@ -203,4 +203,20 @@ class TaskController extends Controller
         $comments = json_decode($select[0]->comments);
         return response()->json($comments);
     }
+
+    public function send_comment (Request $request) {
+        $comments = DB::table('tasks')
+            ->select('tasks.comments')
+            ->where('id', $request->task_id)
+            ->get();
+        $comments = json_decode($comments[0]->comments);
+        // array_push($comments, "no" =>"no")
+        // $comment = json_decode();
+        return response()->json($comments);
+        // DB::table('tasks')
+        //     ->where('id', $request->task_id)
+        //     ->update([
+        //         'comments' => 'in_process',
+        //     ]);
+    }
 }
