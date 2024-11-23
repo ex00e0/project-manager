@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('end');
             $table->json('team');
             $table->enum('status', ['created', 'in_process', 'completed'])->default('created');
-            $table->timestamps();
+            $table->datetime('created_at')->useCurrent();
 
 
 //             	ID (int) - Уникальный идентификатор проекта +

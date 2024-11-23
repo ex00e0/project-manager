@@ -147,7 +147,7 @@ function get_tasks () {
         }
       html+= `</div>
       <div class="except">
-           <img src="images/comment-bubble 1.svg" class="pen" onclick="">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id})">
       </div>`;
       }
                 div.innerHTML = html;
@@ -287,6 +287,10 @@ function get_tasks () {
   }
   function close_edit () {
     document.getElementById("modal_edit_task").style.display="none";
+    document.getElementById("shadow_edit").style.display="none";
+  }
+  function close_comment () {
+    document.getElementById("modal_comment").style.display="none";
     document.getElementById("shadow_edit").style.display="none";
   }
   function prepend_task (id) {
@@ -483,4 +487,28 @@ function get_tasks () {
           console.log("Ошибка запроса!");
       }
   })
+  }
+
+  function show_comment (id) {
+    $.ajax({
+      url: "http://backend/get_comments",
+      method: "POST",
+      data: {task_id : id},
+      success: (response)=>{
+        console.log(response);
+          for (val in response) {
+            console.log(val);
+            console.log(response[val]);
+            // if (getComputedStyle(document.getElementById(`doer_t_${value[val]}`)).backgroundColor == 'rgb(255, 255, 255)') {
+            // document.getElementById(`doer_t_${value[val]}`).click();
+            // }
+            // console.log(team_array);
+         }   
+      },
+      error: ()=>{
+          console.log("Ошибка запроса!");
+      }
+  })
+    document.getElementById("shadow_edit").style.display="block";
+    document.getElementById("modal_comment").style.display="grid";
   }

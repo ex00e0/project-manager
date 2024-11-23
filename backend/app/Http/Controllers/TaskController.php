@@ -197,4 +197,10 @@ class TaskController extends Controller
         }
         return response()->json('Статус задачи изменен');
     }
+
+    public function get_comments (Request $request) {
+        $select = DB::table('tasks')->select('tasks.comments')->where('id', '=', $request->task_id)->get();
+        $comments = json_decode($select[0]->comments);
+        return response()->json($comments);
+    }
 }

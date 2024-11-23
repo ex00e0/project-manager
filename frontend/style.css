@@ -384,7 +384,7 @@ main {
     height: 70%;
     grid-template-columns: 100%;
     grid-template-rows: 18% 1fr 12%;
-    display: grid;
+    display: none;
 }
 .send_comment {
     grid-template-columns: 3% 1fr 7% 3%;

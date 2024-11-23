@@ -22,7 +22,8 @@ return new class extends Migration
             $table->date('start');
             $table->date('end');
             $table->enum('status', ['created', 'in_process', 'completed'])->default('created');
-            $table->timestamps();
+            $table->json('comments')->nullable();
+            $table->datetime('created_at')->useCurrent();
 
 //             	ID (int) - Уникальный идентификатор задачи +
 // 	Название (string) - Краткое описание задачи +

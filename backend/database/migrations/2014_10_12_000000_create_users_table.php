@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('password', 255);
             $table->enum('role', ['admin', 'boss', 'doer']);
             // $table->unsignedBigInteger('boss_id')->nullable();
-            $table->rememberToken();
-            $table->timestamps();
+            $table->datetime('created_at')->useCurrent();
 
 //             	ID (int) - Уникальный идентификатор пользователя +
 // 	Имя (string) - Имя пользователя +

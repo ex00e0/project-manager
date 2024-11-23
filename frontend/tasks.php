@@ -158,7 +158,7 @@
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit()"><img src="images/cross.png"></div>
         </form>
 
-        <form class="modal_comment modal" id="modal_edit_task" method="post">
+        <form class="modal_comment modal" id="modal_comment" method="post">
             <div class="c1 r1 headline_modal">Комментарии к задаче</div>
             <div class="c1 r2 scroll_comment">
                 <div class="c2 comment">
