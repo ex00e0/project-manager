@@ -90,4 +90,50 @@ class UserController extends Controller
                 ->get()];
         return response()->json($users);
     }
+
+    public function one_user (Request $request) {
+        $select = DB::table('users')->where('id', '=', $request->user_id)->get();
+        return response()->json($select);
+    }
+
+    public function edit_user (Request $request) {
+        // $role_db = DB::table('users')
+        //     ->select('users.role')
+        //     ->where('id', '=', $request->user_id)
+        //     ->get();
+        //     $role_db = $role_db[0]->role;
+        // if ($role_db == $request->role) {
+             DB::table('users')
+                ->where('id', $request->user_id)
+                ->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'role' => $request->role,
+                ]);
+             return response()->json('Информация о пользователе обновлена');
+        // }
+        // else {
+        //     if ($role_db == 'boss') {
+        //         $projects = DB::table('projects')
+        //             ->select('projects.*')
+        //             ->where('boss_id', '=', $request->user_id)
+        //             ->get();
+        //         $projects = $projects->count();
+                
+        //     }
+        // }
+           
+            // DB::table('tasks')
+            //     ->where('id', $request->task_id)
+            //     ->update([
+            //         'name' => $request->name,
+            //         'description' => $request->description,
+            //         'start' => $request->start,
+            //         'end' => $request->end,
+            //         'priority' => $request->priority,
+            //     ]);
+            // // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
+            // // DB::table('projects')->where('id', '=', $request->project_id)->delete();
+            // return response()->json('Информация о задаче обновлена');
+    }
 }

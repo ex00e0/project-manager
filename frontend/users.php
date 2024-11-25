@@ -26,9 +26,25 @@
     <div class="c3 headline">
         <h2>Пользователи</h2>
     </div> 
+    
 
 </main>
 <div class="shadow_modal" id="shadow_edit"></div>
-
+<form class="modal_edit modal" id="modal_edit_user" method="post">
+            <div class="c1 r1 headline_modal">Редактирование пользователя</div>
+            <input type="hidden" name="user_id" id="user_id_edit">
+            <label class="c1 r2">Имя</label>
+            <input type="text" class="c1 r3" placeholder="имя" name="name" required id="user_name_edit">
+            <label class="c1 r4">Почта</label>
+            <input type="email" class="c1 r5" placeholder="почта" name="email" required id="user_email_edit">
+            <label class="c1 r6">Роль</label>
+            <select class="c1 r7" placeholder="роль" name="role" id="user_role_edit">
+                <option value="boss">руководитель</option>
+                <option value="doer">исполнитель</option>
+            </select>
+            <input type="submit" class="c1 r8" value="сохранить">
+            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_edit()"><img src="images/cross.png"></div>
+        </form>
+<script src="js/edit_user.js"></script>
 </body>
 </html>

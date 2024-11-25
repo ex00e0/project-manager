@@ -21,6 +21,8 @@ Route::post('login', [UserController::class, 'login'])->name('login');
 Route::post('get_doers', [UserController::class, 'get_doers'])->name('get_doers');
 Route::post('get_bosses', [UserController::class, 'get_bosses'])->name('get_bosses');
 Route::post('get_users', [UserController::class, 'get_users'])->name('get_users');
+Route::post('one_user', [UserController::class, 'one_user'])->name('one_user');
+Route::post('edit_user', [UserController::class, 'edit_user'])->name('edit_user');
 
 Route::post('user_projects', [ProjectController::class, 'user_projects'])->name('user_projects');
 Route::post('delete_project', [ProjectController::class, 'delete_project'])->name('delete_project');
