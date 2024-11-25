@@ -205,18 +205,41 @@ class TaskController extends Controller
     }
 
     public function send_comment (Request $request) {
+        $validator = Validator::make($request->all(), [
+            "text"=>["required"],
+        ],
+        $messages = [
+            'text.required' => 'Не введен текст комментария',
+        ]
+    );
+    if ($validator->fails()) {
+        return response()->json($validator->errors());
+    }
+    else {
         $comments = DB::table('tasks')
             ->select('tasks.comments')
             ->where('id', $request->task_id)
             ->get();
+        $date = $request->date;
         $comments = json_decode($comments[0]->comments);
-        // array_push($comments, "no" =>"no")
-        // $comment = json_decode();
-        return response()->json($comments);
-        // DB::table('tasks')
-        //     ->where('id', $request->task_id)
-        //     ->update([
-        //         'comments' => 'in_process',
-        //     ]);
+        if ($comments == null) {
+            $comments = [];
+            $comments[$date] = $request->text;
+            $resp = 0;
+        }
+        else {
+            $comments->$date = $request->text;
+            $resp = 1;
+        }
+       
+        $comments = json_encode($comments);
+        DB::table('tasks')
+            ->where('id', $request->task_id)
+            ->update([
+                'comments' => $comments,
+            ]);
+        return response()->json($resp);
+        
     }
+}
 }

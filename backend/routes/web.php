@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [UserController::class, 'login'])->name('login');
 Route::post('get_doers', [UserController::class, 'get_doers'])->name('get_doers');
 Route::post('get_bosses', [UserController::class, 'get_bosses'])->name('get_bosses');
+Route::post('get_users', [UserController::class, 'get_users'])->name('get_users');
 
 Route::post('user_projects', [ProjectController::class, 'user_projects'])->name('user_projects');
 Route::post('delete_project', [ProjectController::class, 'delete_project'])->name('delete_project');

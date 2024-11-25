@@ -31,6 +31,7 @@
         if (localStorage.getItem('role') == "admin") {
             let user_a = document.createElement('a');
               user_a.classList.add('c2');
+              user_a.setAttribute('href', `users.php`);
               user_a.innerHTML = ` <img src="images/image.svg">
             <div class="c3">Пользователи</div>`;
             document.getElementById('nav').append(user_a);

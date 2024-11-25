@@ -39,8 +39,15 @@ function get_tasks () {
         <div>Срок</div>
         <div>Статус</div>
         <div></div>
-        <div></div>
+       
         `;
+        if (localStorage.getItem('role') == 'boss') {
+          html_th += ` <div></div>`;
+        }
+        else if (localStorage.getItem('role') == 'doer') {
+          html_th += ` <div></div>
+          <div></div>`;
+        }
         div_th.innerHTML = html_th;
         document.getElementById('main').append(div_th);
        }
@@ -114,21 +121,28 @@ function get_tasks () {
         </div>`;
        
        if (localStorage.getItem('role') == 'boss') {
+        // document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+        // let arr_tr =  document.getElementsByClassName('tr');
+        // $.each(arr_tr, function(key2, value2){
+        //   document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+        // });
         html += `
       <div class="except">
           <img src="images/pen (1).svg" class="pen"   onclick="show_edit_task(${value.id})">
       </div>
       <div class="except">
           <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
-      </div>`;
+      </div>
+       <div class="except">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+      </div>
+      `;
+      
       } 
       else if (localStorage.getItem('role') == 'admin') {
         html += `
       <div class="except">
-         
-      </div>
-      <div class="except">
-          
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
       </div>`;
       }
       else if (localStorage.getItem('role') == 'doer') {
@@ -152,6 +166,20 @@ function get_tasks () {
       }
                 div.innerHTML = html;
              document.getElementById('main').append(div);
+             if (localStorage.getItem('role') == 'boss') {
+              document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+              let arr_tr =  document.getElementsByClassName('tr');
+              $.each(arr_tr, function(key2, value2){
+                document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+              });
+            }
+            if (localStorage.getItem('role') == 'admin') {
+              document.getElementsByClassName('th')[0].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+              let arr_tr2 =  document.getElementsByClassName('tr');
+              $.each(arr_tr2, function(key22, value2){
+                document.getElementsByClassName('tr')[key22].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+              });
+            }
            });
        
         },
@@ -234,13 +262,17 @@ function get_tasks () {
     </div>
     <div class="except">
         <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
-    </div>`;
+    </div>
+     <div class="except">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+      </div>
+      `;
     } 
     else if (localStorage.getItem('role') == 'admin') {
       html += `
-    <div class="except">
-       
-    </div>
+     <div class="except">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+      </div>
     <div class="except">
         
     </div>`;
@@ -266,6 +298,13 @@ function get_tasks () {
     }
               div.innerHTML = html;
            document.getElementById('main').append(div);
+           if (localStorage.getItem('role') == 'boss') {
+            document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+            let arr_tr =  document.getElementsByClassName('tr');
+            $.each(arr_tr, function(key2, value2){
+              document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+            });
+          }
          });
      
       },
@@ -316,6 +355,9 @@ function get_tasks () {
           <div></div>
           <div></div>
           `;
+          if (localStorage.getItem('role') == 'boss') {
+            html_th += ` <div></div>`;
+          }
           div_th.innerHTML = html_th;
           document.getElementById('main').append(div_th);
           document.getElementsByClassName('no_task')[0].remove();
@@ -495,9 +537,20 @@ function get_tasks () {
       method: "POST",
       data: {task_id : id},
       success: (response)=>{
-        console.log(response);
         document.getElementById('scroll_comment').innerHTML = '';
         document.getElementById('comment_task_id').value = id;
+        document.getElementById('comment_doer').value = name_of_doer;
+        if (Object.keys(response).length == 0) {
+          let div = document.createElement('div');
+          div.classList.add('c2');
+          div.setAttribute('id',  `no_comments`);
+          div.setAttribute('style',  `justify-self:center;`);
+          html = `
+          Комментариев нет..
+          `;
+          div.innerHTML = html;
+          document.getElementById('scroll_comment').append(div);
+        } else {
           for (val in response) {
             let div = document.createElement('div');
             div.classList.add('c2');
@@ -519,6 +572,7 @@ function get_tasks () {
             div2.classList.add('comment_void');
             document.getElementById('scroll_comment').append(div2);
          }   
+        }
       },
       error: ()=>{
           console.log("Ошибка запроса!");
@@ -530,37 +584,47 @@ function get_tasks () {
 
   function send_comment () {
     today = new Date();
-    date = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} ${today.getDate()}.${today.getMonth()}.${today.getFullYear()}`
+    date = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()} ${today.getDate()}.${today.getMonth()+1}.${today.getFullYear()}`
     $.ajax({
       url: "http://backend/send_comment",
       method: "POST",
       data: {task_id: document.getElementById('comment_task_id').value, text: document.getElementById('input_comment').value, date: date},
       success: (response)=>{
         console.log(response);
-        console.log(document.getElementById('input_comment').value);
+        if (typeof(response) == 'object') {
+          for (key in response) {
+            alert(response[key][0]);
+          }
+        }
+        else {
+        // console.log(document.getElementById('input_comment').value);
         // document.getElementById('scroll_comment').innerHTML = '';
         // document.getElementById('comment_task_id').value = id;
         //   for (val in response) {
-        //     let div = document.createElement('div');
-        //     div.classList.add('c2');
-        //     div.classList.add('comment');
-        //     // div.setAttribute('id', `task_${value.id}`);
-        //     html = `
-        //             <div class="c2 r1 comment_date">${val}</div>
-        //             <div class="c2 r1 comment_doer">
-        //                 <img src="images/people 4.svg">
-        //                 <div class="c3">${name_of_doer}</div>
-        //             </div>
-        //             <div class="c2 r2 comment_text">${response[val]}</div>
+          if (response == 0) {
+            document.getElementById('no_comments').remove();
+          }
+            let div = document.createElement('div');
+            div.classList.add('c2');
+            div.classList.add('comment');
+            // div.setAttribute('id', `task_${value.id}`);
+            html = `
+                    <div class="c2 r1 comment_date">${date}</div>
+                    <div class="c2 r1 comment_doer">
+                        <img src="images/people 4.svg">
+                        <div class="c3">${document.getElementById('comment_doer').value}</div>
+                    </div>
+                    <div class="c2 r2 comment_text">${document.getElementById('input_comment').value}</div>
                
-        //     `;
-        //     div.innerHTML = html;
-        //     document.getElementById('scroll_comment').append(div);
-        //     let div2 = document.createElement('div');
-        //     div2.classList.add('c2');
-        //     div2.classList.add('comment_void');
-        //     document.getElementById('scroll_comment').append(div2);
-        //  }   
+            `;
+            div.innerHTML = html;
+            document.getElementById('scroll_comment').append(div);
+            let div2 = document.createElement('div');
+            div2.classList.add('c2');
+            div2.classList.add('comment_void');
+            document.getElementById('scroll_comment').append(div2);
+            document.getElementById('input_comment').value = '';
+        }
       },
       error: ()=>{
           console.log("Ошибка запроса!");

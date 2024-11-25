@@ -161,7 +161,7 @@
         <form class="modal_comment modal" id="modal_comment" method="post">
             <div class="c1 r1 headline_modal">Комментарии к задаче</div>
             <div class="c1 r2 scroll_comment" id="scroll_comment">
-                <div class="c2 comment">
+                <!-- <div class="c2 comment">
                     <div class="c2 r1 comment_date">10:00:00 12.12.2024</div>
                     <div class="c2 r1 comment_doer">
                         <img src="images/people 4.svg">
@@ -177,13 +177,41 @@
                         <div class="c3">Имя</div>
                     </div>
                     <div class="c2 r2 comment_text">Текст Комментария</div>
-                </div>
+                </div> -->
             </div>
-            <div class="c1 r3 send_comment">
-                <input type="hidden" id="comment_task_id" name="task_id">
+            <script> if (localStorage.getItem('role') == "doer") {
+                    let comm = document.createElement('div');
+                    comm.classList.add('c1');
+                    comm.classList.add('r3');
+                    comm.classList.add('send_comment');
+                    html_comm = ` 
+                    <input type="hidden" id="comment_task_id" name="task_id">
+                <input type="hidden" id="comment_doer" name="name_of_doer">
                 <input type="text" id="input_comment" class="c2-4 r1" placeholder="Введите комментарий..">
                 <img src="images/image 13.svg" class="c3 r1" onclick="send_comment()">
-            </div>
+                `;
+                comm.innerHTML = html_comm;
+                    document.getElementById('modal_comment').append(comm);
+                }
+                else {
+                    let comm = document.createElement('div');
+                    comm.classList.add('c1');
+                    comm.classList.add('r3');
+                    comm.classList.add('send_comment');
+                    html_comm = ` 
+                    <input type="hidden" id="comment_task_id" name="task_id">
+                <input type="hidden" id="comment_doer" name="name_of_doer">
+                `;
+                comm.innerHTML = html_comm;
+                    document.getElementById('modal_comment').append(comm);
+                }
+        </script>
+            <!-- <div class="c1 r3 send_comment">
+                <input type="hidden" id="comment_task_id" name="task_id">
+                <input type="hidden" id="comment_doer" name="name_of_doer">
+                <input type="text" id="input_comment" class="c2-4 r1" placeholder="Введите комментарий..">
+                <img src="images/image 13.svg" class="c3 r1" onclick="send_comment()">
+            </div> -->
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_comment()"><img src="images/cross.png"></div>
         </form>
 <script src="js/edit_task.js"></script>

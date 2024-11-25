@@ -80,4 +80,14 @@ class UserController extends Controller
          ->get();
          return response()->json($users);
      }
+
+     public function get_users (){
+        $users = ['users'=>
+        DB::table('users')
+                ->select('users.*')
+                ->where('users.role', '!=', 'admin')
+                ->orderBy('created_at', 'desc')
+                ->get()];
+        return response()->json($users);
+    }
 }

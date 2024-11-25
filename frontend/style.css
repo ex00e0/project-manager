@@ -274,34 +274,42 @@ main {
     align-items: center;
     font-size:0.9vmax;
 }
-.th {
+.th_admin, .tr_admin {
+    display: grid;
+    grid-template-columns: 42% 30% 18% 1fr 1fr;
+    grid-template-rows: 100%;
+    height:2vmax;
+    align-items: center;
+    font-size:0.9vmax;
+}
+.th, .th_admin {
     border-top-left-radius: 0.2vmax;
     border-top-right-radius: 0.2vmax;
     background-color: #F9F9F9;
     border: 0.1vmax solid #C4EAB3;
 }
-.tr {
+.tr, .tr_admin {
     border-bottom: 0.1vmax solid #C4EAB3;
     border-left: 0.1vmax solid #C4EAB3;
     border-right: 0.1vmax solid #C4EAB3;
     color:#9F9E9E;
 }
-.tr img {
+.tr img, .tr_admin img {
     justify-self: center;
 }
-.tr > div:last-child, .th > div:last-child {
+.tr > div:last-child, .th > div:last-child, .tr_admin > div:last-child, .th_admin > div:last-child {
     border-right: 0;
 }
-.tr > div:first-child, .th > div:first-child {
+.tr > div:first-child, .th > div:first-child, .tr_admin > div:first-child, .th_admin > div:first-child {
     border-left: 0;
 }
-.tr > div, .th > div {
+.tr > div, .th > div, .tr_admin > div, .th_admin > div {
     display: grid;
     height:100%;
     align-items: center;
     border-left: 0.1vmax solid #C4EAB3;
 }
-.tr > div:not(.except), .th > div {
+.tr > div:not(.except), .th > div, .tr_admin > div:not(.except), .th_admin > div {
     padding-left: 0.5vmax;
 }
 .double {
@@ -401,6 +409,7 @@ main {
     grid-template-columns: 3% 1fr 3%;
     display: grid;
     height: max-content;
+    max-height: 22vmax;
 }
 .comment {
     height:auto;
