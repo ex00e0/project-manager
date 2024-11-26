@@ -401,6 +401,7 @@ main {
     grid-template-rows: 18% 1fr 12%;
     display: none;
 }
+
 .send_comment {
     grid-template-columns: 3% 1fr 7% 3%;
     grid-template-rows: 100%;

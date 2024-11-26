@@ -190,7 +190,17 @@ function get_users () {
              }   
            });
            
-          
+           if (document.getElementsByClassName('tr_admin').length == 0) {
+            document.getElementById('th_admin').remove();
+            let div_th = document.createElement('div');
+            div_th.classList.add('no_task');
+            div_th.classList.add('c3');
+            html_th = `
+            <div>Пользователей нет..</div>
+            `;
+            div_th.innerHTML = html_th;
+            document.getElementById('main').append(div_th);
+        } 
         },
         error: ()=>{
             console.log("Ошибка запроса!");
@@ -320,7 +330,7 @@ function get_users () {
       alert(response.message);
       document.getElementById(`user_${id}`).remove();
      
-        if (response.count == 0) { 
+        if (response.count == 0 || document.getElementsByClassName('tr_admin').length == 0) { 
           document.getElementById(`th_admin`).remove();
           let div_th = document.createElement('div');
           div_th.classList.add('no_task');
@@ -331,7 +341,6 @@ function get_users () {
           div_th.innerHTML = html_th;
           document.getElementById('main').append(div_th);
       }
-      
       },
       error: ()=>{
           console.log("Ошибка запроса!");

@@ -43,7 +43,7 @@ $("#modal_create_task").submit((event)=>{
             document.getElementById("modal_edit_task").style.display="none";
             document.getElementById("shadow_edit").style.display="none";
             alert(response);
-            get_tasks_with_remove();
+            get_tasks_with_remove(document.getElementById("filter").value);
             $("#modal_edit_task").trigger('reset');
           }
             

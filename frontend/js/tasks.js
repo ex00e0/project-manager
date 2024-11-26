@@ -42,11 +42,11 @@ function get_tasks () {
        
         `;
         if (localStorage.getItem('role') == 'boss') {
-          html_th += ` <div></div>`;
+          html_th += ` <div></div> <div></div>`;
         }
         else if (localStorage.getItem('role') == 'doer') {
           html_th += ` <div></div>
-          <div></div>`;
+          `;
         }
         div_th.innerHTML = html_th;
         document.getElementById('main').append(div_th);
@@ -189,17 +189,73 @@ function get_tasks () {
     })
   }
 
-  function get_tasks_with_remove () {
+  function get_tasks_with_remove (filter) {
     $.ajax({
       url: "http://backend/get_tasks",
       method: "POST",
       data: {project_id : project_id, role: localStorage.getItem('role'), user_id : localStorage.getItem('user_id')},
       success: (response)=>{
+      document.getElementById('main').innerHTML = '';
+      if (project_id == null) {
+        let headline = document.createElement('div');
+        headline.classList.add('c3');
+        headline.classList.add('headline');
+      html_headline = `
+     <h2>Все задачи</h2>
+      `;
+      headline.innerHTML = html_headline;
+      document.getElementById('main').append(headline);
+      }
+      else {
+        let headline = document.createElement('div');
+        headline.classList.add('c3');
+        headline.classList.add('headline');
+      html_headline = `
+     <h2>Задачи проекта ${project_id}</h2>
+      `;
+      headline.innerHTML = html_headline;
+      document.getElementById('main').append(headline);
+      }
+     if (response.tasks.length !=0) {
+      let div_th = document.createElement('div');
+      div_th.classList.add('c3');
+      div_th.classList.add('th');
+      div_th.setAttribute('id', `th`);
+      html_th = `
+      <div>Название задачи</div>
+      <div>Осталось дней</div>
+      <div>Исполнитель</div>
+      <div>Приоритет</div>
+      <div>Срок</div>
+      <div>Статус</div>
+      <div></div>
      
+      `;
+      if (localStorage.getItem('role') == 'doer') {
+        html_th += ` <div></div>`;
+      }
+      else if (localStorage.getItem('role') == 'boss') {
+        html_th += ` <div></div>
+        <div></div>`;
+      }
+      div_th.innerHTML = html_th;
+      document.getElementById('main').append(div_th);
+     }
+     else {
+      let div_th = document.createElement('div');
+      div_th.classList.add('no_task');
+      div_th.classList.add('c3');
+      html_th = `
+      <div>Задач нет..</div>
+      `;
+      div_th.innerHTML = html_th;
+      document.getElementById('main').append(div_th);
+     }
       let tasks = response.tasks;
       let today = new Date();
       $.each(tasks, function(key, value){
-        document.getElementById(`task_${value.id}`).remove();
+        if (filter != null && value.priority == filter) {
+        // document.getElementById(`task_${value.id}`).remove();
             let div = document.createElement('div');
             div.classList.add('c3');
             div.classList.add('tr');
@@ -255,30 +311,33 @@ function get_tasks () {
           
       </div>`;
      
-     if (localStorage.getItem('role') == 'boss') {
-      html += `
-    <div class="except">
-        <img src="images/pen (1).svg" class="pen"   onclick="show_edit_task(${value.id})">
-    </div>
-    <div class="except">
-        <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
-    </div>
-     <div class="except">
+      if (localStorage.getItem('role') == 'boss') {
+        // document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+        // let arr_tr =  document.getElementsByClassName('tr');
+        // $.each(arr_tr, function(key2, value2){
+        //   document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+        // });
+        html += `
+      <div class="except">
+          <img src="images/pen (1).svg" class="pen"   onclick="show_edit_task(${value.id})">
+      </div>
+      <div class="except">
+          <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
+      </div>
+       <div class="except">
            <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
       </div>
       `;
-    } 
-    else if (localStorage.getItem('role') == 'admin') {
-      html += `
-     <div class="except">
+      
+      } 
+      else if (localStorage.getItem('role') == 'admin') {
+        html += `
+      <div class="except">
            <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
-      </div>
-    <div class="except">
-        
-    </div>`;
-    }
-    else if (localStorage.getItem('role') == 'doer') {
-      html += `
+      </div>`;
+      }
+      else if (localStorage.getItem('role') == 'doer') {
+        html += `
       <div class="except">`;
        if (value.status == 'created') {html += `
           <img src="images/Group 5 (2).svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
@@ -293,20 +352,154 @@ function get_tasks () {
         }
       html+= `</div>
       <div class="except">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+      </div>`;
+      }
+                div.innerHTML = html;
+             document.getElementById('main').append(div);
+             if (localStorage.getItem('role') == 'boss') {
+              document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+              let arr_tr =  document.getElementsByClassName('tr');
+              $.each(arr_tr, function(key2, value2){
+                document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+              });
+            }
+            if (localStorage.getItem('role') == 'admin') {
+              document.getElementsByClassName('th')[0].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+              let arr_tr2 =  document.getElementsByClassName('tr');
+              $.each(arr_tr2, function(key22, value2){
+                document.getElementsByClassName('tr')[key22].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+              });
+            }
+        }  else if (filter == '' || filter == null) {
+            let div = document.createElement('div');
+            div.classList.add('c3');
+            div.classList.add('tr');
+            div.setAttribute('id', `task_${value.id}`);
+            let end_date = new Date(value.end);
+            let last = end_date - today;
+            last = Math.ceil(last/1000/60/60/24);
+            if (last < 0) {
+              last = 'Просрочено';
+            }
+            html = 
+            `
+            <div title='${value.description}'>${value.name}</div>
+      <div class="double">
+          <img src="images/free-icon-wall-clock-1266978.png">
+          <div>${last}</div>
+      </div>
+      <div class="double">
+          <img src="images/people 4.svg">
+          <div>${value.name_of_doer}</div>
+      </div>
+      <div class="double">`;
+      if (value.priority == 'high') {
+          html+= `
+          <img src="images/Group 1.svg">
+          <div>высокий</div>`;
+        } else if (value.priority == 'middle') {
+          html+= `<img src="images/Group 2.svg" class="midP">
+          <div>средний</div>`;
+        }
+        else if (value.priority == 'low') {
+          html+= `<img src="images/Vector 7.svg" class="lowP">
+          <div>низкий</div>`;
+        }
+      html += `
+          
+      </div>
+      <div>до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
+      <div class="double2">`;
+       if (value.status == 'created') {
+            html+= `
+            <div class="circle_yellow js_c"></div>
+          <div>назначена</div>`;
+          } else if (value.status == 'in_process') {
+            html+= `<div class="circle_green js_c"></div>
+          <div>выполняется</div>`;
+          }
+          else if (value.status == 'completed') {
+            html+= `<div class="circle_gray js_c"></div>
+          <div>завершена</div>`;
+          }
+          html += `
           
       </div>`;
-    }
-              div.innerHTML = html;
-           document.getElementById('main').append(div);
-           if (localStorage.getItem('role') == 'boss') {
-            document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
-            let arr_tr =  document.getElementsByClassName('tr');
-            $.each(arr_tr, function(key2, value2){
-              document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
-            });
+     
+      if (localStorage.getItem('role') == 'boss') {
+        // document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+        // let arr_tr =  document.getElementsByClassName('tr');
+        // $.each(arr_tr, function(key2, value2){
+        //   document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+        // });
+        html += `
+      <div class="except">
+          <img src="images/pen (1).svg" class="pen"   onclick="show_edit_task(${value.id})">
+      </div>
+      <div class="except">
+          <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
+      </div>
+       <div class="except">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+      </div>
+      `;
+      
+      } 
+      else if (localStorage.getItem('role') == 'admin') {
+        html += `
+      <div class="except">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+      </div>`;
+      }
+      else if (localStorage.getItem('role') == 'doer') {
+        html += `
+      <div class="except">`;
+       if (value.status == 'created') {html += `
+          <img src="images/Group 5 (2).svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+        `;} else if (value.status == 'in_process') {
+          html += `
+          <img src="images/Group 4.svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+        `;
+        } else if (value.status == 'completed') {
+          html += `
+          <img src="images/Group 6 (1).svg" class="pen" onclick="edit_status(${value.id},'${value.status}')">
+        `;
+        }
+      html+= `</div>
+      <div class="except">
+           <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+      </div>`;
+      }
+                div.innerHTML = html;
+             document.getElementById('main').append(div);
+             if (localStorage.getItem('role') == 'boss') {
+              document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+              let arr_tr =  document.getElementsByClassName('tr');
+              $.each(arr_tr, function(key2, value2){
+                document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+              });
+            }
+            if (localStorage.getItem('role') == 'admin') {
+              document.getElementsByClassName('th')[0].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+              let arr_tr2 =  document.getElementsByClassName('tr');
+              $.each(arr_tr2, function(key22, value2){
+                document.getElementsByClassName('tr')[key22].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+              });
+            }
           }
          });
-     
+      if (document.getElementsByClassName('tr').length == 0) {
+          document.getElementById('th').remove();
+          let div_th = document.createElement('div');
+          div_th.classList.add('no_task');
+          div_th.classList.add('c3');
+          html_th = `
+          <div>Задач нет..</div>
+          `;
+          div_th.innerHTML = html_th;
+          document.getElementById('main').append(div_th);
+      }
       },
       error: ()=>{
           console.log("Ошибка запроса!");
@@ -338,7 +531,10 @@ function get_tasks () {
       method: "POST",
       data: {task_id : id},
       success: (response)=>{
-      console.log(response);
+      // console.log(response);
+      filter = document.getElementById("filter").value;
+      if (filter != null && filter != '') {
+          if (response.task[0].priority == filter) {
       let count = response.count;
       if (count == 1) {
         let div_th = document.createElement('div');
@@ -367,98 +563,151 @@ function get_tasks () {
       let today = new Date();
       $.each(tasks, function(key, value){
            
-            let div = document.createElement('div');
-            div.classList.add('c3');
-            div.classList.add('tr');
-            div.setAttribute('id', `task_${value.id}`);
-            let end_date = new Date(value.end);
-            let last = end_date - today;
-            last = Math.ceil(last/1000/60/60/24);
-            if (last < 0) {
-              last = 'Просрочено';
-            }
-            html = 
-            `
-            <div>${value.name}</div>
-      <div class="double">
-          <img src="images/free-icon-wall-clock-1266978.png">
-          <div>${last}</div>
-      </div>
-      <div class="double">
-          <img src="images/people 4.svg">
-          <div>${value.name_of_doer}</div>
-      </div>
-      <div class="double">`;
-      if (value.priority == 'high') {
-          html+= `
-          <img src="images/Group 1.svg">
-          <div>высокий</div>`;
-        } else if (value.priority == 'middle') {
-          html+= `<img src="images/Group 2.svg" class="midP">
-          <div>средний</div>`;
+        let div = document.createElement('div');
+        div.classList.add('c3');
+        div.classList.add('tr');
+        div.setAttribute('id', `task_${value.id}`);
+        let end_date = new Date(value.end);
+        let last = end_date - today;
+        last = Math.ceil(last/1000/60/60/24);
+        if (last < 0) {
+          last = 'Просрочено';
         }
-        else if (value.priority == 'low') {
-          html+= `<img src="images/Vector 7.svg" class="lowP">
-          <div>низкий</div>`;
-        }
+        html = 
+        `
+        <div title='${value.description}'>${value.name}</div>
+  <div class="double">
+      <img src="images/free-icon-wall-clock-1266978.png">
+      <div>${last}</div>
+  </div>
+  <div class="double">
+      <img src="images/people 4.svg">
+      <div>${value.name_of_doer}</div>
+  </div>
+  <div class="double">`;
+  if (value.priority == 'high') {
+      html+= `
+      <img src="images/Group 1.svg">
+      <div>высокий</div>`;
+    } else if (value.priority == 'middle') {
+      html+= `<img src="images/Group 2.svg" class="midP">
+      <div>средний</div>`;
+    }
+    else if (value.priority == 'low') {
+      html+= `<img src="images/Vector 7.svg" class="lowP">
+      <div>низкий</div>`;
+    }
+  html += `
+      
+  </div>
+  <div>до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
+  <div class="double2">`;
+   if (value.status == 'created') {
+        html+= `
+        <div class="circle_yellow js_c"></div>
+      <div>назначена</div>`;
+      } else if (value.status == 'in_process') {
+        html+= `<div class="circle_green js_c"></div>
+      <div>выполняется</div>`;
+      }
+      else if (value.status == 'completed') {
+        html+= `<div class="circle_gray js_c"></div>
+      <div>завершена</div>`;
+      }
       html += `
-          
-      </div>
-      <div>до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
-      <div class="double2">`;
-       if (value.status == 'created') {
-            html+= `
-            <div class="circle_yellow js_c"></div>
-          <div>создана</div>`;
-          } else if (value.status == 'in_process') {
-            html+= `<div class="circle_green js_c"></div>
-          <div>в процессе</div>`;
-          }
-          else if (value.status == 'completed') {
-            html+= `<div class="circle_gray js_c"></div>
-          <div>завершена</div>`;
-          }
-          html += `
-          
-      </div>`;
-       
-       if (localStorage.getItem('role') == 'boss') {
-        html += `
-      <div class="except">
-          <img src="images/pen (1).svg" class="pen"  onclick="show_edit_task(${value.id})">
-      </div>
-      <div class="except">
-          <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
-      </div>`;
-      }
-      else if (localStorage.getItem('role') == 'admin') {
-        html += `
-      <div class="except">
-         
-      </div>
-      <div class="except">
-          
-      </div>`;
-      }
-      else if (localStorage.getItem('role') == 'doer') {
-        html += `
-      <div class="except">
-         
-      </div>
-      <div class="except">
-          
-      </div>`;
-      }
-        div.innerHTML = html;
+      
+  </div>`;
+ 
+  if (localStorage.getItem('role') == 'boss') {
+    // document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+    // let arr_tr =  document.getElementsByClassName('tr');
+    // $.each(arr_tr, function(key2, value2){
+    //   document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+    // });
+    html += `
+  <div class="except">
+      <img src="images/pen (1).svg" class="pen"   onclick="show_edit_task(${value.id})">
+  </div>
+  <div class="except">
+      <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
+  </div>
+   <div class="except">
+       <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+  </div>
+  `;
+  
+  } 
+  else if (localStorage.getItem('role') == 'admin') {
+    html += `
+  <div class="except">
+       <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+  </div>`;
+  }
+  else if (localStorage.getItem('role') == 'doer') {
+    html += `
+  <div class="except">`;
+   if (value.status == 'created') {html += `
+      <img src="images/Group 5 (2).svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+    `;} else if (value.status == 'in_process') {
+      html += `
+      <img src="images/Group 4.svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+    `;
+    } else if (value.status == 'completed') {
+      html += `
+      <img src="images/Group 6 (1).svg" class="pen" onclick="edit_status(${value.id},'${value.status}')">
+    `;
+    }
+  html+= `</div>
+  <div class="except">
+       <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+  </div>`;
+  }
+            div.innerHTML = html;
               if (count == 1) {
                 document.getElementById('main').append(div);
             }
             else {
+              if (document.getElementsByClassName('tr').length == 0) {
+                      let div_th = document.createElement('div');
+          div_th.classList.add('c3');
+          div_th.classList.add('th');
+          div_th.setAttribute('id', `th`);
+          html_th = `
+          <div>Название задачи</div>
+          <div>Осталось дней</div>
+          <div>Исполнитель</div>
+          <div>Приоритет</div>
+          <div>Срок</div>
+          <div>Статус</div>
+          <div></div>
+          <div></div>
+          `;
+          if (localStorage.getItem('role') == 'boss') {
+            html_th += ` <div></div>`;
+          }
+          div_th.innerHTML = html_th;
+          document.getElementById('main').append(div_th);
+          document.getElementsByClassName('no_task')[0].remove();
+              }
               document.getElementById('th').after(div);
             }
          });
-     
-      },
+         if (localStorage.getItem('role') == 'boss') {
+          document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+          let arr_tr =  document.getElementsByClassName('tr');
+          $.each(arr_tr, function(key2, value2){
+            document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+          });
+        }
+        if (localStorage.getItem('role') == 'admin') {
+          document.getElementsByClassName('th')[0].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+          let arr_tr2 =  document.getElementsByClassName('tr');
+          $.each(arr_tr2, function(key22, value2){
+            document.getElementsByClassName('tr')[key22].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+          });
+        }
+      } }
+    },
       error: ()=>{
           console.log("Ошибка запроса!");
       }
@@ -474,7 +723,7 @@ function get_tasks () {
       alert(response.message);
       document.getElementById(`task_${id}`).remove();
      
-        if (response.count == 0) { 
+        if (response.count == 0 || document.getElementsByClassName('tr').length == 0) { 
           document.getElementById(`th`).remove();
           let div_th = document.createElement('div');
           div_th.classList.add('no_task');
@@ -501,6 +750,7 @@ function get_tasks () {
       success: (response)=>{
       // console.log(response[0]);
       document.getElementById("task_end_edit").setAttribute("min", response[0].start);
+      document.getElementById("task_start_edit").setAttribute("min", response[0].start);
       document.getElementById("task_start_edit").value = response[0].start;
       document.getElementById("task_end_edit").value = response[0].end;
       document.getElementById("task_id_edit").value = response[0].id;
