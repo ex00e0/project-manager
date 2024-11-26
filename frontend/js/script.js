@@ -9,7 +9,7 @@ $("document").ready(()=>{
             success: (response)=>{
                 // console.log(response);
 
-                if (response == 'неверный пароль' || response == 'неверный логин' || response == 'валидация не прошла') {
+                if (response == 'неверный пароль' || response == 'неверный логин' || response == 'валидация не прошла' || response == 'вы заблокированы') {
                     alert(response);
                 }
                 else {

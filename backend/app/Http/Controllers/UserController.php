@@ -30,6 +30,11 @@ class UserController extends Controller
             $pass = $user->password;
             $id = $user->id;
             $role = $user->role;
+            $status = $user->status;
+            if ($status == 'deleted') {
+                return response()->json('вы заблокированы');
+            }
+            else {
             //     foreach ($user as $row) {
             //     $pass = $row->password;
             //     $id = $row->id;
@@ -45,7 +50,7 @@ class UserController extends Controller
             // if (Auth::attempt(['email' => $email,
             // 'password' => $password])) {
             // $request->session()->regenerate();
-           
+            }
             
         // }
        
@@ -70,6 +75,7 @@ class UserController extends Controller
        $users =  DB::table('users')
         ->select('users.id', 'users.name')
         ->where('role', 'doer')
+        ->where('status', '=', 'active')
         ->get();
         return response()->json($users);
     }
@@ -78,6 +84,7 @@ class UserController extends Controller
         $users =  DB::table('users')
          ->select('users.id', 'users.name')
          ->where('role', 'boss')
+         ->where('status', '=', 'active')
          ->get();
          return response()->json($users);
      }
@@ -87,6 +94,7 @@ class UserController extends Controller
         DB::table('users')
                 ->select('users.*')
                 ->where('users.role', '!=', 'admin')
+                ->where('status', '=', 'active')
                 ->orderBy('created_at', 'desc')
                 ->get()];
         return response()->json($users);
@@ -98,32 +106,45 @@ class UserController extends Controller
     }
 
     public function edit_user (Request $request) {
-        // $role_db = DB::table('users')
-        //     ->select('users.role')
-        //     ->where('id', '=', $request->user_id)
-        //     ->get();
-        //     $role_db = $role_db[0]->role;
-        // if ($role_db == $request->role) {
-            $validator = Validator::make($request->all(), [
-                "email"=>["unique:users"],
-            ],
-            $messages = [
-                'email.unique' => 'Данная почта уже занята',
-            ]
-        );
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-        else {
-             DB::table('users')
-                ->where('id', $request->user_id)
-                ->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'role' => $request->role,
-                ]);
-             return response()->json('Информация о пользователе обновлена');
+        $email_db = DB::table('users')
+            ->select('users.email')
+            ->where('id', '=', $request->user_id)
+            ->get();
+            $email_db = $email_db[0]->email;
+            if ($email_db != $request->email) {
+                $validator = Validator::make($request->all(), [
+                    "email"=>["unique:users"],
+                ],
+                $messages = [
+                    'email.unique' => 'Данная почта уже занята',
+                ]
+            );
+            if ($validator->fails()) {
+                return response()->json($validator->errors());
             }
+            else {
+                DB::table('users')
+                   ->where('id', $request->user_id)
+                   ->update([
+                       'name' => $request->name,
+                       'email' => $request->email,
+                       'role' => $request->role,
+                   ]);
+                return response()->json('Информация о пользователе обновлена');
+               }
+            }
+            else {
+                    DB::table('users')
+                       ->where('id', $request->user_id)
+                       ->update([
+                           'name' => $request->name,
+                           'email' => $request->email,
+                           'role' => $request->role,
+                       ]);
+                    return response()->json('Информация о пользователе обновлена');
+                   }
+            
+      
         // }
         // else {
         //     if ($role_db == 'boss') {
@@ -137,29 +158,66 @@ class UserController extends Controller
         // }
     }
     public function create_user (Request $request) {
-    //     $validator = Validator::make($request->all(), [
-    //         ""=>["after:start"],
-    //     ],
-    //     $messages = [
-    //         'end.after' => 'Дата окончания не может быть раньше даты начала',
-    //     ]
-    // );
-    // if ($validator->fails()) {
-    //     return response()->json($validator->errors());
-    // }
-    // else {
-    //     $id = DB::table('tasks')
-    //         ->insertGetId([
-    //             'name' => $request->name,
-    //             'description' => $request->description,
-    //             'start' => $request->start,
-    //             'end' => $request->end,
-    //             'doer_id' => $request->doer_id,
-    //             'priority' => $request->priority,
-    //             'project_id' => $request->project_id,
-    //         ]);
+        $validator = Validator::make($request->all(), [
+            "email"=>["unique:users"],
+            "password"=>["min:8", Password::min(8)->letters()->numbers()],
+        ],
+        $messages = [
+            'email.unique' => 'Данная почта уже занята',
+            'password.min' => 'Минимум 8 символов в пароле',
+        ]
+    );
+    if ($validator->fails()) {
+        return response()->json($validator->errors());
+    }
+    else {
+        $id = DB::table('users')
+            ->insertGetId([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role,
+                'password' => Hash::make($request->password),
+            ]);
         
-    //     return response()->json($id);
-    // }
+        return response()->json($id);
+    }
+    }
+
+    public function one_user_for_create (Request $request) {
+        $users = 
+        DB::table('users')
+        ->select('users.*')
+        ->where('id', '=', $request->user_id)
+        ->get();
+        $all_users = 
+        DB::table('users')
+        ->select('users.*')
+        ->where('users.role', '!=', 'admin')
+        ->where('status', '=', 'active')
+        ->get();
+        $count = $all_users->count();
+        $arr = ["user"=>$users, "count" => $count];
+        return response()->json($arr);
+    }
+
+    public function delete_user (Request $request) {
+        DB::table('users')
+        ->where('id', '=', $request->user_id)
+        ->update(
+            [
+                'status' => 'deleted',
+            ]
+        );
+
+        $all_users = 
+        DB::table('users')
+        ->select('users.*')
+        ->where('users.role', '!=', 'admin')
+        ->where('status', '=', 'active')
+        ->get();
+        $count = $all_users->count();
+        
+        $arr = ["message"=>'Пользователь удален', "count" => $count];
+        return response()->json($arr);
     }
 }
