@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 26 2024 г., 12:48
+-- Время создания: Ноя 26 2024 г., 20:43
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -136,7 +136,16 @@ INSERT INTO `tasks` (`id`, `name`, `description`, `project_id`, `doer_id`, `prio
 (16, 'Отдыхай', 'описание 585', 9, 3, 'high', '2024-11-19', '2024-11-20', 'completed', '{\"13:44:2 25.11.2024\": \"new\", \"13:44:6 25.11.2024\": \"new2\", \"10:00:00 20.12.2024\": \"text\", \"13:34:11 25.10.2024\": \"55\", \"13:35:28 25.10.2024\": \"55\", \"13:35:48 25.11.2024\": \"d\", \"13:43:48 25.11.2024\": \"new\", \"13:43:53 25.11.2024\": \"new\", \"13:45:42 25.11.2024\": \"77\", \"13:45:47 25.11.2024\": \"77232\", \"13:45:50 25.11.2024\": \"7723213\", \"13:52:42 25.11.2024\": \"999\"}', '2024-11-19 06:27:08'),
 (17, 'задача без босса', 'или с боссом', 13, 3, 'low', '2024-11-27', '2024-11-30', 'created', NULL, '2024-11-25 20:25:28'),
 (22, 'Задача 666', 'описание 666', 9, 3, 'middle', '2024-11-28', '2024-12-01', 'in_process', NULL, '2024-11-26 12:01:04'),
-(24, 'задача888', 'описание88', 9, 3, 'low', '2024-11-29', '2024-12-08', 'in_process', NULL, '2024-11-26 12:08:27');
+(24, 'задача888', 'описание88', 9, 3, 'low', '2024-11-29', '2024-12-08', 'in_process', NULL, '2024-11-26 12:08:27'),
+(25, 'массовка 1', 'описание', 9, 4, 'high', '2024-11-27', '2024-11-28', 'created', NULL, '2024-11-26 18:07:09'),
+(26, 'массовка 2', 'описание', 9, 4, 'middle', '2024-11-27', '2024-11-30', 'created', NULL, '2024-11-26 18:10:18'),
+(27, 'массовка 3', 'описание', 9, 3, 'high', '2024-11-27', '2024-11-28', 'created', NULL, '2024-11-26 18:11:18'),
+(28, 'Задача 0011', '11', 9, 4, 'middle', '2024-11-27', '2024-11-29', 'created', NULL, '2024-11-26 18:12:38'),
+(29, 'Задача 0012', '12', 9, 4, 'middle', '2024-11-27', '2024-11-29', 'created', NULL, '2024-11-26 18:12:57'),
+(30, 'Задача 0013', '13', 9, 3, 'high', '2024-12-07', '2024-12-20', 'created', NULL, '2024-11-26 18:13:15'),
+(31, 'Задача 0014', '14', 9, 4, 'low', '2024-11-28', '2024-12-06', 'created', NULL, '2024-11-26 18:13:31'),
+(32, 'Задача 0015', '15', 9, 4, 'middle', '2024-11-29', '2024-11-30', 'created', NULL, '2024-11-26 18:13:48'),
+(33, 'Задача 0016', 'описание', 9, 3, 'low', '2024-11-27', '2024-11-28', 'created', NULL, '2024-11-26 18:46:30');
 
 -- --------------------------------------------------------
 
@@ -150,7 +159,7 @@ CREATE TABLE `users` (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` enum('admin','boss','doer') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('active','deleted') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `status` enum('active','deleted') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -251,7 +260,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
