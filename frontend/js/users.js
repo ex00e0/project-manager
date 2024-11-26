@@ -125,6 +125,14 @@ function get_users () {
     document.getElementById("modal_edit_user").style.display="none";
     document.getElementById("shadow_edit").style.display="none";
   }
+  function open_create () {
+    document.getElementById("shadow_edit").style.display="block";
+    document.getElementById("modal_create_user").style.display="grid";
+  }
+  function close_create () {
+    document.getElementById("modal_create_user").style.display="none";
+    document.getElementById("shadow_edit").style.display="none";
+  }
 
   function show_edit_user (id) {
     $.ajax({

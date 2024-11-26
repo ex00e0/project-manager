@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 //Password::min(8)->letters()->numbers()
 class UserController extends Controller
@@ -103,6 +104,17 @@ class UserController extends Controller
         //     ->get();
         //     $role_db = $role_db[0]->role;
         // if ($role_db == $request->role) {
+            $validator = Validator::make($request->all(), [
+                "email"=>["unique:users"],
+            ],
+            $messages = [
+                'email.unique' => 'Данная почта уже занята',
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        else {
              DB::table('users')
                 ->where('id', $request->user_id)
                 ->update([
@@ -111,6 +123,7 @@ class UserController extends Controller
                     'role' => $request->role,
                 ]);
              return response()->json('Информация о пользователе обновлена');
+            }
         // }
         // else {
         //     if ($role_db == 'boss') {
@@ -122,18 +135,31 @@ class UserController extends Controller
                 
         //     }
         // }
-           
-            // DB::table('tasks')
-            //     ->where('id', $request->task_id)
-            //     ->update([
-            //         'name' => $request->name,
-            //         'description' => $request->description,
-            //         'start' => $request->start,
-            //         'end' => $request->end,
-            //         'priority' => $request->priority,
-            //     ]);
-            // // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
-            // // DB::table('projects')->where('id', '=', $request->project_id)->delete();
-            // return response()->json('Информация о задаче обновлена');
+    }
+    public function create_user (Request $request) {
+    //     $validator = Validator::make($request->all(), [
+    //         ""=>["after:start"],
+    //     ],
+    //     $messages = [
+    //         'end.after' => 'Дата окончания не может быть раньше даты начала',
+    //     ]
+    // );
+    // if ($validator->fails()) {
+    //     return response()->json($validator->errors());
+    // }
+    // else {
+    //     $id = DB::table('tasks')
+    //         ->insertGetId([
+    //             'name' => $request->name,
+    //             'description' => $request->description,
+    //             'start' => $request->start,
+    //             'end' => $request->end,
+    //             'doer_id' => $request->doer_id,
+    //             'priority' => $request->priority,
+    //             'project_id' => $request->project_id,
+    //         ]);
+        
+    //     return response()->json($id);
+    // }
     }
 }

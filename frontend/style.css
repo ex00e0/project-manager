@@ -386,6 +386,13 @@ main {
     grid-template-rows: 18% 7% 1fr 7% 1fr 7% 1fr 7% 1fr 7% 1fr 20%;
     display: none;
 }
+.modal_create_user {
+    width: 36%;
+    height: 58%;
+    grid-template-columns: 100%;
+    grid-template-rows: 21% 7% 1fr 7% 1fr 7% 1fr 7% 1fr 24%;
+    display: none;
+}
 
 .modal_comment {
     width: 36%;
@@ -533,7 +540,7 @@ main {
 .modal_edit input[type='submit'], .modal_edit_team input[type='submit'], .modal_comment input[type='submit'] {
     height: 28%;
 }
-.modal_create input[type='submit'] {
+.modal_create input[type='submit'], .modal_create_user input[type='submit'] {
     height: 28%;
 }
 .modal_create_task input[type='submit'] {
