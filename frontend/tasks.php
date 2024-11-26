@@ -111,8 +111,8 @@
     </div> -->
 </main>
 <div id="pages_block">
-    <div class="r1 active_page">1</div>
-    <div class="r1">2</div>
+    <div class="r1 active_page" onclick="get_tasks(1)">1</div>
+    <div class="r1" onclick="get_tasks(2)">2</div>
 </div>
 <div class="shadow_modal" id="shadow_edit"></div>
 

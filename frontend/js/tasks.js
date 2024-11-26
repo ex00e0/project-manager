@@ -1,6 +1,6 @@
 
 
-function get_tasks () {
+function get_tasks (active_page) {
     $.ajax({
         url: "http://backend/get_tasks",
         method: "POST",
@@ -63,11 +63,13 @@ function get_tasks () {
        }
         let tasks = response.tasks;
         let today = new Date();
+       
         $.each(tasks, function(key, value){
              
               let div = document.createElement('div');
               div.classList.add('c3');
               div.classList.add('tr');
+              // if (key )
               div.setAttribute('id', `task_${value.id}`);
               let end_date = new Date(value.end);
               let last = end_date - today;
@@ -181,7 +183,27 @@ function get_tasks () {
               });
             }
            });
-       
+           if (document.getElementsByClassName('tr').length > 15) {
+            // console.log(document.getElementsByClassName('tr').length);    //16
+            let count_pages =  Math.ceil(document.getElementsByClassName('tr').length/15);
+            // console.log(count_pages);       //2
+            let remember_last_id = 0;
+            for (let i=1;i<=count_pages;i++) {
+              // console.log('page' + i);
+              for (let j=1;j<=15;j++) {
+                if ((j + (remember_last_id*15)) > document.getElementsByClassName('tr').length) {
+                  break;
+                }
+                if (active_page != remember_last_id) {
+                  document.getElementsByClassName('tr')[(j + (remember_last_id*15))].style.display = 'none';
+                }
+                
+                // console.log('id' + (j + (remember_last_id*15)));
+              }
+              remember_last_id ++;
+              // console.log(remember_last_id);
+            }
+        }
         },
         error: ()=>{
             console.log("Ошибка запроса!");
@@ -507,7 +529,7 @@ function get_tasks () {
   })
   };
 
-  $("document").ready(get_tasks());
+  $("document").ready(get_tasks(1));
 
   function open_create () {
     document.getElementById("shadow_edit").style.display="block";
@@ -706,7 +728,179 @@ function get_tasks () {
             document.getElementsByClassName('tr')[key22].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
           });
         }
-      } }
+      } } else {
+        let count = response.count;
+      if (count == 1) {
+        let div_th = document.createElement('div');
+          div_th.classList.add('c3');
+          div_th.classList.add('th');
+          div_th.setAttribute('id', `th`);
+          html_th = `
+          <div>Название задачи</div>
+          <div>Осталось дней</div>
+          <div>Исполнитель</div>
+          <div>Приоритет</div>
+          <div>Срок</div>
+          <div>Статус</div>
+          <div></div>
+          <div></div>
+          `;
+          if (localStorage.getItem('role') == 'boss') {
+            html_th += ` <div></div>`;
+          }
+          div_th.innerHTML = html_th;
+          document.getElementById('main').append(div_th);
+          document.getElementsByClassName('no_task')[0].remove();
+      }
+
+      let tasks = response.task;
+      let today = new Date();
+      $.each(tasks, function(key, value){
+           
+        let div = document.createElement('div');
+        div.classList.add('c3');
+        div.classList.add('tr');
+        div.setAttribute('id', `task_${value.id}`);
+        let end_date = new Date(value.end);
+        let last = end_date - today;
+        last = Math.ceil(last/1000/60/60/24);
+        if (last < 0) {
+          last = 'Просрочено';
+        }
+        html = 
+        `
+        <div title='${value.description}'>${value.name}</div>
+  <div class="double">
+      <img src="images/free-icon-wall-clock-1266978.png">
+      <div>${last}</div>
+  </div>
+  <div class="double">
+      <img src="images/people 4.svg">
+      <div>${value.name_of_doer}</div>
+  </div>
+  <div class="double">`;
+  if (value.priority == 'high') {
+      html+= `
+      <img src="images/Group 1.svg">
+      <div>высокий</div>`;
+    } else if (value.priority == 'middle') {
+      html+= `<img src="images/Group 2.svg" class="midP">
+      <div>средний</div>`;
+    }
+    else if (value.priority == 'low') {
+      html+= `<img src="images/Vector 7.svg" class="lowP">
+      <div>низкий</div>`;
+    }
+  html += `
+      
+  </div>
+  <div>до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
+  <div class="double2">`;
+   if (value.status == 'created') {
+        html+= `
+        <div class="circle_yellow js_c"></div>
+      <div>назначена</div>`;
+      } else if (value.status == 'in_process') {
+        html+= `<div class="circle_green js_c"></div>
+      <div>выполняется</div>`;
+      }
+      else if (value.status == 'completed') {
+        html+= `<div class="circle_gray js_c"></div>
+      <div>завершена</div>`;
+      }
+      html += `
+      
+  </div>`;
+ 
+  if (localStorage.getItem('role') == 'boss') {
+    // document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+    // let arr_tr =  document.getElementsByClassName('tr');
+    // $.each(arr_tr, function(key2, value2){
+    //   document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+    // });
+    html += `
+  <div class="except">
+      <img src="images/pen (1).svg" class="pen"   onclick="show_edit_task(${value.id})">
+  </div>
+  <div class="except">
+      <img src="images/delete 3.svg" class="trash" onclick="delete_task(${value.id})">
+  </div>
+   <div class="except">
+       <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+  </div>
+  `;
+  
+  } 
+  else if (localStorage.getItem('role') == 'admin') {
+    html += `
+  <div class="except">
+       <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+  </div>`;
+  }
+  else if (localStorage.getItem('role') == 'doer') {
+    html += `
+  <div class="except">`;
+   if (value.status == 'created') {html += `
+      <img src="images/Group 5 (2).svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+    `;} else if (value.status == 'in_process') {
+      html += `
+      <img src="images/Group 4.svg" class="status" onclick="edit_status(${value.id},'${value.status}')">
+    `;
+    } else if (value.status == 'completed') {
+      html += `
+      <img src="images/Group 6 (1).svg" class="pen" onclick="edit_status(${value.id},'${value.status}')">
+    `;
+    }
+  html+= `</div>
+  <div class="except">
+       <img src="images/comment-bubble 1.svg" class="pen" onclick="show_comment(${value.id}, '${value.name_of_doer}')">
+  </div>`;
+  }
+            div.innerHTML = html;
+              if (count == 1) {
+                document.getElementById('main').append(div);
+            }
+            else {
+              if (document.getElementsByClassName('tr').length == 0) {
+                      let div_th = document.createElement('div');
+          div_th.classList.add('c3');
+          div_th.classList.add('th');
+          div_th.setAttribute('id', `th`);
+          html_th = `
+          <div>Название задачи</div>
+          <div>Осталось дней</div>
+          <div>Исполнитель</div>
+          <div>Приоритет</div>
+          <div>Срок</div>
+          <div>Статус</div>
+          <div></div>
+          <div></div>
+          `;
+          if (localStorage.getItem('role') == 'boss') {
+            html_th += ` <div></div>`;
+          }
+          div_th.innerHTML = html_th;
+          document.getElementById('main').append(div_th);
+          document.getElementsByClassName('no_task')[0].remove();
+              }
+              document.getElementById('th').after(div);
+            }
+         });
+         if (localStorage.getItem('role') == 'boss') {
+          document.getElementsByClassName('th')[0].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+          let arr_tr =  document.getElementsByClassName('tr');
+          $.each(arr_tr, function(key2, value2){
+            document.getElementsByClassName('tr')[key2].style.gridTemplateColumns = "34% repeat(5, 11.35%) 1fr 1fr 1fr";
+          });
+        }
+        if (localStorage.getItem('role') == 'admin') {
+          document.getElementsByClassName('th')[0].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+          let arr_tr2 =  document.getElementsByClassName('tr');
+          $.each(arr_tr2, function(key22, value2){
+            document.getElementsByClassName('tr')[key22].style.gridTemplateColumns = "40% repeat(5, 11.35%) 1fr";
+          });
+        }
+      }
     },
       error: ()=>{
           console.log("Ошибка запроса!");
