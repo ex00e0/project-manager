@@ -773,7 +773,8 @@ function get_tasks () {
       data: {task_id : id, status: status},
       success: (response)=>{
         alert(response);
-        get_tasks_with_remove();
+        filter = document.getElementById('filter').value;
+        get_tasks_with_remove(filter);
       },
       error: ()=>{
           console.log("Ошибка запроса!");

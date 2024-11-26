@@ -605,3 +605,22 @@ main {
     justify-self: center;
     display: none;
 }
+
+#pages_block {
+    position:fixed;
+    bottom:1vmax;
+    left:50%;
+    width:auto;
+    transform: translate(-50%);
+    display: grid;
+    grid-template-columns: repeat(2, 2vmax);
+    justify-items: center;
+    grid-template-rows: 100%;
+    align-items: center;
+}
+#pages_block > div:not(.active_page) {
+    font-size: 1vmax;
+}
+.active_page {
+    font-size: 1.2vmax;
+}

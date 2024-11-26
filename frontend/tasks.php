@@ -110,6 +110,10 @@
         </div>
     </div> -->
 </main>
+<div id="pages_block">
+    <div class="r1 active_page">1</div>
+    <div class="r1">2</div>
+</div>
 <div class="shadow_modal" id="shadow_edit"></div>
 
         <form class="modal_create_task modal" id="modal_create_task" method="post">
