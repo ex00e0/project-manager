@@ -72,6 +72,12 @@
 .c3-5 {
     grid-column:3/5;
 }
+.c6-8 {
+    grid-column:6/8;
+}
+.c9-11 {
+    grid-column:9/11;
+}
 .c2-8 {
     grid-column:2/8;
 }
@@ -172,11 +178,25 @@ nav > a > div:not(.name) {
     grid-template-rows: 100%;
     align-items: center;
 }
+.rep_header {
+    width:100%;
+    height:3vmax;
+    background-color: #F9F9F9;
+    border-bottom: 0.1vmax solid #C4EAB3;
+    display: grid;
+    grid-template-columns: 13.6% 1% 13% 2% 2% 13% 2% 2% 13% 2% 2% 1fr 3%;
+    grid-template-rows: 100%;
+    align-items: center;
+}
 .search_icon {
     width:1.2vmax;
 }
 .create_icon {
     width:1.2vmax;
+    justify-self: center;
+}
+.create_icon_rep {
+    width:1vmax;
     justify-self: center;
 }
 .sf input, .sf select {
@@ -186,6 +206,20 @@ nav > a > div:not(.name) {
     border-radius: 0.2vmax;
     font-size:0.9vmax;
     padding-left: 2%;
+}
+
+.button_rep {
+    outline: none;
+    color:#9F9E9E;
+    /* color:#000000; */
+    border: 0.1vmax solid #C4EAB3;
+    border-radius: 0.2vmax;
+    font-size:0.9vmax;
+    padding-left: 2%;
+    height:50%;
+    align-items: center;
+    display:grid;
+    background-color: #FFFFFF;
 }
 .sf input {
     height:45%;

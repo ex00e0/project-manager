@@ -111,8 +111,45 @@
     </div> -->
 </main>
 <div id="pages_block">
-    <div class="r1 active_page" onclick="get_tasks(1)">1</div>
-    <div class="r1" onclick="get_tasks(2)">2</div>
+    <script>
+        function get_pages () {
+            //  console.log(document.getElementsByClassName('tr').length); 
+          if (document.getElementsByClassName('tr').length > 18) {
+            // console.log(document.getElementsByClassName('tr').length);    //16
+            let count_pages =  Math.ceil(document.getElementsByClassName('tr').length/18);
+            let page_div = '';
+            // console.log(count_pages);       //2
+            let remember_last_id = 0;
+            for (let i=1;i<=count_pages;i++) {
+                page_div = document.createElement('div');
+                if (i == 1) {
+                      page_div.classList.add('active_page');
+                }
+                page_div.classList.add('r1');
+                page_div.setAttribute('onclick', `paginate(${i})`);
+                page_div.innerHTML = i;
+                document.getElementById('pages_block').append(page_div);
+              // console.log('page' + i);
+              for (let j=1;j<=18;j++) {
+                if ((j + (remember_last_id*18)) > document.getElementsByClassName('tr').length) {
+                  break;
+                }
+                if (remember_last_id != 0) {
+                  document.getElementsByClassName('tr')[(j + (remember_last_id*18) - 1)].style.display = 'none';
+                }
+                
+                // console.log('id' + (j + (remember_last_id*15)));
+              }
+              remember_last_id ++;
+              localStorage.setItem('active_page', 1);
+              // console.log(remember_last_id);
+            }
+        }
+         
+        }
+    </script>
+    <!-- <div class="r1 active_page" onclick="get_tasks(1)">1</div>
+    <div class="r1" onclick="get_tasks(2)">2</div> -->
 </div>
 <div class="shadow_modal" id="shadow_edit"></div>
 

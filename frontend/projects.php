@@ -3,13 +3,11 @@
     // alert(localStorage.getItem('user_id'));
 </script>
 <div class="sf">
-    <input type="text" class="c3-5 r1" name="search" placeholder="поиск проектов..">
-    <img src="images/image 11.svg" class="c4 r1 search_icon">
-    <select class="c6 r1" name="filter">
-        <option>все</option>
-        <option>создан</option>
-        <option>в процессе</option>
-        <option>завершен</option>
+    <select class="c3-5 r1" name="filter" id="filter">
+        <option value="">все</option>
+        <!-- <option value="high">высокий приоритет</option>
+        <option value="middle">средний приоритет</option>
+        <option value="low">низкий приоритет</option> -->
     </select>
     <script>
         if (localStorage.getItem('role') == "boss") {

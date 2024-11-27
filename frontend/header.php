@@ -17,7 +17,7 @@
     <script src="js/exit.js"></script>
     <nav id="nav">
         <a class="c2">
-            <div class="c3 name">Имя</div>
+            <div class="c3 name">Pm</div>
         </a>
         <a class="c2" href="projects.php">
             <img src="images/image 2.svg" class="folder">
@@ -37,7 +37,7 @@
             document.getElementById('nav').append(user_a);
         }
         </script>
-        <a class="c2">
+        <a class="c2" href="reports.php">
             <img src="images/image 4.svg">
             <div class="c3">Отчеты</div>
         </a>

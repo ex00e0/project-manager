@@ -42,13 +42,30 @@ class TaskController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get()];
             }
-            else if ($request->role == 'boss' || $request->role == 'admin') {
+            else if ($request->role == 'admin') {
                 $tasks = ['tasks'=>
                 DB::table('users')
                 ->select('users.name as name_of_doer', 'tasks.*')
                 ->join('tasks', 'users.id','=','tasks.doer_id')
                 ->orderBy('created_at', 'desc')
                 ->get()];
+            }
+            else if ($request->role == 'boss' ) {
+                $select = DB::table('projects')->select('id')->distinct()->where('boss_id', $request->user_id)->get();
+                $tasks = "select users.name as name_of_doer, tasks.* from tasks join users on tasks.doer_id = users.id where";
+                
+                foreach ($select as $val) {
+                    $tasks .= ' tasks.project_id = '.$val->id.' or';
+                    
+                }
+                if ($select->count() != 0) {
+                    $tasks = substr($tasks, 0, -3); 
+                    $tasks .= ' order by created_at desc';
+                    $tasks = ['tasks'=>DB::select($tasks)];
+                }
+                else {
+                    $tasks = '';
+                }
             }
         }
         // else if ($request->role == 'doer') {

@@ -1,6 +1,6 @@
 
 
-function get_tasks (active_page) {
+function get_tasks () {
     $.ajax({
         url: "http://backend/get_tasks",
         method: "POST",
@@ -26,7 +26,7 @@ function get_tasks (active_page) {
         headline.innerHTML = html_headline;
         document.getElementById('main').append(headline);
         }
-       if (response.tasks.length !=0) {
+       if (response.tasks != undefined && response.tasks != null && response.tasks.length !=0) {
         let div_th = document.createElement('div');
         div_th.classList.add('c3');
         div_th.classList.add('th');
@@ -183,27 +183,7 @@ function get_tasks (active_page) {
               });
             }
            });
-           if (document.getElementsByClassName('tr').length > 15) {
-            // console.log(document.getElementsByClassName('tr').length);    //16
-            let count_pages =  Math.ceil(document.getElementsByClassName('tr').length/15);
-            // console.log(count_pages);       //2
-            let remember_last_id = 0;
-            for (let i=1;i<=count_pages;i++) {
-              // console.log('page' + i);
-              for (let j=1;j<=15;j++) {
-                if ((j + (remember_last_id*15)) > document.getElementsByClassName('tr').length) {
-                  break;
-                }
-                if (active_page != remember_last_id) {
-                  document.getElementsByClassName('tr')[(j + (remember_last_id*15))].style.display = 'none';
-                }
-                
-                // console.log('id' + (j + (remember_last_id*15)));
-              }
-              remember_last_id ++;
-              // console.log(remember_last_id);
-            }
-        }
+         get_pages();
         },
         error: ()=>{
             console.log("Ошибка запроса!");
@@ -522,6 +502,7 @@ function get_tasks (active_page) {
           div_th.innerHTML = html_th;
           document.getElementById('main').append(div_th);
       }
+      paginate(localStorage.getItem('active_page'));
       },
       error: ()=>{
           console.log("Ошибка запроса!");
@@ -529,7 +510,7 @@ function get_tasks (active_page) {
   })
   };
 
-  $("document").ready(get_tasks(1));
+  $("document").ready(get_tasks());
 
   function open_create () {
     document.getElementById("shadow_edit").style.display="block";
@@ -901,6 +882,7 @@ function get_tasks (active_page) {
           });
         }
       }
+      paginate(localStorage.getItem('active_page'));
     },
       error: ()=>{
           console.log("Ошибка запроса!");
@@ -928,7 +910,7 @@ function get_tasks (active_page) {
           div_th.innerHTML = html_th;
           document.getElementById('main').append(div_th);
       }
-      
+      paginate(localStorage.getItem('active_page'));
       },
       error: ()=>{
           console.log("Ошибка запроса!");
@@ -1076,3 +1058,44 @@ function get_tasks (active_page) {
       }
   })
   }
+
+
+  function paginate (active_page) {
+    document.getElementById('pages_block').innerHTML = '';
+    // console.log(document.getElementsByClassName('tr').length);
+    if (document.getElementsByClassName('tr').length > 18) {
+      // console.log(document.getElementsByClassName('tr').length);    //16
+      let count_pages =  Math.ceil(document.getElementsByClassName('tr').length/18);
+      let page_div = '';
+     
+      // console.log(count_pages);       //2
+      let remember_last_id = 0;
+      for (let i=1;i<=count_pages;i++) {
+          page_div = document.createElement('div');
+          if (i == active_page) {
+                page_div.classList.add('active_page');
+          }
+          page_div.classList.add('r1');
+          page_div.setAttribute('onclick', `paginate(${i})`);
+          page_div.innerHTML = i;
+          document.getElementById('pages_block').append(page_div);
+        // console.log('page' + i);
+        for (let j=1;j<=18;j++) {
+          if ((j + (remember_last_id*18)) > document.getElementsByClassName('tr').length) {
+            break;
+          }
+          if (remember_last_id != (active_page - 1)) {
+            document.getElementsByClassName('tr')[(j + (remember_last_id*18) - 1)].style.display = 'none';
+          }
+          else {
+            document.getElementsByClassName('tr')[(j + (remember_last_id*18) - 1)].style.display = 'grid';
+          }
+          
+          // console.log('id' + (j + (remember_last_id*15)));
+        }
+        remember_last_id ++;
+        localStorage.setItem('active_page', active_page);
+        // console.log(remember_last_id);
+      }
+  }
+}
