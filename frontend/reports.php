@@ -41,6 +41,22 @@
     <div></div>
 </main>
 <div class="shadow_modal" id="shadow_edit"></div>
-       
+<form class="modal_edit modal" id="modal_create_report_task" method="post">
+            <div class="c1 r1 headline_modal">Создание отчета по задачам</div>
+            <input type="hidden" id="project_id_team" name="id">
+            <input type="hidden" name="team" id="team_array">
+            <label class="c1 r2">С какого числа</label>
+            <input type="date"  class="c1 r3" max="<?=date('Y-m-d')?>" name="date">
+            <label class="c1 r4">По какое число</label>
+            <input type="date"  class="c1 r5" max="<?=date('Y-m-d')?>" name="date">
+            <label class="c1 r6">Проект</label>
+            <select type="text" class="c1 r7" name="project_id" required id="projects_list">
+                <option value="">-все-</option>
+                <script src="js/get_projects_for_report.js"></script>
+            </select>
+            <input type="submit" class="c1 r8" value="сохранить">
+            <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create_report_task()"><img src="images/cross.png"></div>
+        </form>
+<script src="js/reports.js"></script>
 </body>
 </html>
