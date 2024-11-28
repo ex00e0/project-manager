@@ -1,18 +1,21 @@
-function open_create_report_task () {
+function open_create_report () {
+    document.getElementById('report_user_id').value = localStorage.getItem('user_id');
+    document.getElementById('report_role').value = localStorage.getItem('role');
     document.getElementById("shadow_edit").style.display="block";
-    document.getElementById("modal_create_report_task").style.display="grid";
+    document.getElementById("modal_create_report").style.display="grid";
   }
-  function close_create_report_task () {
+  function close_create_report () {
     document.getElementById("shadow_edit").style.display="none";
-    document.getElementById("modal_create_report_task").style.display="none";
+    document.getElementById("modal_create_report").style.display="none";
   }
 
-  $("#modal_create_report_task").submit((event)=>{
+  $("#modal_create_report").submit((event)=>{
     event.preventDefault();
+
     $.ajax({
-        url: "http://backend/create_report_task",
+        url: "http://backend/create_report",
         method: "POST",
-        data: $("#modal_create_report_task").serialize(),
+        data: $("#modal_create_report").serialize(),
         
         success: (response)=>{
 
@@ -23,11 +26,11 @@ function open_create_report_task () {
             }
           }
           else {
-            document.getElementById("modal_create_report_task").style.display="none";
+            document.getElementById("modal_create_report").style.display="none";
             document.getElementById("shadow_edit").style.display="none";
             alert('Отчет сформирован');
             // get_projects_with_remove();
-            $("#modal_create_report_task").trigger('reset');
+            $("#modal_create_report").trigger('reset');
           }
             
            

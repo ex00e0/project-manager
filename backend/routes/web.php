@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,3 +47,5 @@ Route::post('edit_task', [TaskController::class, 'edit_task'])->name('edit_task'
 Route::post('edit_status', [TaskController::class, 'edit_status'])->name('edit_status');
 Route::post('get_comments', [TaskController::class, 'get_comments'])->name('get_comments');
 Route::post('send_comment', [TaskController::class, 'send_comment'])->name('send_comment');
+
+Route::post('create_report', [ReportController::class, 'create_report'])->name('create_report');
