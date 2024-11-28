@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 27 2024 г., 10:45
+-- Время создания: Ноя 28 2024 г., 10:55
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -98,10 +98,13 @@ INSERT INTO `projects` (`id`, `name`, `description`, `boss_id`, `start`, `end`, 
 
 CREATE TABLE `reports` (
   `id` bigint UNSIGNED NOT NULL,
-  `project_id` bigint UNSIGNED NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `project_id` bigint UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` bigint UNSIGNED NOT NULL,
-  `stats` json NOT NULL
+  `type` enum('projects','doers','bosses') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stats` json DEFAULT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
