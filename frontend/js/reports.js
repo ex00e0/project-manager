@@ -19,7 +19,7 @@ function open_create_report () {
         
         success: (response)=>{
 
-            // console.log(response);
+            console.log(response);
           if (typeof(response) == 'object') {
             for (key in response) {
               alert(response[key][0]);

@@ -58,9 +58,9 @@
             <input type="hidden" id="report_user_id" name="user_id">
             <input type="hidden" id="report_role" name="role">
             <label class="c1 r2">С какого числа</label>
-            <input type="date"  class="c1 r3" max="<?=date('Y-m-d')?>" name="date">
+            <input type="date"  class="c1 r3" max="<?=date('Y-m-d')?>" name="start">
             <label class="c1 r4">По какое число</label>
-            <input type="date"  class="c1 r5" max="<?=date('Y-m-d')?>" name="date">
+            <input type="date"  class="c1 r5" max="<?=date('Y-m-d')?>" name="end">
             <label class="c1 r6">Тип отчета</label>
             <select type="text" class="c1 r7" name="type" required>
                 <option value="projects">по проектам</option>
