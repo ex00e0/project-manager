@@ -62,4 +62,29 @@ class ReportController extends Controller
             return response()->json($id);
         }
     }
+
+    public function get_reports (Request $request){
+        $reports = ['reports'=>
+        DB::table('reports')
+                ->select('reports.*')
+                ->where('user_id', '=', $request->user_id)
+                ->orderBy('created_at', 'desc')
+                ->get()];
+        return response()->json($reports);
+    }
+
+    public function one_report_for_create (Request $request) {
+        $reports = 
+        DB::table('reports')
+        ->select('reports.*')
+        ->where('reports.id', '=', $request->report_id)
+        ->get();
+        $all_reports = DB::table('reports')
+        ->select('reports.*')
+        ->where('reports.user_id', '=', $request->user_id)
+        ->get();
+        $count = $all_reports->count();
+        $arr = ["report"=>$reports, "count" => $count];
+        return response()->json($arr);
+    }
 }

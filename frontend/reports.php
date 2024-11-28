@@ -50,7 +50,7 @@
     <div class="c3 headline">
         <h2>Отчеты</h2>
     </div>
-    <div></div>
+    
 </main>
 <div class="shadow_modal" id="shadow_edit"></div>
 <form class="modal_edit modal" id="modal_create_report" method="post">

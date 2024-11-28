@@ -49,3 +49,5 @@ Route::post('get_comments', [TaskController::class, 'get_comments'])->name('get_
 Route::post('send_comment', [TaskController::class, 'send_comment'])->name('send_comment');
 
 Route::post('create_report', [ReportController::class, 'create_report'])->name('create_report');
+Route::post('get_reports', [ReportController::class, 'get_reports'])->name('get_reports');
+Route::post('one_report_for_create', [ReportController::class, 'one_report_for_create'])->name('one_report_for_create');
