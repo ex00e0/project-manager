@@ -96,6 +96,8 @@ class ReportController extends Controller
                     'end' => $request->end,
                     'stats' => $stats,
                 ]);
+            } else if ($request->role == 'boss') {
+                
             }
            
             

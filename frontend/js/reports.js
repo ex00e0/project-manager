@@ -58,7 +58,16 @@ function open_create_report () {
         <div>№</div>
         <div>С какого числа</div>
         <div>По какое число</div>
-        <div>Тип отчета</div>
+        `;
+        if (localStorage.getItem('role') == 'admin') {
+           html_th+=`
+        <div>Тип отчета</div>`;
+        }
+        else if (localStorage.getItem('role') == 'boss') {
+          html_th+=`
+        <div>Проект</div>`;
+        }
+       html_th+= `
         <div></div>
        
         `;
@@ -88,9 +97,14 @@ function open_create_report () {
                <div>${value.start}</div>
                <div>${value.end}</div>
                <div>`;
+               if (localStorage.getItem('role') == 'admin') {
                if (value.type == 'projects') {html+=`по проектам`;}
                else if (value.type == 'doers') {html+=`по исполнителям`;}
                else if (value.type == 'bosses') {html+=`по руководителям`;}
+               }
+               else if (localStorage.getItem('role') == 'boss') {
+                html+=`${value.project_id}`;
+               }
                html+=`</div>
                <div> <a href="one_report.php?id=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
    
@@ -128,7 +142,16 @@ function open_create_report () {
               <div>№</div>
               <div>С какого числа</div>
               <div>По какое число</div>
-              <div>Тип отчета</div>
+              `;
+        if (localStorage.getItem('role') == 'admin') {
+           html_th+=`
+        <div>Тип отчета</div>`;
+        }
+        else if (localStorage.getItem('role') == 'boss') {
+          html_th+=`
+        <div>Проект</div>`;
+        }
+       html_th+= `
               <div></div>
              
               `;
@@ -146,9 +169,14 @@ function open_create_report () {
        <div>${value.start}</div>
        <div>${value.end}</div>
        <div>`;
-               if (value.type == 'projects') {html+=`по проектам`;}
-               else if (value.type == 'doers') {html+=`по исполнителям`;}
-               else if (value.type == 'bosses') {html+=`по руководителям`;}
+       if (localStorage.getItem('role') == 'admin') {
+        if (value.type == 'projects') {html+=`по проектам`;}
+        else if (value.type == 'doers') {html+=`по исполнителям`;}
+        else if (value.type == 'bosses') {html+=`по руководителям`;}
+        }
+        else if (localStorage.getItem('role') == 'boss') {
+         html+=`${value.project_id}`;
+        }
                html+=`</div>
        <div>  <a href="one_report.php?id=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
  `;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 28 2024 г., 10:55
+-- Время создания: Ноя 29 2024 г., 12:06
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -88,7 +88,7 @@ INSERT INTO `projects` (`id`, `name`, `description`, `boss_id`, `start`, `end`, 
 (9, 'Проект 233', 'описание 23', 2, '2024-11-22', '2024-11-23', '{\"doers\": [\"3\", \"4\"]}', 'completed', '2024-11-18 09:49:09'),
 (10, 'Новый проект', 'очень длинное описание нового проекта.........................................', 2, '2024-11-23', '2024-11-30', '{\"doers\": [\"3\", \"4\"]}', 'created', '2024-11-22 09:34:35'),
 (12, 'dsfsd', 'описаниеsdfdf', 2, '2024-11-30', '2024-12-08', '{\"doers\": [\"3\"]}', 'created', '2024-11-22 09:36:39'),
-(13, 'проект без босса', 'или с боссом?', 5, '2024-11-26', '2024-11-28', '{\"doers\": [\"3\"]}', 'in_process', '2024-11-25 20:24:52');
+(13, 'проект без босса', 'или с боссом?', 5, '2024-11-26', '2024-11-28', '{\"doers\": [\"3\"]}', 'completed', '2024-11-25 20:24:52');
 
 -- --------------------------------------------------------
 
@@ -106,6 +106,18 @@ CREATE TABLE `reports` (
   `start` date NOT NULL,
   `end` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `reports`
+--
+
+INSERT INTO `reports` (`id`, `project_id`, `created_at`, `user_id`, `type`, `stats`, `start`, `end`) VALUES
+(2, NULL, '2024-11-29 09:34:06', 1, 'projects', '{\"count\": 0, \"projects\": []}', '2024-11-07', '2024-11-16'),
+(3, NULL, '2024-11-29 10:15:47', 1, 'projects', '{\"count\": 2, \"projects\": [{\"all\": 37, \"name\": \"Проект 233\", \"status\": \"completed\", \"completed\": 2, \"in_process\": 3}, {\"all\": 1, \"name\": \"проект без босса\", \"status\": \"completed\", \"completed\": 0, \"in_process\": 0}]}', '2024-11-01', '2024-11-29'),
+(5, NULL, '2024-11-29 11:02:21', 1, 'doers', '{\"count\": 3, \"users\": [{\"all\": 3, \"name\": \"Полина\", \"completed\": 2, \"in_process\": 0}, {\"all\": 0, \"name\": \"doer2\", \"completed\": 0, \"in_process\": 0}]}', '2024-11-15', '2024-11-24'),
+(6, NULL, '2024-11-29 11:22:03', 1, 'bosses', '{\"count\": 4, \"users\": [{\"all\": 0, \"name\": \"boss\", \"completed\": 0, \"in_process\": 0}, {\"all\": 0, \"name\": \"boss_boss222\", \"completed\": 0, \"in_process\": 0}]}', '2024-11-14', '2024-11-21'),
+(7, NULL, '2024-11-29 11:47:27', 1, 'bosses', '{\"count\": 4, \"users\": [{\"all\": 1, \"name\": \"boss\", \"completed\": 1, \"in_process\": 0}, {\"all\": 1, \"name\": \"boss_boss222\", \"completed\": 1, \"in_process\": 0}]}', '2024-10-29', '2024-11-29'),
+(8, 13, '2024-11-29 12:03:22', 2, NULL, NULL, '2024-11-28', '2024-11-29');
 
 -- --------------------------------------------------------
 
@@ -278,7 +290,7 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT для таблицы `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `tasks`
