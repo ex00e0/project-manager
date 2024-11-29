@@ -3,12 +3,12 @@
     // alert(localStorage.getItem('user_id'));
 </script>
 <div class="sf">
-    <select class="c3-5 r1" name="filter" id="filter">
-        <option value="">все</option>
+    <!-- <select class="c3-5 r1" name="filter" id="filter">
+        <option value="">все</option> -->
         <!-- <option value="high">высокий приоритет</option>
         <option value="middle">средний приоритет</option>
         <option value="low">низкий приоритет</option> -->
-    </select>
+    <!-- </select> -->
     <script>
         if (localStorage.getItem('role') == "boss") {
             let plus = document.createElement('img');
@@ -23,7 +23,7 @@
 </div>
 <main id="main">
     <div class="c3 headline" id="headline_projects">
-        <h2>Мои проекты</h2>
+        <h2>Проекты</h2>
     </div>
     <script src="js/get_projects.js"></script>
     <!-- <div class="c3 block_project">

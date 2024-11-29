@@ -97,7 +97,49 @@ class ReportController extends Controller
                     'stats' => $stats,
                 ]);
             } else if ($request->role == 'boss') {
-                
+                $array = DB::select("SELECT tasks.*, users.name as name_of_doer FROM tasks JOIN users ON tasks.doer_id = users.id WHERE tasks.project_id = ".$request->project_id." AND tasks.start >= '".$request->start."' AND tasks.end <= '".$request->end."'");
+                    $count = DB::table('tasks')
+                    ->select('tasks.*')
+                    ->where('tasks.project_id', '=', $request->project_id)
+                    ->where('tasks.start', '>=', $request->start)
+                    ->where('tasks.end', '<=', $request->end)
+                    ->get()->count();
+                    $stats = ["count" =>  $count, "tasks" => $array];
+                    $stats = json_encode($stats);
+                    // return response()->json($stats);
+                    $name = DB::table('projects')
+                    ->select('name')
+                    ->where('id', $request->project_id)
+                    ->get();
+                    $name = $name[0]->name;
+
+                     $id = DB::table('reports')
+                    ->insertGetId([
+                        'user_id' => $request->user_id,
+                        'project_id' => $name,
+                        'start' => $request->start,
+                        'end' => $request->end,
+                        'stats' => $stats,
+                    ]);
+            }
+            else if ($request->role == 'doer') {
+                $array = DB::select("SELECT tasks.*, users.name as name_of_doer FROM tasks JOIN users ON tasks.doer_id = users.id WHERE tasks.doer_id = ".$request->doer_id." AND tasks.start >= '".$request->start."' AND tasks.end <= '".$request->end."'");
+                    $count = DB::table('tasks')
+                    ->select('tasks.*')
+                    ->where('tasks.doer_id', '=', $request->doer_id)
+                    ->where('tasks.start', '>=', $request->start)
+                    ->where('tasks.end', '<=', $request->end)
+                    ->get()->count();
+                    $stats = ["count" =>  $count, "tasks" => $array];
+                    $stats = json_encode($stats);
+
+                     $id = DB::table('reports')
+                    ->insertGetId([
+                        'user_id' => $request->user_id,
+                        'start' => $request->start,
+                        'end' => $request->end,
+                        'stats' => $stats,
+                    ]);
             }
            
             

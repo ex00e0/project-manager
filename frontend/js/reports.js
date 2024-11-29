@@ -19,7 +19,7 @@ function open_create_report () {
         
         success: (response)=>{
 
-            console.log(response);
+            // console.log(response);
           if (typeof(response) == 'object') {
             for (key in response) {
               alert(response[key][0]);
@@ -96,17 +96,19 @@ function open_create_report () {
                <div>${value.id}</div>
                <div>${value.start}</div>
                <div>${value.end}</div>
-               <div>`;
+              `;
                if (localStorage.getItem('role') == 'admin') {
-               if (value.type == 'projects') {html+=`по проектам`;}
-               else if (value.type == 'doers') {html+=`по исполнителям`;}
-               else if (value.type == 'bosses') {html+=`по руководителям`;}
+               if (value.type == 'projects') {html+=` <div>по проектам</div>`;}
+               else if (value.type == 'doers') {html+=` <div>по исполнителям</div>`;}
+               else if (value.type == 'bosses') {html+=` <div>по руководителям</div>`;}
                }
                else if (localStorage.getItem('role') == 'boss') {
-                html+=`${value.project_id}`;
+                html+=` <div>${value.project_id}</div>`;
                }
-               html+=`</div>
-               <div> <a href="one_report.php?id=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
+               html+=`
+               <div`; 
+               if (localStorage.getItem('role') == 'doer') {html+=` style='grid-column:4/6;'`;}
+               html+=`> <a href="one_report.php?id=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
    
          `;
              div.innerHTML = html;
@@ -168,18 +170,21 @@ function open_create_report () {
        <div>${value.id}</div>
        <div>${value.start}</div>
        <div>${value.end}</div>
-       <div>`;
+       `;
        if (localStorage.getItem('role') == 'admin') {
-        if (value.type == 'projects') {html+=`по проектам`;}
-        else if (value.type == 'doers') {html+=`по исполнителям`;}
-        else if (value.type == 'bosses') {html+=`по руководителям`;}
+        if (value.type == 'projects') {html+=` <div>по проектам</div>`;}
+        else if (value.type == 'doers') {html+=` <div>по исполнителям</div>`;}
+        else if (value.type == 'bosses') {html+=` <div>по руководителям</div>`;}
         }
         else if (localStorage.getItem('role') == 'boss') {
-         html+=`${value.project_id}`;
+         html+=` <div>${value.project_id}</div>`;
         }
-               html+=`</div>
-       <div>  <a href="one_report.php?id=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
- `;
+        html+=`
+        <div`; 
+        if (localStorage.getItem('role') == 'doer') {html+=` style='grid-column:4/6;'`;}
+        html+=`> <a href="one_report.php?id=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
+
+  `;
      div.innerHTML = html;
      document.getElementById('th_rep').after(div);
       },

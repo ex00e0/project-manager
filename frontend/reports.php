@@ -61,12 +61,54 @@
             <input type="date"  class="c1 r3" max="<?=date('Y-m-d')?>" name="start">
             <label class="c1 r4">По какое число</label>
             <input type="date"  class="c1 r5" max="<?=date('Y-m-d')?>" name="end">
-            <label class="c1 r6">Тип отчета</label>
-            <select type="text" class="c1 r7" name="type" required>
+            <script>
+              if (localStorage.getItem('role') == 'admin') {
+                let plus0 = document.createElement('label');
+                plus0.classList.add('c1');
+                plus0.classList.add('r6');
+                plus0.innerHTML = `Тип отчета`;
+                document.getElementById('modal_create_report').append(plus0);
+                let plus01 = document.createElement('select');
+                plus01.classList.add('c1');
+                plus01.classList.add('r7');
+                plus01.setAttribute('name', `type`);
+                plus01.setAttribute('required');
+                plus01.innerHTML = `
+                 <option value="projects">по проектам</option>
+                <option value="doers">по исполнителям</option>
+                <option value="bosses">по руководителям</option>
+                `;
+                document.getElementById('modal_create_report').append(plus01);
+              }
+              else if (localStorage.getItem('role') == 'boss') {
+                let plus00 = document.createElement('label');
+                plus00.classList.add('c1');
+                plus00.classList.add('r6');
+                plus00.innerHTML = `Проект`;
+                document.getElementById('modal_create_report').append(plus00);
+                let plus001 = document.createElement('select');
+                plus001.classList.add('c1');
+                plus001.classList.add('r7');
+                plus001.setAttribute('name', `project_id`);
+                plus001.setAttribute('required', '');
+                plus001.setAttribute('id', 'projects_list');
+                document.getElementById('modal_create_report').append(plus001);
+              }
+              else if (localStorage.getItem('role') == 'doer') {
+                let plus003 = document.createElement('input');
+                plus003.setAttribute('type', `hidden`);
+                plus003.setAttribute('name', `doer_id`);
+                plus003.setAttribute('value', `${localStorage.getItem('user_id')}`);
+                document.getElementById('modal_create_report').append(plus003);
+              }
+            </script>
+            <script src="js/get_projects_for_report.js"></script>
+            <!-- <label class="c1 r6">Тип отчета</label> -->
+            <!-- <select type="text" class="c1 r7" name="type" required>
                 <option value="projects">по проектам</option>
                 <option value="doers">по исполнителям</option>
                 <option value="bosses">по руководителям</option>
-            </select>
+            </select> -->
             <input type="submit" class="c1 r8" value="сохранить">
             <div class="c1 r1 cross" id="close_modal_edit" onclick="close_create_report()"><img src="images/cross.png"></div>
         </form>

@@ -209,4 +209,13 @@ class ProjectController extends Controller
         return response()->json('');
     }
     }
+
+    public function get_name_of_project (Request $request) {
+        $name = DB::table('projects')
+        ->select('name')
+        ->where('id', $request->project_id)
+        ->get();
+        $name = $name[0]->name;
+        return response()->json($name);
+    }
 }
