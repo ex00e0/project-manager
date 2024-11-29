@@ -100,7 +100,7 @@ class ProjectController extends Controller
                 ->update([
                     'name' => $request->name,
                     'description' => $request->description,
-                    'end' => $request->end,
+                    // 'end' => $request->end,
                 ]);
             // DB::table('tasks')->where('project_id', '=', $request->project_id)->delete();
             // DB::table('projects')->where('id', '=', $request->project_id)->delete();

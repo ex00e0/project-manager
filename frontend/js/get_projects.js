@@ -221,8 +221,8 @@ function show_edit_project (id) {
     data: {project_id : id},
     success: (response)=>{
     // console.log(response[0]);
-    document.getElementById("project_end").setAttribute("min", response[0].start);
-    document.getElementById("project_end").value = response[0].end;
+    // document.getElementById("project_end").setAttribute("min", response[0].start);
+    // document.getElementById("project_end").value = response[0].end;
     document.getElementById("project_id").value = response[0].id;
     document.getElementById("project_name").value = response[0].name;
     document.getElementById("project_description").value = response[0].description;
