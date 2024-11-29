@@ -45,6 +45,46 @@ class ReportController extends Controller
                     $stats = ["count" =>  $count, "projects" => $array];
                     // return response()->json($stats);
                 }
+                if ($request->type == 'doers') {
+                    // return response()->json($request->all());
+                    $array = DB::select("SELECT users.name, count(CASE
+                                    WHEN tasks.start >= '".$request->start."' AND tasks.end <= '".$request->end."' THEN 1
+                                    ELSE NULL
+                                END) as 'all', (count(CASE
+                                    WHEN tasks.status = 'in_process' AND tasks.start >= '".$request->start."' AND tasks.end <= '".$request->end."' THEN 1
+                                    ELSE NULL
+                                END)) as 'in_process', (count(CASE
+                                    WHEN tasks.status = 'completed' AND tasks.start >= '".$request->start."' AND tasks.end <= '".$request->end."' THEN 1
+                                    ELSE NULL
+                                END)) as 'completed' FROM `users` JOIN tasks ON users.id = tasks.doer_id WHERE users.status != 'deleted' AND users.role = 'doer' GROUP BY users.id");
+                $count = DB::table('users')
+                    ->select('users.*')
+                    ->where('users.status', '!=', 'deleted')
+                    ->where('users.role', '=', 'doer')
+                    ->get()->count();
+                    $stats = ["count" =>  $count, "users" => $array];
+                    // return response()->json($stats);
+                }
+                if ($request->type == 'bosses') {
+                    // return response()->json($request->all());
+                    $array = DB::select("SELECT users.name, count(CASE
+                                    WHEN projects.start >= '".$request->start."' AND projects.end <= '".$request->end."' THEN 1
+                                    ELSE NULL
+                                END) as 'all', (count(CASE
+                                    WHEN projects.status = 'in_process' AND projects.start >= '".$request->start."' AND projects.end <= '".$request->end."' THEN 1
+                                    ELSE NULL
+                                END)) as 'in_process', (count(CASE
+                                    WHEN projects.status = 'completed' AND projects.start >= '".$request->start."' AND projects.end <= '".$request->end."' THEN 1
+                                    ELSE NULL
+                                END)) as 'completed' FROM `users` JOIN projects ON users.id = projects.boss_id WHERE users.status != 'deleted' AND users.role = 'boss' GROUP BY users.id");
+                $count = DB::table('users')
+                    ->select('users.*')
+                    ->where('users.status', '!=', 'deleted')
+                    ->where('users.role', '=', 'boss')
+                    ->get()->count();
+                    $stats = ["count" =>  $count, "users" => $array];
+                    // return response()->json($stats);
+                }
                 // // $stats = дорогой дневник...
                 $stats = json_encode($stats);
                 // return response()->json($stats);

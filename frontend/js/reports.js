@@ -87,8 +87,12 @@ function open_create_report () {
                <div>${value.id}</div>
                <div>${value.start}</div>
                <div>${value.end}</div>
-               <div>${value.type}</div>
-               <div> <a href="one_report.php?=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
+               <div>`;
+               if (value.type == 'projects') {html+=`по проектам`;}
+               else if (value.type == 'doers') {html+=`по исполнителям`;}
+               else if (value.type == 'bosses') {html+=`по руководителям`;}
+               html+=`</div>
+               <div> <a href="one_report.php?id=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
    
          `;
              div.innerHTML = html;
@@ -116,6 +120,20 @@ function open_create_report () {
       let count = response.count;
         if (count == 1) {
             document.getElementsByClassName('no_task')[0].remove();
+              let div_th = document.createElement('div');
+              div_th.classList.add('c3');
+              div_th.classList.add('th_rep');
+              div_th.setAttribute('id', `th_rep`);
+              html_th = `
+              <div>№</div>
+              <div>С какого числа</div>
+              <div>По какое число</div>
+              <div>Тип отчета</div>
+              <div></div>
+             
+              `;
+              div_th.innerHTML = html_th;
+              document.getElementById('main').append(div_th);
         }
       let value = response.report[0];
       let div = document.createElement('div');
@@ -127,8 +145,12 @@ function open_create_report () {
        <div>${value.id}</div>
        <div>${value.start}</div>
        <div>${value.end}</div>
-       <div>${value.type}</div>
-       <div>  <a href="one_report.php?=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
+       <div>`;
+               if (value.type == 'projects') {html+=`по проектам`;}
+               else if (value.type == 'doers') {html+=`по исполнителям`;}
+               else if (value.type == 'bosses') {html+=`по руководителям`;}
+               html+=`</div>
+       <div>  <a href="one_report.php?id=${value.id}" style="justify-self:center; color: #9F9E9E;">Подробнее..</a></div>
  `;
      div.innerHTML = html;
      document.getElementById('th_rep').after(div);
