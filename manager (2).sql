@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 29 2024 г., 20:29
+-- Время создания: Ноя 30 2024 г., 08:45
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -87,8 +87,9 @@ CREATE TABLE `projects` (
 INSERT INTO `projects` (`id`, `name`, `description`, `boss_id`, `start`, `end`, `team`, `status`, `created_at`) VALUES
 (9, 'Проект 233', 'описание 23', 2, '2024-11-22', '2024-11-23', '{\"doers\": [\"3\", \"4\"]}', 'completed', '2024-11-18 09:49:09'),
 (10, 'Новый проект', 'очень длинное описание нового проекта.........................................', 2, '2024-11-23', '2024-11-30', '{\"doers\": [\"3\", \"4\"]}', 'created', '2024-11-22 09:34:35'),
-(12, 'dsfsd3', 'описаниеsdfdf', 2, '2024-11-30', '2024-12-08', '{\"doers\": [\"3\"]}', 'created', '2024-11-22 09:36:39'),
-(13, 'проект без босса', 'или с боссом?', 5, '2024-11-26', '2024-11-28', '{\"doers\": [\"3\"]}', 'completed', '2024-11-25 20:24:52');
+(12, 'Проект 002', 'описаниеsdfdf', 2, '2024-11-30', '2024-12-08', '{\"doers\": [\"3\"]}', 'created', '2024-11-22 09:36:39'),
+(13, 'проект без босса', 'или с боссом?', 5, '2024-11-26', '2024-11-28', '{\"doers\": [\"3\"]}', 'completed', '2024-11-25 20:24:52'),
+(14, 'empty', 'empty', 2, '2024-12-04', '2024-12-14', '{\"doers\": [\"4\", \"6\"]}', 'in_process', '2024-11-30 08:37:23');
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,7 @@ INSERT INTO `projects` (`id`, `name`, `description`, `boss_id`, `start`, `end`, 
 
 CREATE TABLE `reports` (
   `id` bigint UNSIGNED NOT NULL,
-  `project_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `project_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` bigint UNSIGNED NOT NULL,
   `type` enum('projects','doers','bosses') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -189,7 +190,8 @@ INSERT INTO `tasks` (`id`, `name`, `description`, `project_id`, `doer_id`, `prio
 (53, 'задача', 'задача', 9, 3, 'low', '2024-11-28', '2024-11-30', 'created', NULL, '2024-11-27 09:00:25'),
 (54, 'задача', 'задача', 9, 3, 'low', '2024-11-28', '2024-11-30', 'created', NULL, '2024-11-27 09:00:25'),
 (55, 'задача', 'задача', 9, 3, 'low', '2024-11-28', '2024-11-30', 'created', NULL, '2024-11-27 09:00:25'),
-(56, '9954', 'описание', 9, 3, 'middle', '2024-11-28', '2024-11-30', 'created', NULL, '2024-11-27 09:06:36');
+(56, '9954', 'описание', 9, 3, 'middle', '2024-11-28', '2024-11-30', 'created', NULL, '2024-11-27 09:06:36'),
+(57, 'Задача 1', 'описание0', 14, 4, 'middle', '2024-12-06', '2024-12-13', 'created', NULL, '2024-11-30 08:37:50');
 
 -- --------------------------------------------------------
 
@@ -292,7 +294,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT для таблицы `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT для таблицы `reports`
@@ -304,7 +306,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT для таблицы `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
