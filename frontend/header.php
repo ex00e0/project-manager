@@ -13,11 +13,22 @@
       
         location.href="index.php";
     } 
+    else {
+        $.ajax({
+                    url: "http://backend/one_user",
+                    method: "POST",
+                    data: {user_id : localStorage.getItem('user_id')},
+                    success: (response)=>{
+                        document.getElementById('user_name').innerHTML = response[0].name;
+                    },
+                });
+    }
+
     </script>
     <script src="js/exit.js"></script>
     <nav id="nav">
         <a class="c2">
-            <div class="c3 name">Pm</div>
+            <div class="c3 name" id="user_name">Pm</div>
         </a>
         <a class="c2" href="projects.php">
             <img src="images/image 2.svg" class="folder">
