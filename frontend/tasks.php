@@ -3,6 +3,8 @@
     var url_string = window.location.href; 
     var url = new URL(url_string);
     var project_id = url.searchParams.get("id");
+    let project_start = null; 
+    let project_end = null;
 </script>
 <script src="js/tasks.js"></script>
 <div class="sf">
@@ -16,13 +18,26 @@
     </select>
     <script>
         if (localStorage.getItem('role') == "boss" && project_id!=null) {
-            let plus = document.createElement('img');
-              plus.classList.add('c8');
-              plus.classList.add('r1');
-              plus.classList.add('create_icon');
-              plus.setAttribute('src', `images/image 10.svg`);
-              plus.setAttribute('onclick', `open_create()`);
-            document.getElementsByClassName('sf')[0].append(plus);
+                $.ajax({
+                    url: "http://backend/one_project_for_create",
+                    method: "POST",
+                    data: {project_id : project_id, user_id : localStorage.getItem('user_id')},
+                    success: (response)=>{
+                        
+                        if (response.projects[0].status != 'completed') {
+                            project_start = response.projects[0].start;
+                            project_end = response.projects[0].end;
+                        let plus = document.createElement('img');
+                                    plus.classList.add('c8');
+                                    plus.classList.add('r1');
+                                    plus.classList.add('create_icon');
+                                    plus.setAttribute('src', `images/image 10.svg`);
+                                    plus.setAttribute('onclick', `open_create()`);
+                                    document.getElementsByClassName('sf')[0].append(plus);
+                        }
+                    },
+                });
+           
         }
     </script>
 </div>

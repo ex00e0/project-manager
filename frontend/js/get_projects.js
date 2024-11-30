@@ -43,7 +43,7 @@ function get_projects () {
               html+= `завершен   </div> <div class="c5 r1 circle_gray"></div>`;
             }
             html += `
-            <div class="c9-all r1">до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
+            <div class="c9-all r1">по ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
             <div class="c2-8 r2-all project_desc">${value.description}</div>`;
             if (localStorage.getItem('role') == 'boss') {
              html +=`
@@ -150,7 +150,7 @@ function get_projects_with_remove () {
               html+= `завершен   </div> <div class="c5 r1 circle_gray"></div>`;
             }
             html += `
-            <div class="c9-all r1">до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
+            <div class="c9-all r1">по ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
             <div class="c2-8 r2-all project_desc">${value.description}</div>`;
             if (localStorage.getItem('role') == 'boss') {
              html +=`
@@ -291,7 +291,7 @@ function prepend_project (id) {
       html+= `завершен   </div> <div class="c5 r1 circle_gray"></div>`;
     }
     html += `
-    <div class="c9-all r1">до ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
+    <div class="c9-all r1">по ${value.end.substr(-2)}.${value.end.substr(-5, 2)}.${value.end.substr(0,4)}</div>
     <div class="c2-8 r2-all project_desc">${value.description}</div>`;
     if (localStorage.getItem('role') == 'boss') {
      html +=`

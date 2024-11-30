@@ -513,6 +513,25 @@ function get_tasks () {
   $("document").ready(get_tasks());
 
   function open_create () {
+    if (project_end != null) {
+      document.getElementById("project_start_create").setAttribute("max", project_end);
+      document.getElementById("project_end_create").setAttribute("max", project_end);
+    }
+    if (project_start != null) {
+      let date_start = new Date (project_start);
+      let today_x = new Date();
+
+      console.log();
+      if (date_start - today_x <= 0) {
+        document.getElementById("project_end_create").setAttribute("min", today_x.getFullYear()+'-'+(today_x.getMonth()+1)+'-'+today_x.getDate());
+        document.getElementById("project_start_create").setAttribute("min", today_x.getFullYear()+'-'+(today_x.getMonth()+1)+'-'+today_x.getDate());
+      }
+      else {
+        document.getElementById("project_end_create").setAttribute("min", project_start);
+        document.getElementById("project_start_create").setAttribute("min", project_start);
+      }
+      
+    }
     document.getElementById("shadow_edit").style.display="block";
     document.getElementById("modal_create_task").style.display="grid";
   }
