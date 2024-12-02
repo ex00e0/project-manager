@@ -944,8 +944,35 @@ function get_tasks () {
       data: {task_id : id},
       success: (response)=>{
       // console.log(response[0]);
+      // if (project_id != null) {
+        if (project_end != null) {
+          document.getElementById("task_start_edit").setAttribute("max", project_end);
+          document.getElementById("task_end_edit").setAttribute("max", project_end);
+        }
+        if (project_start != null) {
+          // let date_start = new Date (project_start);
+          // let today_x = new Date();
+    
+          // console.log();
+          // if (date_start - today_x <= 0) {
+          //   document.getElementById("task_end_edit").setAttribute("min", today_x.getFullYear()+'-'+(today_x.getMonth()+1)+'-'+today_x.getDate());
+          //   document.getElementById("task_start_edit").setAttribute("min", today_x.getFullYear()+'-'+(today_x.getMonth()+1)+'-'+today_x.getDate());
+          // }
+          // else {
+            document.getElementById("task_end_edit").setAttribute("min", project_start);
+            document.getElementById("task_start_edit").setAttribute("min", project_start);
+          // }
+          
+        // }
+      }
+      else {
       document.getElementById("task_end_edit").setAttribute("min", response[0].start);
       document.getElementById("task_start_edit").setAttribute("min", response[0].start);
+      document.getElementById("task_end_edit").setAttribute("max", response[0].end);
+      document.getElementById("task_start_edit").setAttribute("max", response[0].end);
+      }
+      
+     
       document.getElementById("task_start_edit").value = response[0].start;
       document.getElementById("task_end_edit").value = response[0].end;
       document.getElementById("task_id_edit").value = response[0].id;
